@@ -4,6 +4,7 @@
 // Makes possible the use of #include <Grout.h>
 
 #include "Grout/Application.h"
+#include "Grout/Log.h"
 
 // --------- Entry Point -----------
 #include "Grout/EntryPoint.h"
