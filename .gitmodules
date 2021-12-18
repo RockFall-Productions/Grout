@@ -1,0 +1,3 @@
+[submodule "Grout/third-part/spdlog"]
+	path = Grout/third-part/spdlog
+	url = https://github.com/gabime/spdlog
