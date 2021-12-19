@@ -147,6 +147,10 @@
     <ClInclude Include="src\Grout\Application.h" />
     <ClInclude Include="src\Grout\Core.h" />
     <ClInclude Include="src\Grout\EntryPoint.h" />
+    <ClInclude Include="src\Grout\Events\ApplicationEvent.h" />
+    <ClInclude Include="src\Grout\Events\Event.h" />
+    <ClInclude Include="src\Grout\Events\KeyEvent.h" />
+    <ClInclude Include="src\Grout\Events\MouseEvent.h" />
     <ClInclude Include="src\Grout\Log.h" />
   </ItemGroup>
   <ItemGroup>

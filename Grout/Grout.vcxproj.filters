@@ -19,6 +19,10 @@
     <ClInclude Include="src\Grout\Log.h">
       <Filter>Grout</Filter>
     </ClInclude>
+    <ClInclude Include="src\Grout\Events\Event.h" />
+    <ClInclude Include="src\Grout\Events\ApplicationEvent.h" />
+    <ClInclude Include="src\Grout\Events\MouseEvent.h" />
+    <ClInclude Include="src\Grout\Events\KeyEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Grout\Application.cpp">
