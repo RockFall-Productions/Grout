@@ -31,16 +31,23 @@ namespace Grout {
 		EventCategoryMouseButton	= BIT(4)
 	};
 
+#define EVENT_CLASS_TYPE(type) static EventType getStaticType() {return EventType::##type; }\
+							    virtual EventType getStaticType() const override {return getStaticType(); }\
+								virtual const har* getName() const override { return #type; }
+#define EVENT_CLASS_CATEGORY(category) virtual int getCategoryFlags() const override { return category; } 
+
 	// Pure virtual class of the Event template
 	// Must have a type, name and category
 	class GROUT_API Event {
 		friend class EventDispatcher;
 	public:
+		// Getters
 		virtual EventType getEventType() const = 0;
 		virtual const char* getName() const = 0;
 		virtual int getCategoryFlags() const = 0;
 		virtual std::string ToString() const { return getName(); }
 
+		// Checks if Event category matches the given one
 		inline bool isInCategory(EventCategory category) {
 			return getCategoryFlags() & category;
 		}
