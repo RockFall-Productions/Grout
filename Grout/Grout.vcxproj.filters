@@ -4,6 +4,9 @@
     <Filter Include="Grout">
       <UniqueIdentifier>{D636440D-424B-6CBE-0BCD-0F1E77A068EF}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Grout\Events">
+      <UniqueIdentifier>{FA152926-E678-B8CA-8FFE-F0807B40844D}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Grout.h" />
@@ -16,13 +19,22 @@
     <ClInclude Include="src\Grout\EntryPoint.h">
       <Filter>Grout</Filter>
     </ClInclude>
+    <ClInclude Include="src\Grout\Events\ApplicationEvent.h">
+      <Filter>Grout\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Grout\Events\Event.h">
+      <Filter>Grout\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Grout\Events\KeyEvent.h">
+      <Filter>Grout\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Grout\Events\MouseEvent.h">
+      <Filter>Grout\Events</Filter>
+    </ClInclude>
     <ClInclude Include="src\Grout\Log.h">
       <Filter>Grout</Filter>
     </ClInclude>
-    <ClInclude Include="src\Grout\Events\Event.h" />
-    <ClInclude Include="src\Grout\Events\ApplicationEvent.h" />
-    <ClInclude Include="src\Grout\Events\MouseEvent.h" />
-    <ClInclude Include="src\Grout\Events\KeyEvent.h" />
+    <ClInclude Include="src\grtpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Grout\Application.cpp">
@@ -31,8 +43,6 @@
     <ClCompile Include="src\Grout\Log.cpp">
       <Filter>Grout</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="cpp.hint" />
+    <ClCompile Include="src\grtpch.cpp" />
   </ItemGroup>
 </Project>

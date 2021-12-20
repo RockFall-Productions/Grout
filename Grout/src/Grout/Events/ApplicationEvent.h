@@ -2,8 +2,6 @@
 
 #include "Event.h"
 
-#include <sstream>
-
 namespace Grout {
 	class GROUT_API WindowResizeEvent : public Event {
 	public:

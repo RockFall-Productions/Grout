@@ -2,8 +2,6 @@
  
 #include "Event.h"
 
-#include <sstream>
-
 namespace Grout {
 	// A class to be derived from only
 	// Set's the keyCode member and Event category
