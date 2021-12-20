@@ -31,21 +31,31 @@ namespace Grout {
 		EventCategoryMouseButton	= BIT(4)
 	};
 
+// Those MACROS are here just for the sake of not needing to
+// rewrite the override of getCategory and getType functions
+// over and over. Just use EVENT_CLASS_TYPE(type) and it will
+// summarize a little bunch of code
+//
+// The reason we have getStaticType AND getEventType is so, when we
+// we have a plain Event class, we can know, through the getEventType(),
+// what static event we are dealing with
 #define EVENT_CLASS_TYPE(type) static EventType getStaticType() {return EventType::##type; }\
-							    virtual EventType getStaticType() const override {return getStaticType(); }\
-								virtual const har* getName() const override { return #type; }
+							    virtual EventType getEventType() const override {return getStaticType(); }\
+								virtual const char* getName() const override { return #type; }
 #define EVENT_CLASS_CATEGORY(category) virtual int getCategoryFlags() const override { return category; } 
 
 	// Pure virtual class of the Event template
 	// Must have a type, name and category
 	class GROUT_API Event {
+		// Friend class so it can access member variables of all events 
 		friend class EventDispatcher;
 	public:
-		// Getters
-		virtual EventType getEventType() const = 0;
-		virtual const char* getName() const = 0;
-		virtual int getCategoryFlags() const = 0;
+		// ---- Getters ----
+		virtual EventType getEventType() const = 0; // overrided by GET_CLASS_TYPE
+		virtual const char* getName() const = 0; // overrided by GET_CLASS_TYPE
+		virtual int getCategoryFlags() const = 0; // overrided by GET_CLASS_CATEGORY
 		virtual std::string ToString() const { return getName(); }
+		// -----------------
 
 		// Checks if Event category matches the given one
 		inline bool isInCategory(EventCategory category) {
@@ -57,8 +67,26 @@ namespace Grout {
 	};
 
 	class EventDispatcher {
+
 		template<typename T>
+		// EventFn represents 
 		using EventFn = std::function<bool(T&)>;
+	public:
+		EventDispatcher(Event& event)
+			: m_Event(event) {}
+
+		template<typename T>
+		bool Dispatch(EventFn<T> func) {
+			// TODO: Type safety
+			// if trying to dispatch an Event of a type that matches this dispatcher
+			if (m_Event.getEventType() == T::GetStaticType()) {
+				m_Event.m_Handled = func(*(T*)) & m_Event;
+				return true;
+			}
+			return false;
+		}
+	private:
+		Event& m_Event;
 	};
 
 }
