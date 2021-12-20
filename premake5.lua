@@ -19,6 +19,9 @@ project "Grout"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "grtpch.h"
+	pchsource "Grout/src/grtpch.cpp"
+
 	files
 	{
 		"%{prj.name}/src/**.h",
@@ -27,6 +30,7 @@ project "Grout"
 
 	includedirs
 	{
+		"%{prj.name}/src",
 		"%{prj.name}/third-part/spdlog/include"
 	}
 

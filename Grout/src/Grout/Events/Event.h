@@ -1,9 +1,6 @@
 #pragma once
 
-#include "../Core.h"
-
-#include <string>
-#include <functional>
+#include "Grout/Core.h"
 
 namespace Grout {
 	// All Events are implemented in a blocking way:
@@ -15,7 +12,7 @@ namespace Grout {
 	{
 		None = 0,
 		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
-		AppTick, AppUpdate, AppRender,
+		AppTicket, AppUpdate, AppRender,
 		KeyPressed, KeyReleased,
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
 	};
@@ -66,20 +63,22 @@ namespace Grout {
 		bool m_Handled = false;
 	};
 
+	// Used for resolving any Event
 	class EventDispatcher {
 
 		template<typename T>
 		// EventFn represents 
-		using EventFn = std::function<bool(T&)>;
+		using EventFnc = std::function<bool(T&)>;
 	public:
 		EventDispatcher(Event& event)
 			: m_Event(event) {}
 
 		template<typename T>
-		bool Dispatch(EventFn<T> func) {
+		bool Dispatch(EventFnc<T> func) {
 			// TODO: Type safety
 			// if trying to dispatch an Event of a type that matches this dispatcher
 			if (m_Event.getEventType() == T::GetStaticType()) {
+				// We run the given function
 				m_Event.m_Handled = func(*(T*)) & m_Event;
 				return true;
 			}
@@ -89,4 +88,8 @@ namespace Grout {
 		Event& m_Event;
 	};
 
+	// To easily call ToString() on events
+	inline std::ostream& operator<<(std::ostream& os, const Event& e) {
+		return os << e.ToString();
+	}
 }
