@@ -21,10 +21,10 @@ namespace Grout {
 	enum EventCategory
 	{
 		None = 0,
-		EventCategoryApplication	= BIT(0), // Using BIT isntead of normal 0, 1, 2...
-		EventCategoryInput			= BIT(1), // makes possible to make an event to be
-		EventCategoryKeyboard		= BIT(2), // in multiple categories
-		EventCategoryMouse			= BIT(3), // i.e. 26 = 11010 = Input/Mouse/MouseButton
+		EventCategoryApplication	= BIT(0), // Using BIT(x) instead of normal 0, 1, 2...
+		EventCategoryInput			= BIT(1), // makes it possible to create an event to has
+		EventCategoryKeyboard		= BIT(2), // multiple categories
+		EventCategoryMouse			= BIT(3), // i.e. 26 = 11010 = Input(00010)/Mouse(01000)/MouseButton(10000)
 		EventCategoryMouseButton	= BIT(4)
 	};
 
