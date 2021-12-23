@@ -14,6 +14,8 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "Grout/Log.h"
+
 #ifdef GRT_PLATAFORM_WINDOWS
 	#include <Windows.h>
 #endif

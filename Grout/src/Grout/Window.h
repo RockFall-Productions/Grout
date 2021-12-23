@@ -20,6 +20,7 @@ namespace Grout {
 	};
 
 	// Interface for a general desktop Window
+	// 
 	// Needs the following information:
 	//	Size: Width, height
 	//	VSync: bool
