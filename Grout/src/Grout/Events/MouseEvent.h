@@ -7,96 +7,96 @@ namespace Grout {
 	public:
 		// --- Constructor ---
 		MouseMovedEvent(float x, float y)
-			: m_MouseX(x), m_MouseY(y) {}
+			: mouseX_(x), mouseY_(y) {}
 		// ----- Getters -----
-		inline float getX() const { return m_MouseX; }
-		inline float getY() const { return m_MouseY; }
+		inline float get_x() const { return mouseX_; }
+		inline float get_y() const { return mouseY_; }
 		// -------------------
 
 		// Debug default ToString()
 		std::string ToString() const override {
 			std::stringstream ss;
-			ss << "MouseMovedEvent: " << m_MouseX << ", " << m_MouseY;
+			ss << "MouseMovedEvent: " << mouseX_ << ", " << mouseY_;
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(MouseMoved)
-		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+		EVENT_CLASS_TYPE(kMouseMoved)
+		EVENT_CLASS_CATEGORY(kEventCategoryMouse | kEventCategoryInput)
 
 	private:
 		// Position on the screen
-		float m_MouseX;
-		float m_MouseY;
+		float mouseX_;
+		float mouseY_;
 	};
 
 	class GROUT_API MouseScrolledEvent : public Event {
 	public:
 		// --- Constructor ---
-		MouseScrolledEvent(float xOffset, float yOffset)
-			: m_XOffset(xOffset), m_YOffset(yOffset) {}
+		MouseScrolledEvent(float x_offset, float y_offset)
+			: x_offset_(x_offset), y_offset_(y_offset) {}
 		// ----- Getters -----
-		inline float getXOffset() const { return m_XOffset; }
-		inline float getYOffset() const { return m_YOffset; }
+		inline float get_x_offset() const { return x_offset_; }
+		inline float get_y_offset() const { return y_offset_; }
 		// -------------------
 
 		// Debug default ToString()
 		std::string ToString() const override {
 			std::stringstream ss;
-			ss << "MouseScrolledEvent: " << m_XOffset << ", " << m_YOffset;
+			ss << "MouseScrolledEvent: " << x_offset_ << ", " << y_offset_;
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(MouseScrolled)
-		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+		EVENT_CLASS_TYPE(kMouseScrolled)
+		EVENT_CLASS_CATEGORY(kEventCategoryMouse | kEventCategoryInput)
 
 	private:
 		// Position on the screen
-		float m_XOffset;
-		float m_YOffset;
+		float x_offset_;
+		float y_offset_;
 	};
 
 	class GROUT_API MouseButtonEvent : public Event {
 	public:
-		inline int getMouseButtonCode() const { return m_ButtonCode; }
+		inline int getMouseButtonCode() const { return buttom_code_; }
 
-		EVENT_CLASS_CATEGORY(EventCategoryMouseButton | EventCategoryMouse | EventCategoryInput)
+		EVENT_CLASS_CATEGORY(kEventCategoryMouseButton | kEventCategoryMouse | kEventCategoryInput)
 	protected:
 		// Protectate constructor so it cannot be instantiated
-		MouseButtonEvent(int buttomCode)
-			: m_ButtonCode(buttomCode) {}
+		MouseButtonEvent(int buttom_code)
+			: buttom_code_(buttom_code) {}
 		// Holds the ID of the buttom belonging to this Event
-		int m_ButtonCode;
+		int buttom_code_;
 	};
 
 	class GROUT_API MouseButtonPressedEvent : public MouseButtonEvent {
 	public:
 		// --- Constructor ---
-		MouseButtonPressedEvent(int buttomCode)
-			: MouseButtonEvent(buttomCode) {}
+		MouseButtonPressedEvent(int buttom_code)
+			: MouseButtonEvent(buttom_code) {}
 
 		// Debug default ToString()
 		std::string ToString() const override {
 			std::stringstream ss;
-			ss << "MouseButtonPressedEvent: " << m_ButtonCode;
+			ss << "MouseButtonPressedEvent: " << buttom_code_;
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(MouseButtonPressed)
+		EVENT_CLASS_TYPE(kMouseButtonPressed)
 	};
 
 	class GROUT_API MouseButtonReleasedEvent : public MouseButtonEvent {
 	public:
 		// --- Constructor ---
-		MouseButtonReleasedEvent(int buttomCode)
-			: MouseButtonEvent(buttomCode) {}
+		MouseButtonReleasedEvent(int buttom_code)
+			: MouseButtonEvent(buttom_code) {}
 
 		// Debug default ToString()
 		std::string ToString() const override {
 			std::stringstream ss;
-			ss << "MouseButtonReleasedEvent: " << m_ButtonCode;
+			ss << "MouseButtonReleasedEvent: " << buttom_code_;
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(MouseButtonReleased)
+		EVENT_CLASS_TYPE(kMouseButtonReleased)
 	};
 }

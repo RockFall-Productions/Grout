@@ -7,81 +7,81 @@ namespace Grout {
 	public:
 		// --- Constructor ---
 		WindowResizeEvent(int width, int height) 
-		: m_Width(width), m_Height(height) {}
+		: width_(width), height_(height) {}
 
 		// ----- Getters -----
-		inline int getWidth() const { return m_Width; }
-		inline int getHeight() const { return m_Height; }
+		inline int get_width() const { return width_; }
+		inline int get_height() const { return height_; }
 		// --------------------
 
 		// Debug default ToString()
 		std::string ToString() const override {
 			std::stringstream ss;
-			ss << "WindowResizeEvent: " << m_Width << ", " << m_Height;
+			ss << "WindowResizeEvent: " << width_ << ", " << height_;
 			return ss.str();
 		}
 
 		// Those override parent's functions to return the
 		// correspondent type and category
-		EVENT_CLASS_TYPE(WindowResize)
-		EVENT_CLASS_CATEGORY(EventCategoryApplication)
+		EVENT_CLASS_TYPE(kWindowResize)
+		EVENT_CLASS_CATEGORY(kEventCategoryApplication)
 
 	private:
 		// Size in pixels of the window
-		int m_Width;
-		int m_Height;
+		int width_;
+		int height_;
 	};
 
 	class GROUT_API WindowCloseEvent : public Event {
 	public:
 		WindowCloseEvent() {}
 
-		EVENT_CLASS_TYPE(WindowClose)
-		EVENT_CLASS_CATEGORY(EventCategoryApplication)
+		EVENT_CLASS_TYPE(kWindowClose)
+		EVENT_CLASS_CATEGORY(kEventCategoryApplication)
 	};
 
 	class GROUT_API WindowMovedEvent : public Event {
 	public:
 		// ---- Constructor ----
 		WindowMovedEvent(int windowX, int windowY)
-			: m_WindowX(windowX), m_WindowY(windowY) {}
+			: windowX_(windowX), windowY_(windowY) {}
 
 		// Debug default ToString()
 		std::string ToString() const override {
 			std::stringstream ss;
-			ss << "WindowMovedEvent: " << m_WindowX << ", " << m_WindowY;
+			ss << "WindowMovedEvent: " << windowX_ << ", " << windowY_;
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(WindowMoved)
-		EVENT_CLASS_CATEGORY(EventCategoryApplication)
+		EVENT_CLASS_TYPE(kWindowMoved)
+		EVENT_CLASS_CATEGORY(kEventCategoryApplication)
 	private:
 		// New position data
-		int m_WindowX;
-		int m_WindowY;
+		int windowX_;
+		int windowY_;
 	};
 
 	class GROUT_API AppTicketEvent : public Event {
 	public:
 		AppTicketEvent() {}
 
-		EVENT_CLASS_TYPE(AppTicket)
-		EVENT_CLASS_CATEGORY(EventCategoryApplication)
+		EVENT_CLASS_TYPE(kAppTicket)
+		EVENT_CLASS_CATEGORY(kEventCategoryApplication)
 	};
 
 	class GROUT_API AppUpdateEvent : public Event {
 	public:
 		AppUpdateEvent() {}
 
-		EVENT_CLASS_TYPE(AppUpdate)
-		EVENT_CLASS_CATEGORY(EventCategoryApplication)
+		EVENT_CLASS_TYPE(kAppUpdate)
+		EVENT_CLASS_CATEGORY(kEventCategoryApplication)
 	};
 
 	class GROUT_API AppRenderEvent : public Event {
 	public:
 		AppRenderEvent() {}
 
-		EVENT_CLASS_TYPE(AppRender)
-		EVENT_CLASS_CATEGORY(EventCategoryApplication)
+		EVENT_CLASS_TYPE(kAppRender)
+		EVENT_CLASS_CATEGORY(kEventCategoryApplication)
 	};
 }

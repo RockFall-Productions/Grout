@@ -7,6 +7,12 @@
     <Filter Include="Grout\Events">
       <UniqueIdentifier>{FA152926-E678-B8CA-8FFE-F0807B40844D}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Plataform">
+      <UniqueIdentifier>{CB364245-37A1-F6BB-80DF-A761EC88D410}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plataform\Windows">
+      <UniqueIdentifier>{057CD38B-7192-D121-BA09-5D43265FA2A9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Grout.h" />
@@ -34,6 +40,12 @@
     <ClInclude Include="src\Grout\Log.h">
       <Filter>Grout</Filter>
     </ClInclude>
+    <ClInclude Include="src\Grout\Window.h">
+      <Filter>Grout</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Plataform\Windows\WindowsWindow.h">
+      <Filter>Plataform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="src\grtpch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -42,6 +54,9 @@
     </ClCompile>
     <ClCompile Include="src\Grout\Log.cpp">
       <Filter>Grout</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plataform\Windows\WindowsWindow.cpp">
+      <Filter>Plataform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\grtpch.cpp" />
   </ItemGroup>

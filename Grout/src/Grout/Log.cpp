@@ -5,16 +5,16 @@
 
 namespace Grout {
 
-	std::shared_ptr<spdlog::logger> Log::s_CoreLogger;
-	std::shared_ptr<spdlog::logger> Log::s_ClientLogger;
+	std::shared_ptr<spdlog::logger> Log::core_logger_;
+	std::shared_ptr<spdlog::logger> Log::client_logger_;
 
 	void Log::Init() {
 		spdlog::set_pattern("%^[%T] %n: %v%$");
 
-		s_CoreLogger = spdlog::stdout_color_mt("Grout");
-		s_CoreLogger->set_level(spdlog::level::trace);
+		core_logger_ = spdlog::stdout_color_mt("Grout");
+		core_logger_->set_level(spdlog::level::trace);
 
-		s_ClientLogger = spdlog::stdout_color_mt("APP");
-		s_ClientLogger->set_level(spdlog::level::trace);
+		client_logger_ = spdlog::stdout_color_mt("APP");
+		client_logger_->set_level(spdlog::level::trace);
 	}
 }
