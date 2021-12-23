@@ -1,13 +1,13 @@
 #include "grtpch.h"
 #include "Application.h"
 
-#include "Grout/Events/Event.h"
 #include "Grout/Events/ApplicationEvent.h"
 #include "Grout/Log.h"
 
 namespace Grout {
 	Application::Application()
 	{
+		window_ = std::unique_ptr<Window>(Window::Create());
 	}
 
 	Application::~Application()
@@ -15,9 +15,8 @@ namespace Grout {
 	}
 
 	void Application::Run() {
-		WindowResizeEvent  e(1280, 720);
-		GRT_TRACE(e);
-
-		while (true);
+		while (running_) {
+			window_->OnUpdate();
+		}
 	}
 }

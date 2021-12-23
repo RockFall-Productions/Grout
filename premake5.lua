@@ -11,6 +11,13 @@ workspace "Grout"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- Solution include directories
+IncludeDir = {}
+IncludeDir["GLFW"] = "Grout/third-part/GLFW/include"
+
+-- Includes the GLFW premake5 file
+include "Grout/third-part/GLFW"
+
 project "Grout"
 	location "Grout"
 	kind "SharedLib"
@@ -31,7 +38,14 @@ project "Grout"
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{prj.name}/third-part/spdlog/include"
+		"%{prj.name}/third-part/spdlog/include",
+		"%{IncludeDir.GLFW}"
+	}
+
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
@@ -49,7 +63,7 @@ project "Grout"
 		{
 			("{COPY} %{cfg.buildtarget.relpath} ..\\bin\\" .. outputdir ..  "\\Sandbox")
 		}
-	
+
 	filter "configurations:Debug"
 		defines "GRT_DEBUG"
 		symbols "On"
@@ -69,7 +83,7 @@ project "Sandbox"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-	
+
 	files
 	{
 		"%{prj.name}/src/**.h",
