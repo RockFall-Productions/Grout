@@ -1,14 +1,22 @@
 #include "grtpch.h"
 #include "WindowsWindow.h"
 
-#include "Grout/Log.h"
+#include "Grout/Events/ApplicationEvent.h"
+#include "Grout/Events/MouseEvent.h"
+#include "Grout/Events/KeyEvent.h"
+#include "Grout/Events/Event.h"
 
 namespace Grout {
 
 	static bool has_glfw_initialized = false;
 
+	static void GLFWErrorCallback(int error, const char* description) {
+		GRT_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
+	}
+
 	// Plataform specific function from Window class
 	Window* Window::Create(const WindowConfigs& configs) {
+		// Check for possible memory leak?
 		return new WindowsWindow(configs);
 	}
 
@@ -31,13 +39,22 @@ namespace Grout {
 		data_.height = configs.height;
 
 		GRT_INFO("Creating window {0} ({1}, {2})", configs.title, configs.width, configs.height);
-		// Starts GLFW
+
+		// Starts GLFW if not yet
 		if (!has_glfw_initialized) {
+			// Initializes GLFW
 			int success = glfwInit();
+			// Specify the client API version (in this case OpenGL 3.3) that 
+			// the created window must be compatible with
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+			// From 'Core Profile' (Mordern functions) or 'Compatibility Profile' (Modern + Outdated)
+			// - Using CORE PROFILE
 			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+			// Makes sure it has initialized successfully
 			GRT_CORE_ASSERT(sucess, "Could not initialize GLFW!");
+			glfwSetErrorCallback(GLFWErrorCallback);
 
 			has_glfw_initialized = true;
 		}
@@ -52,6 +69,89 @@ namespace Grout {
 		// Used mainly to connect the callback and event system to GLFW
 		glfwSetWindowUserPointer(window_, &data_);
 		set_vsync(true);
+
+
+		// -------------	SETTING GLFW CALLBACKS   -----------------------
+		glfwSetWindowSizeCallback(window_, [](GLFWwindow* window, int new_width, int new_height)
+		{
+			// Getting the WindowData refere that was store into UserPointer
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			data.width = new_width;
+			data.height = new_height;
+			// Calling event callback
+			WindowResizeEvent event(new_width, new_height);
+			data.Event_Callback(event);
+		});
+
+		glfwSetWindowCloseCallback(window_, [](GLFWwindow* window)
+		{
+			// Getting the WindowData refere that was store into UserPointer
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			WindowCloseEvent event;
+			data.Event_Callback(event);
+		});
+
+		glfwSetKeyCallback(window_, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+		{
+			// Getting the WindowData refere that was store into UserPointer
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+			switch (action) {
+				case GLFW_PRESS: {
+					KeyPressedEvent event(key, 0);
+					data.Event_Callback(event);
+					break;
+				}
+				case GLFW_RELEASE: {
+					KeyReleasedEvent event(key);
+					data.Event_Callback(event);
+					break;
+				}
+				case GLFW_REPEAT: {
+					KeyPressedEvent event(key, 1);
+					data.Event_Callback(event);
+					break;
+				}
+			}
+		});
+
+		glfwSetMouseButtonCallback(window_, [](GLFWwindow* window, int button, int action, int mods)
+		{
+			// Getting the WindowData refere that was store into UserPointer
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+			switch (action) {
+				case GLFW_PRESS: {
+					MouseButtonPressedEvent event(button);
+					data.Event_Callback(event);
+					break;
+				}
+				case GLFW_RELEASE: {
+					MouseButtonReleasedEvent event(button);
+					data.Event_Callback(event);
+					break;
+				}
+			}
+		});
+
+		glfwSetScrollCallback(window_, [](GLFWwindow* window, double x_offset, double y_offset)
+		{
+			// Getting the WindowData refere that was store into UserPointer
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+			MouseScrolledEvent event((float)x_offset, (float)y_offset);
+			data.Event_Callback(event);
+		});
+
+		glfwSetCursorPosCallback(window_, [](GLFWwindow* window, double xpos, double ypos)
+		{
+			// Getting the WindowData refere that was store into UserPointer
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+			MouseMovedEvent event((float)xpos, (float)ypos);
+			data.Event_Callback(event);
+		});
+		//glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	}
 
 	void WindowsWindow::OnUpdate()

@@ -17,7 +17,7 @@ namespace Grout {
 		inline int get_height() const override { return data_.height; }
 
 		// Window Attributes
-		inline void set_event_callback(const EventCallbackFn& callback) override { data_.event_callback = callback; }
+		inline void set_event_callback(const EventCallbackFn& callback) override { data_.Event_Callback = callback; }
 		void set_vsync(bool enabled) override;
 		bool IsVSync() const override;
 
@@ -32,7 +32,7 @@ namespace Grout {
 			int width, height;
 			bool vsync;
 
-			EventCallbackFn event_callback;
+			EventCallbackFn Event_Callback;
 		};
 
 		WindowData data_;

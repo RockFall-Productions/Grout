@@ -36,6 +36,13 @@ namespace Grout {
 	public:
 		WindowCloseEvent() {}
 
+		// Debug default ToString()
+		std::string ToString() const override {
+			std::stringstream ss;
+			ss << "WindowClosedEvent";
+			return ss.str();
+		}
+
 		EVENT_CLASS_TYPE(kWindowClose)
 		EVENT_CLASS_CATEGORY(kEventCategoryApplication)
 	};

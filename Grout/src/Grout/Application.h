@@ -12,7 +12,11 @@ namespace Grout {
 		virtual ~Application();
 
 		void Run();
+
+		// Function that will be passed to window as a callbackfn 
+		void OnEvent(Event& e);
 	private:
+		// Current window
 		std::unique_ptr<Window> window_;
 		bool running_ = true;
 	};
