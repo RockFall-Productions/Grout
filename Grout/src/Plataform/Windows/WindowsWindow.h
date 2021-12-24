@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Grout/Window.h"
-
 #include <GLFW/glfw3.h>
 
 namespace Grout {
