@@ -53,6 +53,7 @@ namespace Grout {
 		virtual EventType get_event_type() const = 0; // overrided by GET_CLASS_TYPE
 		virtual const char* get_name() const = 0; // overrided by GET_CLASS_TYPE
 		virtual int get_category_flags() const = 0; // overrided by GET_CLASS_CATEGORY
+		virtual bool is_handled() const { return is_handled_;  }
 		virtual std::string ToString() const { return get_name(); }
 		// -----------------
 

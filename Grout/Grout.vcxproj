@@ -84,6 +84,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalOptions>/MDd %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -109,6 +110,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/MD %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -135,6 +137,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/MD %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -157,6 +160,8 @@
     <ClInclude Include="src\Grout\Events\Event.h" />
     <ClInclude Include="src\Grout\Events\KeyEvent.h" />
     <ClInclude Include="src\Grout\Events\MouseEvent.h" />
+    <ClInclude Include="src\Grout\Layer.h" />
+    <ClInclude Include="src\Grout\LayerStack.h" />
     <ClInclude Include="src\Grout\Log.h" />
     <ClInclude Include="src\Grout\Window.h" />
     <ClInclude Include="src\Plataform\Windows\WindowsWindow.h" />
@@ -164,6 +169,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Grout\Application.cpp" />
+    <ClCompile Include="src\Grout\Layer.cpp" />
+    <ClCompile Include="src\Grout\LayerStack.cpp" />
     <ClCompile Include="src\Grout\Log.cpp" />
     <ClCompile Include="src\Plataform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\grtpch.cpp">
