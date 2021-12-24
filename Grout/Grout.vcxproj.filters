@@ -37,6 +37,12 @@
     <ClInclude Include="src\Grout\Events\MouseEvent.h">
       <Filter>Grout\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Grout\Layer.h">
+      <Filter>Grout</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Grout\LayerStack.h">
+      <Filter>Grout</Filter>
+    </ClInclude>
     <ClInclude Include="src\Grout\Log.h">
       <Filter>Grout</Filter>
     </ClInclude>
@@ -50,6 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Grout\Application.cpp">
+      <Filter>Grout</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Grout\Layer.cpp">
+      <Filter>Grout</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Grout\LayerStack.cpp">
       <Filter>Grout</Filter>
     </ClCompile>
     <ClCompile Include="src\Grout\Log.cpp">
