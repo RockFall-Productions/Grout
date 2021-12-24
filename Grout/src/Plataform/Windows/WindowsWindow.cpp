@@ -4,7 +4,8 @@
 #include "Grout/Events/ApplicationEvent.h"
 #include "Grout/Events/MouseEvent.h"
 #include "Grout/Events/KeyEvent.h"
-#include "Grout/Events/Event.h"
+
+#include "glad/glad.h"
 
 namespace Grout {
 
@@ -65,7 +66,11 @@ namespace Grout {
 			GRT_CORE_ASSERT(false, "Failed to create GLFW window");
 		}
 
+		// Tells GLFW that window_ is where the current context must be
 		glfwMakeContextCurrent(window_);
+		// Load Glad
+		int glad_loaded = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		GRT_CORE_ASSERT(glad_loaded, "Failed to initialize Glad!")
 		// Used mainly to connect the callback and event system to GLFW
 		glfwSetWindowUserPointer(window_, &data_);
 		set_vsync(true);

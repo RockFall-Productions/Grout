@@ -14,9 +14,11 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Solution include directories
 IncludeDir = {}
 IncludeDir["GLFW"] = "Grout/third-part/GLFW/include"
+IncludeDir["Glad"] = "Grout/third-part/Glad/include"
 
--- Includes the GLFW premake5 file
+-- Includes the GLFW and GLAD premake5's files
 include "Grout/third-part/GLFW"
+include "Grout/third-part/Glad"
 
 project "Grout"
 	location "Grout"
@@ -39,12 +41,14 @@ project "Grout"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/third-part/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}"
 	}
 
 	links
 	{
 		"GLFW",
+		"Glad",
 		"opengl32.lib"
 	}
 
@@ -56,7 +60,8 @@ project "Grout"
 		defines
 		{
 			"GRT_PLATAFORM_WINDOWS",
-			"GRT_BUILD_DLL"
+			"GRT_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands
