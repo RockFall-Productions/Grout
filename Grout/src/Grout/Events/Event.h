@@ -38,7 +38,7 @@ namespace Grout {
 // The reason we have getStaticType AND getEventType is so, when we
 // we have a plain Event class, we can know, through the getEventType(),
 // what static event we are dealing with
-#define EVENT_CLASS_TYPE(type) static EventType get_static_type() {return EventType::##type; }\
+#define EVENT_CLASS_TYPE(type) static EventType get_static_type() { return EventType::##type; }\
 							    virtual EventType get_event_type() const override {return get_static_type(); }\
 								virtual const char* get_name() const override { return #type; }
 #define EVENT_CLASS_CATEGORY(category) virtual int get_category_flags() const override { return category; } 
@@ -79,9 +79,9 @@ namespace Grout {
 		bool Dispatch(EventFnc<T> func) {
 			// TODO: Type safety
 			// if trying to dispatch an Event of a type that matches this dispatcher
-			if (event_.get_event_type() == T::GetStaticType()) {
+			if (event_.get_event_type() == T::get_static_type()) {
 				// We run the given function
-				event_.is_handled_ = func(*(T*)) & event_;
+				event_.is_handled_ = func(*(T*)&event_);
 				return true;
 			}
 			return false;
