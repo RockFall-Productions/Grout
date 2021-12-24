@@ -2,6 +2,8 @@
 
 #include "Core.h"
 #include "Events/Event.h"
+#include "Grout/Events/ApplicationEvent.h"
+
 #include "Window.h"
 
 namespace Grout {
@@ -16,6 +18,9 @@ namespace Grout {
 		// Function that will be passed to window as a callbackfn 
 		void OnEvent(Event& e);
 	private:
+		// Event handling functions
+		bool OnWindowClose(WindowCloseEvent& e);
+
 		// Current window
 		std::unique_ptr<Window> window_;
 		bool running_ = true;
