@@ -15,10 +15,12 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Grout/third-part/GLFW/include"
 IncludeDir["Glad"] = "Grout/third-part/Glad/include"
+IncludeDir["ImGui"] = "Grout/third-part/imgui"
 
 -- Includes the GLFW and GLAD premake5's files
 include "Grout/third-part/GLFW"
 include "Grout/third-part/Glad"
+include "Grout/third-part/imgui"
 
 project "Grout"
 	location "Grout"
@@ -42,13 +44,15 @@ project "Grout"
 		"%{prj.name}/src",
 		"%{prj.name}/third-part/spdlog/include",
 		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.Glad}"
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}"
 	}
 
 	links
 	{
 		"GLFW",
 		"Glad",
+		"ImGui",
 		"opengl32.lib"
 	}
 

@@ -80,7 +80,7 @@
       <PrecompiledHeaderFile>grtpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GRT_PLATAFORM_WINDOWS;GRT_BUILD_DLL;GLFW_INCLUDE_NONE;GRT_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;third-part\spdlog\include;third-part\GLFW\include;third-part\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;third-part\spdlog\include;third-part\GLFW\include;third-part\Glad\include;third-part\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -103,7 +103,7 @@
       <PrecompiledHeaderFile>grtpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GRT_PLATAFORM_WINDOWS;GRT_BUILD_DLL;GLFW_INCLUDE_NONE;GRT_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;third-part\spdlog\include;third-part\GLFW\include;third-part\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;third-part\spdlog\include;third-part\GLFW\include;third-part\Glad\include;third-part\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -130,7 +130,7 @@
       <PrecompiledHeaderFile>grtpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GRT_PLATAFORM_WINDOWS;GRT_BUILD_DLL;GLFW_INCLUDE_NONE;GRT_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;third-part\spdlog\include;third-part\GLFW\include;third-part\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;third-part\spdlog\include;third-part\GLFW\include;third-part\Glad\include;third-part\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -160,18 +160,22 @@
     <ClInclude Include="src\Grout\Events\Event.h" />
     <ClInclude Include="src\Grout\Events\KeyEvent.h" />
     <ClInclude Include="src\Grout\Events\MouseEvent.h" />
+    <ClInclude Include="src\Grout\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Grout\Layer.h" />
     <ClInclude Include="src\Grout\LayerStack.h" />
     <ClInclude Include="src\Grout\Log.h" />
     <ClInclude Include="src\Grout\Window.h" />
+    <ClInclude Include="src\Plataform\OpenGL\ImGuiOpenGLRenderer.h" />
     <ClInclude Include="src\Plataform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\grtpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Grout\Application.cpp" />
+    <ClCompile Include="src\Grout\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Grout\Layer.cpp" />
     <ClCompile Include="src\Grout\LayerStack.cpp" />
     <ClCompile Include="src\Grout\Log.cpp" />
+    <ClCompile Include="src\Plataform\OpenGL\ImGuiOpenGLRenderer.cpp" />
     <ClCompile Include="src\Plataform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\grtpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
@@ -183,6 +187,9 @@
     </ProjectReference>
     <ProjectReference Include="third-part\Glad\Glad.vcxproj">
       <Project>{BDD6857C-A90D-870D-52FA-6C103E10030F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="third-part\imgui\ImGui.vcxproj">
+      <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
