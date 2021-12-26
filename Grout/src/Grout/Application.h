@@ -23,6 +23,9 @@ namespace Grout {
 
 		// Function that will be passed to window as a callbackfn 
 		void OnEvent(Event& e);
+
+		inline static Application& get() { return *instance_; };
+		inline Window& get_window() const { return *window_;  }
 	private:
 		// Event handling functions
 		bool OnWindowClose(WindowCloseEvent& e);
@@ -33,6 +36,9 @@ namespace Grout {
 
 		// Layer Stack
 		LayerStack layer_stack_;
+
+		// Singleton
+		static Application* instance_;
 	};
 
 	// To be defined in CLIENT

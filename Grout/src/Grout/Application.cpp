@@ -9,8 +9,16 @@ namespace Grout {
 // TODO: change the location of this
 #define BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
 
+	// Singleton
+	// TODO implement it in a correct singleton way
+	// https://stackoverflow.com/questions/1008019/c-singleton-design-pattern
+	Application* Application::instance_ = nullptr;
+
 	Application::Application()
 	{
+		GRT_CORE_ASSERT(!instance_, "Trying to create more than one application");
+		instance_ = this;
+
 		window_ = std::unique_ptr<Window>(Window::Create());
 		window_->set_event_callback(BIND_EVENT_FN(Application::OnEvent));
 	}
@@ -22,11 +30,13 @@ namespace Grout {
 	void Application::PushLayer(Layer* layer)
 	{
 		layer_stack_.push_layer(layer);
+		layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* overlay)
 	{
 		layer_stack_.push_overlay(overlay);
+		overlay->OnAttach();
 	}
 
 	void Application::OnEvent(Event& e) {

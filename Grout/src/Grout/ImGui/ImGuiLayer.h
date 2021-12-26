@@ -16,6 +16,7 @@ namespace Grout {
 		void OnEvent(Event& event);
 
 	private:
+		float time_ = 0.0f;
 	};
 }
 

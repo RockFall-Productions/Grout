@@ -166,8 +166,10 @@
     <ClInclude Include="src\Grout\Log.h" />
     <ClInclude Include="src\Grout\Window.h" />
     <ClInclude Include="src\Plataform\OpenGL\ImGuiOpenGLRenderer.h" />
+    <ClInclude Include="src\Plataform\OpenGL\ImGuiOpenGLRendererLoader.h" />
     <ClInclude Include="src\Plataform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\grtpch.h" />
+    <ClInclude Include="third-part\imgui\backends\imgui_impl_opengl3_loader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Grout\Application.cpp" />
