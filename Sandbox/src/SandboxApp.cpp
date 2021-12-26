@@ -18,6 +18,7 @@ class Sandbox : public Grout::Application {
 public:
 	Sandbox() {
 		PushLayer(new TestLayer());
+		PushOverlay(new Grout::ImGuiLayer());
 	}
 
 	~Sandbox() {

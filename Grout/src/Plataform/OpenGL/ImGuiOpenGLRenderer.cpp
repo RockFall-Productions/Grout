@@ -91,6 +91,7 @@
 #include "imgui.h"
 #include "ImGuiOpenGLRenderer.h"
 #include "glad/glad.h"
+//#include "ImGuiOpenGLRendererLoader.h"
 #include <stdio.h>
 #if defined(_MSC_VER) && _MSC_VER <= 1500 // MSVC 2008 or earlier
 #include <stddef.h>     // intptr_t
@@ -191,6 +192,8 @@ static ImGui_ImplOpenGL3_Data* ImGui_ImplOpenGL3_GetBackendData()
     return ImGui::GetCurrentContext() ? (ImGui_ImplOpenGL3_Data*)ImGui::GetIO().BackendRendererUserData : NULL;
 }
 
+//int imgl3wInit(void);
+
 // Functions
 bool    ImGui_ImplOpenGL3_Init(const char* glsl_version)
 {
@@ -199,12 +202,12 @@ bool    ImGui_ImplOpenGL3_Init(const char* glsl_version)
 
     // Initialize our loader
 #if !defined(IMGUI_IMPL_OPENGL_ES2) && !defined(IMGUI_IMPL_OPENGL_ES3) && !defined(IMGUI_IMPL_OPENGL_LOADER_CUSTOM)
-    /*
-    if (imgl3wInit() != 0)
-    {
-        fprintf(stderr, "Failed to initialize OpenGL loader!\n");
-        return false;
-    }*/
+    
+    //if (imgl3wInit() != 0)
+    //{
+    //    fprintf(stderr, "Failed to initialize OpenGL loader!\n");
+    //    return false;
+    //}
 #endif
 
     // Setup backend capabilities flags

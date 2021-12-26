@@ -65,6 +65,8 @@
       <Filter>Plataform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\grtpch.h" />
+    <ClInclude Include="third-part\imgui\backends\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="src\Plataform\OpenGL\ImGuiOpenGLRendererLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Grout\Application.cpp">
