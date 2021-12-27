@@ -61,12 +61,15 @@
     <ClInclude Include="src\Plataform\OpenGL\ImGuiOpenGLRenderer.h">
       <Filter>Plataform\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\Plataform\OpenGL\ImGuiOpenGLRendererLoader.h">
+      <Filter>Plataform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\Plataform\Windows\WindowsWindow.h">
       <Filter>Plataform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\grtpch.h" />
-    <ClInclude Include="third-part\imgui\backends\imgui_impl_opengl3_loader.h" />
-    <ClInclude Include="src\Plataform\OpenGL\ImGuiOpenGLRendererLoader.h" />
+    <ClInclude Include="src\Grout\Input.h" />
+    <ClInclude Include="src\Plataform\Windows\WindowsInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Grout\Application.cpp">
@@ -91,5 +94,6 @@
       <Filter>Plataform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\grtpch.cpp" />
+    <ClCompile Include="src\Plataform\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>

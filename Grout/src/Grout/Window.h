@@ -41,7 +41,10 @@ namespace Grout {
 		virtual void set_event_callback(const EventCallbackFn& callback) = 0;
 		virtual void set_vsync(bool enabled) = 0;
 
-		virtual bool IsVSync() const = 0;
+		virtual bool is_vsync() const = 0;
+
+		// This garantees the windows (whatever it is) is accessible
+		virtual void* get_native_window() const = 0;
 
 		// Implemented by plataform
 		static Window* Create(const WindowConfigs& configs = WindowConfigs());

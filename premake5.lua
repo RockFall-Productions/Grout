@@ -18,14 +18,17 @@ IncludeDir["Glad"] = "Grout/third-part/Glad/include"
 IncludeDir["ImGui"] = "Grout/third-part/imgui"
 
 -- Includes the GLFW and GLAD premake5's files
-include "Grout/third-part/GLFW"
-include "Grout/third-part/Glad"
-include "Grout/third-part/imgui"
+group "Dependencies"
+	include "Grout/third-part/GLFW"
+	include "Grout/third-part/Glad"
+	include "Grout/third-part/imgui"
+group ""
 
 project "Grout"
 	location "Grout"
 	kind "SharedLib"
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -58,7 +61,6 @@ project "Grout"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -70,28 +72,29 @@ project "Grout"
 
 		postbuildcommands
 		{
-			("{COPY} %{cfg.buildtarget.relpath} ..\\bin\\" .. outputdir ..  "\\Sandbox")
+			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir ..  "/Sandbox/\"")
 		}
 
 	filter "configurations:Debug"
 		defines "GRT_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "GRT_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "GRT_DIST"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -115,7 +118,6 @@ project "Sandbox"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -125,15 +127,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "GRT_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "GRT_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "GRT_DIST"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
