@@ -54,7 +54,7 @@ namespace Grout {
 			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 			// Makes sure it has initialized successfully
-			GRT_CORE_ASSERT(sucess, "Could not initialize GLFW!");
+			GRT_CORE_ASSERT(success, "Could not initialize GLFW!");
 			glfwSetErrorCallback(GLFWErrorCallback);
 
 			has_glfw_initialized = true;
@@ -181,12 +181,10 @@ namespace Grout {
 		data_.vsync = enabled;
 	}
 
-	bool WindowsWindow::IsVSync() const
+	bool WindowsWindow::is_vsync() const
 	{
 		return data_.vsync;
 	}
-
-
 
 	void WindowsWindow::Shutdown()
 	{

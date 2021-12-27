@@ -3,6 +3,8 @@
 
 #include <glad/glad.h>
 
+#include "Grout/Input.h"
+
 namespace Grout {
 	// Singleton
 	// TODO implement it in a correct singleton way
@@ -55,6 +57,9 @@ namespace Grout {
 			for (Layer* layer : layer_stack_) {
 				layer->OnUpdate();
  			}
+
+			
+			GRT_CORE_TRACE("Pressing 'W': {0}", Input::is_key_pressed(87));
 
 			window_->OnUpdate();
 		}
