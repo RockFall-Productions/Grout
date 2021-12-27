@@ -96,6 +96,13 @@ namespace Grout {
 			data.Event_Callback(event);
 		});
 
+		glfwSetCharCallback(window_, [](GLFWwindow* window, unsigned int key_code) {
+			// Getting the WindowData refere that was store into UserPointer
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			KeyTypedEvent event(key_code);
+			data.Event_Callback(event);
+		});
+
 		glfwSetKeyCallback(window_, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
 			// Getting the WindowData refere that was store into UserPointer

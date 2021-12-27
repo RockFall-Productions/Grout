@@ -58,4 +58,21 @@ namespace Grout {
 
 		EVENT_CLASS_TYPE(kKeyReleased)
 	};
+
+	class GROUT_API KeyTypedEvent : public KeyEvent {
+	public:
+		// --- Constructor ---
+		KeyTypedEvent(int key_code)
+			: KeyEvent(key_code) {}
+		// -------------------
+
+		// Debug default ToString()
+		std::string ToString() const override {
+			std::stringstream ss;
+			ss << "KeyTypedEvent: " << key_code_;
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(kKeyTyped)
+	};
 }
