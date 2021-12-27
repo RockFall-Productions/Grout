@@ -22,5 +22,7 @@
 
 // Used in the event system to make it possible
 // for filtering multiple categories on an enum
-#define BIT(x) (1 << x)
+#define BIT(i) (1 << i)
 
+// Wraps a function to be passed as a parameter - currently used for the callbacks
+#define GRT_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)

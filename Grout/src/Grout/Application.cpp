@@ -4,11 +4,6 @@
 #include <glad/glad.h>
 
 namespace Grout {
-
-// Wraps a function to be passed as a parameter - currently used for the callbacks
-// TODO: change the location of this
-#define BIND_EVENT_FN(x) std::bind(&x, this, std::placeholders::_1)
-
 	// Singleton
 	// TODO implement it in a correct singleton way
 	// https://stackoverflow.com/questions/1008019/c-singleton-design-pattern
@@ -20,7 +15,7 @@ namespace Grout {
 		instance_ = this;
 
 		window_ = std::unique_ptr<Window>(Window::Create());
-		window_->set_event_callback(BIND_EVENT_FN(Application::OnEvent));
+		window_->set_event_callback(GRT_BIND_EVENT_FN(Application::OnEvent));
 	}
 
 	Application::~Application()
@@ -41,7 +36,7 @@ namespace Grout {
 
 	void Application::OnEvent(Event& e) {
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<WindowCloseEvent>(GRT_BIND_EVENT_FN(Application::OnWindowClose));
 
 		// Loops through layer stack from End -> Begin
 		for (auto it = layer_stack_.end(); it != layer_stack_.begin(); ) {

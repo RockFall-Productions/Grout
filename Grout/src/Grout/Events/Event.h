@@ -15,7 +15,7 @@ namespace Grout {
 		None = 0,
 		kWindowClose, kWindowResize, kWindowFocus, kWindowLostFocus, kWindowMoved,
 		kAppTicket, kAppUpdate, kAppRender,
-		kKeyPressed, kKeyReleased,
+		kKeyPressed, kKeyReleased, kKeyTyped,
 		kMouseButtonPressed, kMouseButtonReleased, kMouseMoved, kMouseScrolled
 	};
 
