@@ -16,6 +16,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Grout/third-part/GLFW/include"
 IncludeDir["Glad"] = "Grout/third-part/Glad/include"
 IncludeDir["ImGui"] = "Grout/third-part/imgui"
+IncludeDir["glm"] = "Grout/third-part/glm"
 
 -- Includes the GLFW and GLAD premake5's files
 group "Dependencies"
@@ -39,7 +40,9 @@ project "Grout"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/third-part/glm/glm/**.hpp",
+		"%{prj.name}/third-part/glm/glm/**.inl"
 	}
 
 	includedirs
@@ -48,7 +51,8 @@ project "Grout"
 		"%{prj.name}/third-part/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.glm}"
 	}
 
 	links
@@ -108,7 +112,8 @@ project "Sandbox"
 	includedirs
 	{
 		"Grout/third-part/spdlog/include",
-		"Grout/src"
+		"Grout/src",
+		"%{IncludeDir.glm}"
 	}
 
 	links

@@ -7,3 +7,6 @@
 [submodule "Grout/third-part/imgui"]
 	path = Grout/third-part/imgui
 	url = https://github.com/RockFall-Productions/imgui
+[submodule "Grout/third-part/glm"]
+	path = Grout/third-part/glm
+	url = https://github.com/g-truc/glm
