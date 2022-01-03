@@ -58,9 +58,6 @@ namespace Grout {
 				layer->OnUpdate();
  			}
 
-			
-			GRT_CORE_TRACE("Pressing 'W': {0}", Input::is_key_pressed(87));
-
 			window_->OnUpdate();
 		}
 	}
