@@ -1,5 +1,7 @@
 #include <Grout.h>
 
+#include "imgui/imgui.h"
+
 class TestLayer : public Grout::Layer {
 public:
 	TestLayer()
@@ -8,6 +10,12 @@ public:
 	void OnUpdate() override {
 		if (Grout::Input::is_key_pressed(GRT_KEY_W))
 			GRT_CORE_TRACE("Pressing 'W': {0}", Grout::Input::is_key_pressed(87));
+	}
+
+	virtual void OnImGuiRender() override {
+		ImGui::Begin("Test");
+		ImGui::Text("Hello, is anybody in there?");
+		ImGui::End();
 	}
 
 	void OnEvent(Grout::Event& event) override {
@@ -19,7 +27,6 @@ class Sandbox : public Grout::Application {
 public:
 	Sandbox() {
 		PushLayer(new TestLayer());
-		PushOverlay(new Grout::ImGuiLayer());
 	}
 
 	~Sandbox() {

@@ -18,6 +18,10 @@ namespace Grout {
 
 		window_ = std::unique_ptr<Window>(Window::Create());
 		window_->set_event_callback(GRT_BIND_EVENT_FN(Application::OnEvent));
+
+		imgui_layer_ = new ImGuiLayer;
+		layer_stack_.push_overlay(imgui_layer_);
+		imgui_layer_->OnAttach();
 	}
 
 	Application::~Application()
@@ -54,9 +58,20 @@ namespace Grout {
 			glClearColor(0.3, 0.3, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
+			// Loop through all layers
 			for (Layer* layer : layer_stack_) {
 				layer->OnUpdate();
  			}
+
+			// ----- ImGui Frame flow -----
+			imgui_layer_->BeginFrame();
+
+			for (Layer* layer : layer_stack_) {
+				layer->OnImGuiRender();
+			}
+
+			imgui_layer_->EndFrame();
+			// ----------------------------
 
 			window_->OnUpdate();
 		}

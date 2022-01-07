@@ -2,10 +2,10 @@
 #include "LayerStack.h"
 
 namespace Grout {
-	LayerStack::LayerStack()
+	LayerStack::LayerStack() : layer_insert_index_(0)
 	{
-		layer_insert_ = layers_.begin();
 	}
+
 	LayerStack::~LayerStack()
 	{
 		for (Layer* layer : layers_) {
@@ -15,7 +15,8 @@ namespace Grout {
 	void LayerStack::push_layer(Layer* layer)
 	{
 		// The layer is emplaced after the last layer and before the first overlay
-		layer_insert_ = layers_.emplace(layer_insert_, layer);
+		layers_.emplace(layers_.begin() + layer_insert_index_, layer);
+		layer_insert_index_++;
 	}
 	void LayerStack::push_overlay(Layer* overlay)
 	{
@@ -26,7 +27,7 @@ namespace Grout {
 		auto it = std::find(layers_.begin(), layers_.end(), layer);
 		if (it != layers_.end()) {
 			layers_.erase(it);
-			layer_insert_--;
+			layer_insert_index_--;
 		}
 	}
 	void LayerStack::pop_overlay(Layer* overlay)

@@ -10,19 +10,19 @@ namespace Grout {
 
 	bool WindowsInput::IsKeyPressedImpl(int keycode)
 	{
-		auto window = static_cast<GLFWwindow*>(Application::get().get_window().get_native_window());
+		auto window = static_cast<GLFWwindow*>(Application::get_instance().get_window().get_native_window());
 		auto state = glfwGetKey(window, keycode);
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
 	}
 	bool WindowsInput::IsMouseButtonPressedImpl(int buttoncode)
 	{
-		auto window = static_cast<GLFWwindow*>(Application::get().get_window().get_native_window());
+		auto window = static_cast<GLFWwindow*>(Application::get_instance().get_window().get_native_window());
 		auto state = glfwGetMouseButton(window, buttoncode);
 		return state == GLFW_PRESS;
 	}
 	std::pair<float, float> WindowsInput::GetMousePositionImpl()
 	{
-		auto window = static_cast<GLFWwindow*>(Application::get().get_window().get_native_window());
+		auto window = static_cast<GLFWwindow*>(Application::get_instance().get_window().get_native_window());
 		double xpos, ypos;
 		glfwGetCursorPos(window, &xpos, &ypos);
 		return { (float)xpos, (float)ypos };

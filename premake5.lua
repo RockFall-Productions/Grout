@@ -113,12 +113,14 @@ project "Sandbox"
 	{
 		"Grout/third-part/spdlog/include",
 		"Grout/src",
+		"Grout/third-part",
 		"%{IncludeDir.glm}"
 	}
 
 	links
 	{
-		"Grout"
+		"Grout",
+		"ImGui"
 	}
 
 	filter "system:windows"
