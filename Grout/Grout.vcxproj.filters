@@ -16,9 +16,6 @@
     <Filter Include="src\Plataform">
       <UniqueIdentifier>{A298FC84-0E59-78BB-D793-C1384313BD97}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Plataform\OpenGL">
-      <UniqueIdentifier>{96F7E60B-8286-70D5-2BA5-84D01713817B}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Plataform\Windows">
       <UniqueIdentifier>{DCC4E1E0-4831-9DDB-1125-35397D50BF43}</UniqueIdentifier>
     </Filter>
@@ -92,12 +89,6 @@
     </ClInclude>
     <ClInclude Include="src\Grout\Window.h">
       <Filter>src\Grout</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Plataform\OpenGL\ImGuiOpenGLRenderer.h">
-      <Filter>src\Plataform\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Plataform\OpenGL\ImGuiOpenGLRendererLoader.h">
-      <Filter>src\Plataform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Plataform\Windows\WindowsInput.h">
       <Filter>src\Plataform\Windows</Filter>
@@ -1358,6 +1349,9 @@
     <ClCompile Include="src\Grout\Application.cpp">
       <Filter>src\Grout</Filter>
     </ClCompile>
+    <ClCompile Include="src\Grout\ImGui\ImGuiBuild.cpp">
+      <Filter>src\Grout\ImGui</Filter>
+    </ClCompile>
     <ClCompile Include="src\Grout\ImGui\ImGuiLayer.cpp">
       <Filter>src\Grout\ImGui</Filter>
     </ClCompile>
@@ -1369,9 +1363,6 @@
     </ClCompile>
     <ClCompile Include="src\Grout\Log.cpp">
       <Filter>src\Grout</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Plataform\OpenGL\ImGuiOpenGLRenderer.cpp">
-      <Filter>src\Plataform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Plataform\Windows\WindowsInput.cpp">
       <Filter>src\Plataform\Windows</Filter>

@@ -24,7 +24,7 @@ namespace Grout {
 		// Vector were chosen over an actual stack because
 		// we sometimes have to insert things on the middle
 		std::vector<Layer*> layers_;
-		std::vector<Layer*>::iterator layer_insert_;
+		int layer_insert_index_;
 	};
 }
 
