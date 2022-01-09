@@ -3,7 +3,7 @@
 #include "Event.h"
 
 namespace Grout {
-	class GROUT_API MouseMovedEvent : public Event {
+	class  MouseMovedEvent : public Event {
 	public:
 		// --- Constructor ---
 		MouseMovedEvent(float x, float y)
@@ -29,7 +29,7 @@ namespace Grout {
 		float mouseY_;
 	};
 
-	class GROUT_API MouseScrolledEvent : public Event {
+	class  MouseScrolledEvent : public Event {
 	public:
 		// --- Constructor ---
 		MouseScrolledEvent(float x_offset, float y_offset)
@@ -55,7 +55,7 @@ namespace Grout {
 		float y_offset_;
 	};
 
-	class GROUT_API MouseButtonEvent : public Event {
+	class  MouseButtonEvent : public Event {
 	public:
 		inline int getMouseButtonCode() const { return buttom_code_; }
 
@@ -68,7 +68,7 @@ namespace Grout {
 		int buttom_code_;
 	};
 
-	class GROUT_API MouseButtonPressedEvent : public MouseButtonEvent {
+	class  MouseButtonPressedEvent : public MouseButtonEvent {
 	public:
 		// --- Constructor ---
 		MouseButtonPressedEvent(int buttom_code)
@@ -84,7 +84,7 @@ namespace Grout {
 		EVENT_CLASS_TYPE(kMouseButtonPressed)
 	};
 
-	class GROUT_API MouseButtonReleasedEvent : public MouseButtonEvent {
+	class  MouseButtonReleasedEvent : public MouseButtonEvent {
 	public:
 		// --- Constructor ---
 		MouseButtonReleasedEvent(int buttom_code)

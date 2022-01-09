@@ -55,7 +55,7 @@ namespace Grout {
 
 	void Application::Run() {
 		while (running_) {
-			glClearColor(0.3, 0.3, 1, 1);
+			glClearColor(0.3f, 0.3f, 1.0f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			// Loop through all layers

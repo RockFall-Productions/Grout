@@ -4,7 +4,7 @@
 
 
 namespace Grout {
-	class GROUT_API WindowResizeEvent : public Event {
+	class  WindowResizeEvent : public Event {
 	public:
 		// --- Constructor ---
 		WindowResizeEvent(int width, int height) 
@@ -33,7 +33,7 @@ namespace Grout {
 		int height_;
 	};
 
-	class GROUT_API WindowCloseEvent : public Event {
+	class  WindowCloseEvent : public Event {
 	public:
 		WindowCloseEvent() {}
 
@@ -48,7 +48,7 @@ namespace Grout {
 		EVENT_CLASS_CATEGORY(kEventCategoryApplication)
 	};
 
-	class GROUT_API WindowMovedEvent : public Event {
+	class  WindowMovedEvent : public Event {
 	public:
 		// ---- Constructor ----
 		WindowMovedEvent(int windowX, int windowY)
@@ -69,7 +69,7 @@ namespace Grout {
 		int windowY_;
 	};
 
-	class GROUT_API AppTicketEvent : public Event {
+	class  AppTicketEvent : public Event {
 	public:
 		AppTicketEvent() {}
 
@@ -77,7 +77,7 @@ namespace Grout {
 		EVENT_CLASS_CATEGORY(kEventCategoryApplication)
 	};
 
-	class GROUT_API AppUpdateEvent : public Event {
+	class  AppUpdateEvent : public Event {
 	public:
 		AppUpdateEvent() {}
 
@@ -85,7 +85,7 @@ namespace Grout {
 		EVENT_CLASS_CATEGORY(kEventCategoryApplication)
 	};
 
-	class GROUT_API AppRenderEvent : public Event {
+	class  AppRenderEvent : public Event {
 	public:
 		AppRenderEvent() {}
 

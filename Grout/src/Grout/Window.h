@@ -25,7 +25,7 @@ namespace Grout {
 	//	Size: Width, height
 	//	VSync: bool
 	//	Event_callback: std::function
-	class GROUT_API Window {
+	class  Window {
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;
 

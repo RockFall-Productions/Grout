@@ -6,7 +6,7 @@
 #include <vector>
 
 namespace Grout {
-	class GROUT_API LayerStack
+	class  LayerStack
 	{
 	public:
 		LayerStack();

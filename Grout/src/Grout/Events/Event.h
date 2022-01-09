@@ -45,7 +45,7 @@ namespace Grout {
 
 	// Pure virtual class of the Event template
 	// Must have a type, name and category
-	class GROUT_API Event {
+	class  Event {
 		// Friend class so it can access member variables of all events 
 		friend class EventDispatcher;
 	public:

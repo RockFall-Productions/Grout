@@ -4,7 +4,7 @@
 
 namespace Grout {
 	// Static class interface that deals with everything related to input
-	class GROUT_API Input {
+	class  Input {
 	public:
 		// Calls for implemented IsKeyPressedImpl
 		inline static bool is_key_pressed(int keycode) { return instance_->IsKeyPressedImpl(keycode); }
