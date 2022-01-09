@@ -5,7 +5,7 @@
 #include "spdlog/fmt/ostr.h"
 
 namespace Grout {
-	class GROUT_API Log
+	class  Log
 	{
 	public:
 		static void Init();

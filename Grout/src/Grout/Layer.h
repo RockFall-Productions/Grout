@@ -4,7 +4,7 @@
 #include "Grout/Events/Event.h"
 
 namespace Grout {
-	class GROUT_API Layer {
+	class  Layer {
 	public:
 		Layer(const std::string& name = "Layer", bool enabled = true);
 		virtual ~Layer();

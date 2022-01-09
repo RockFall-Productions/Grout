@@ -11,7 +11,7 @@
 #include "Grout/ImGui/ImGuiLayer.h"
 
 namespace Grout {
-	class GROUT_API Application
+	class  Application
 	{
 	public:
 		Application();

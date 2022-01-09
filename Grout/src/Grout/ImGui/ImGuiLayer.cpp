@@ -3,7 +3,6 @@
 
 #include "imgui.h"
 
-#define IMGUI_IMPL_API
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
 
@@ -79,7 +78,7 @@ namespace Grout {
 	{
 		ImGuiIO& io = ImGui::GetIO();
 		Application& app = Application::get_instance();
-		io.DisplaySize = ImVec2(app.get_window().get_width(), (float)app.get_window().get_height());
+		io.DisplaySize = ImVec2((float)app.get_window().get_width(), (float)app.get_window().get_height());
 
 		// Do render
 		ImGui::Render();

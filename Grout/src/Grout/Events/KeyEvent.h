@@ -5,7 +5,7 @@
 namespace Grout {
 	// A class to be derived from only
 	// Set's the keyCode member and Event category
-	class GROUT_API KeyEvent : public Event {
+	class  KeyEvent : public Event {
 	public:
 		// Getter
 		inline int get_key_code() const { return key_code_; }
@@ -21,7 +21,7 @@ namespace Grout {
 	};
 
 
-	class GROUT_API KeyPressedEvent : public KeyEvent {
+	class  KeyPressedEvent : public KeyEvent {
 	public:
 		// --- Constructor ---
 		KeyPressedEvent(int keyCode, int repeatCount) 
@@ -43,7 +43,7 @@ namespace Grout {
 		int repeated_count_;
 	};
 
-	class GROUT_API KeyReleasedEvent : public KeyEvent {
+	class  KeyReleasedEvent : public KeyEvent {
 	public:
 		// ---- Costructor ----
 		KeyReleasedEvent(int keycode) 
@@ -59,7 +59,7 @@ namespace Grout {
 		EVENT_CLASS_TYPE(kKeyReleased)
 	};
 
-	class GROUT_API KeyTypedEvent : public KeyEvent {
+	class  KeyTypedEvent : public KeyEvent {
 	public:
 		// --- Constructor ---
 		KeyTypedEvent(int key_code)
