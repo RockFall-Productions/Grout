@@ -53,6 +53,8 @@ namespace Grout {
 		//vbo.Unbind();
 		//ebo.Unbind();
 
+
+		shader_.reset(new Shader());
 	}
 
 	Application::~Application()

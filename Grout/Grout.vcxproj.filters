@@ -1365,6 +1365,9 @@
     <ClInclude Include="third-part\glm\glm\vector_relational.hpp">
       <Filter>third-part\glm\glm</Filter>
     </ClInclude>
+    <ClInclude Include="src\Grout\Buffers\EBO.h" />
+    <ClInclude Include="src\Grout\Buffers\VAO.h" />
+    <ClInclude Include="src\Grout\Buffers\VBO.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Grout\Application.cpp">
@@ -1400,5 +1403,12 @@
     <ClCompile Include="src\grtpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Grout\Buffers\EBO.cpp" />
+    <ClCompile Include="src\Grout\Buffers\VAO.cpp" />
+    <ClCompile Include="src\Grout\Buffers\VBO.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Grout\Shaders\sprite.vs" />
+    <None Include="src\Grout\Shaders\sprite.frag" />
   </ItemGroup>
 </Project>
