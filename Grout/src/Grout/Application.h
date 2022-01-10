@@ -37,6 +37,9 @@ namespace Grout {
 		ImGuiLayer* imgui_layer_;
 		bool running_ = true;
 
+		// Buffer
+		//VAO vao_;
+
 		// Layer Stack
 		LayerStack layer_stack_;
 

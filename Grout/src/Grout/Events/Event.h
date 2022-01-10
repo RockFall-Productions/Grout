@@ -24,7 +24,7 @@ namespace Grout {
 	{
 		kNone = 0,
 		kEventCategoryApplication	= BIT(0), // Using BIT(x) instead of normal 0, 1, 2...
-		kEventCategoryInput			= BIT(1), // makes it possible to create an event to has
+		kEventCategoryInput			= BIT(1), // makes it possible to create an event that has
 		kEventCategoryKeyboard		= BIT(2), // multiple categories
 		kEventCategoryMouse			= BIT(3), // i.e. 26 = 11010 = Input(00010)/Mouse(01000)/MouseButton(10000)
 		kEventCategoryMouseButton	= BIT(4)

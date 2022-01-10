@@ -5,7 +5,7 @@
 #include "Grout/Events/MouseEvent.h"
 #include "Grout/Events/KeyEvent.h"
 
-#include "glad/glad.h"
+#include "Plataform/OpenGL/OpenGLContext.h"
 
 namespace Grout {
 
@@ -39,6 +39,7 @@ namespace Grout {
 		data_.width = configs.width;
 		data_.height = configs.height;
 
+
 		GRT_INFO("Creating window {0} ({1}, {2})", configs.title, configs.width, configs.height);
 
 		// Starts GLFW if not yet
@@ -61,16 +62,14 @@ namespace Grout {
 		}
 
 		window_ = glfwCreateWindow(configs.width, configs.height, data_.title.c_str(), nullptr, nullptr);
-
-		if (window_ == NULL) {
+		if (window_ == NULL)
 			GRT_CORE_ASSERT(false, "Failed to create GLFW window");
-		}
-
-		// Tells GLFW that window_ is where the current context must be
-		glfwMakeContextCurrent(window_);
-		// Load Glad
-		int glad_loaded = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		GRT_CORE_ASSERT(glad_loaded, "Failed to initialize Glad!")
+		
+		context_ = new OpenGLContext(window_);
+		context_->Init();
+		if (context_ == NULL)
+			GRT_CORE_ASSERT(false, "Failed to create Render Context");
+		
 		// Used mainly to connect the callback and event system to GLFW
 		glfwSetWindowUserPointer(window_, &data_);
 		set_vsync(true);
@@ -169,7 +168,7 @@ namespace Grout {
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(window_);
+		context_->SwapBuffers();
 	}
 
 	void WindowsWindow::set_vsync(bool enabled)

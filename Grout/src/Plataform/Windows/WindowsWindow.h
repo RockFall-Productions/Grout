@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Grout/Window.h"
+#include "Grout/Renderer/RendererContext.h"
+
 #include <GLFW/glfw3.h>
 
 namespace Grout {
@@ -26,6 +28,7 @@ namespace Grout {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* window_;
+		RendererContext* context_;
 
 		struct WindowData {
 			std::string title;
