@@ -4,11 +4,12 @@
 
 #include "Grout/Window.h"
 #include "Grout/LayerStack.h"
+#include "Grout/ImGui/ImGuiLayer.h"
 
 #include "Grout/Events/Event.h"
 #include "Grout/Events/ApplicationEvent.h"
 
-#include "Grout/ImGui/ImGuiLayer.h"
+#include <Grout/Shaders/Shader.h>
 
 namespace Grout {
 	class  Application
@@ -39,6 +40,7 @@ namespace Grout {
 
 		// Buffer
 		//VAO vao_;
+		std::unique_ptr<Shader> shader_;
 
 		// Layer Stack
 		LayerStack layer_stack_;

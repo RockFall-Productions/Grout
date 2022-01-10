@@ -145,6 +145,9 @@
   <ItemGroup>
     <ClInclude Include="src\Grout.h" />
     <ClInclude Include="src\Grout\Application.h" />
+    <ClInclude Include="src\Grout\Buffers\EBO.h" />
+    <ClInclude Include="src\Grout\Buffers\VAO.h" />
+    <ClInclude Include="src\Grout\Buffers\VBO.h" />
     <ClInclude Include="src\Grout\Core.h" />
     <ClInclude Include="src\Grout\EntryPoint.h" />
     <ClInclude Include="src\Grout\Events\ApplicationEvent.h" />
@@ -583,6 +586,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Grout\Application.cpp" />
+    <ClCompile Include="src\Grout\Buffers\EBO.cpp" />
+    <ClCompile Include="src\Grout\Buffers\VAO.cpp" />
+    <ClCompile Include="src\Grout\Buffers\VBO.cpp" />
     <ClCompile Include="src\Grout\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Grout\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Grout\Layer.cpp" />
@@ -606,6 +612,10 @@
     <ProjectReference Include="third-part\imgui\ImGui.vcxproj">
       <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Grout\Shaders\sprite.frag" />
+    <None Include="src\Grout\Shaders\sprite.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
