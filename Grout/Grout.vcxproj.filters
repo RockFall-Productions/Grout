@@ -7,14 +7,26 @@
     <Filter Include="src\Grout">
       <UniqueIdentifier>{2D4501B3-99AF-B529-E2ED-66CF4E97937E}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Grout\Buffers">
+      <UniqueIdentifier>{A9E14A79-15F8-480F-5E6F-D430CAC41997}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Grout\Events">
       <UniqueIdentifier>{71BC4939-5DB5-688B-86E7-4D10723F4897}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Grout\ImGui">
       <UniqueIdentifier>{1728269D-83B3-9361-8CC4-1656F8CEEF61}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Grout\Renderer">
+      <UniqueIdentifier>{73ABA5A9-5F8F-66FF-C8EF-6052B4F25081}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Grout\Shaders">
+      <UniqueIdentifier>{06473A77-725D-380D-BBD4-C32E272A0995}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Plataform">
       <UniqueIdentifier>{A298FC84-0E59-78BB-D793-C1384313BD97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Plataform\OpenGL">
+      <UniqueIdentifier>{96F7E60B-8286-70D5-2BA5-84D01713817B}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Plataform\Windows">
       <UniqueIdentifier>{DCC4E1E0-4831-9DDB-1125-35397D50BF43}</UniqueIdentifier>
@@ -87,8 +99,17 @@
     <ClInclude Include="src\Grout\MouseButtonCodes.h">
       <Filter>src\Grout</Filter>
     </ClInclude>
+    <ClInclude Include="src\Grout\Renderer\RendererContext.h">
+      <Filter>src\Grout\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Grout\Shaders\Shader.h">
+      <Filter>src\Grout\Shaders</Filter>
+    </ClInclude>
     <ClInclude Include="src\Grout\Window.h">
       <Filter>src\Grout</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Plataform\OpenGL\OpenGLContext.h">
+      <Filter>src\Plataform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Plataform\Windows\WindowsInput.h">
       <Filter>src\Plataform\Windows</Filter>
@@ -1363,6 +1384,12 @@
     </ClCompile>
     <ClCompile Include="src\Grout\Log.cpp">
       <Filter>src\Grout</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Grout\Shaders\Shader.cpp">
+      <Filter>src\Grout\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Plataform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\Plataform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Plataform\Windows\WindowsInput.cpp">
       <Filter>src\Plataform\Windows</Filter>

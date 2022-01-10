@@ -76,6 +76,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>grtpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>26451;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GRT_PLATAFORM_WINDOWS;GRT_BUILD_DLL;GLFW_INCLUDE_NONE;GRT_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;third-part\spdlog\include;third-part\GLFW\include;third-part\Glad\include;third-part\imgui;third-part\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
@@ -96,6 +97,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>grtpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>26451;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GRT_PLATAFORM_WINDOWS;GRT_BUILD_DLL;GLFW_INCLUDE_NONE;GRT_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;third-part\spdlog\include;third-part\GLFW\include;third-part\Glad\include;third-part\imgui;third-part\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
@@ -120,6 +122,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>grtpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>26451;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GRT_PLATAFORM_WINDOWS;GRT_BUILD_DLL;GLFW_INCLUDE_NONE;GRT_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;third-part\spdlog\include;third-part\GLFW\include;third-part\Glad\include;third-part\imgui;third-part\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
@@ -155,7 +158,10 @@
     <ClInclude Include="src\Grout\LayerStack.h" />
     <ClInclude Include="src\Grout\Log.h" />
     <ClInclude Include="src\Grout\MouseButtonCodes.h" />
+    <ClInclude Include="src\Grout\Renderer\RendererContext.h" />
+    <ClInclude Include="src\Grout\Shaders\Shader.h" />
     <ClInclude Include="src\Grout\Window.h" />
+    <ClInclude Include="src\Plataform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Plataform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Plataform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\grtpch.h" />
@@ -582,6 +588,8 @@
     <ClCompile Include="src\Grout\Layer.cpp" />
     <ClCompile Include="src\Grout\LayerStack.cpp" />
     <ClCompile Include="src\Grout\Log.cpp" />
+    <ClCompile Include="src\Grout\Shaders\Shader.cpp" />
+    <ClCompile Include="src\Plataform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Plataform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Plataform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\grtpch.cpp">

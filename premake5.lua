@@ -69,6 +69,10 @@ project "Grout"
 		"opengl32.lib"
 	}
 
+	disablewarnings  {
+		"26451"
+	}
+
 	filter "system:windows"
 		systemversion "latest"
 
