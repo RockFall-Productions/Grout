@@ -28,33 +28,56 @@ namespace Grout {
 		layer_stack_.push_overlay(imgui_layer_);
 		imgui_layer_->OnAttach();
 
-		// Creating the VBO, VAO and EBO buffers
-		//VAO vao_ = VAO::VAO();
+		// Creating all buffers
+		glGenVertexArrays(1, &vertex_array_);
+		glBindVertexArray(vertex_array_);
 
-		GLfloat vertices[] = {
+		float vertices[9] = {
 			// Position --- Color
 			-0.5f, -0.5f, 0.0f,
 			 0.5f, -0.5f, 0.0f,
 			 0.0f,  0.5f, 0.0f
 		};
-		GLuint indices[] = {
+		vertex_buffer_.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+		vertex_buffer_->Bind();
+
+		// Inserting the VBO into the VAO
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+
+		uint32_t indices[] = {
 			0, 1, 2
 		};
+		index_buffer_.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		index_buffer_->Bind();
 
-		//VBO vbo = VBO::VBO(vertices, sizeof(vertices));
+		std::string vertexSrc = R"(
+			#version 330 core
 
-		//vao_.Bind();
-		// Inserting the VBO into the VAO
-		//vao_.LinkAttrib(vbo, 0, 3, GL_FLOAT, 3 * sizeof(float), (void*)0);
+			layout(location = 0) in vec3 a_Position;
 
-		//EBO ebo = EBO::EBO(indices, sizeof(indices));
+			out vec3 v_Position;
 
-		//vao_.Unbind(); // Must be unbided before the VBO
-		//vbo.Unbind();
-		//ebo.Unbind();
+			void main() {
+				v_Position = a_Position;
+				gl_Position = vec4(a_Position, 1.0);
+			}
+		)";
 
+		std::string fragmentSrc = R"(
+			#version 330 core
+
+			layout(location = 0) out vec4 color;
+
+			in vec3 v_Position;
+
+			void main() {
+				color = vec4(v_Position * 0.32 + 0.32, 1.0);
+			}
+		)";
 
 		shader_.reset(new Shader());
+		shader_->CompileNLink(vertexSrc.c_str(), fragmentSrc.c_str());
 	}
 
 	Application::~Application()
@@ -91,9 +114,9 @@ namespace Grout {
 			glClearColor(0.3f, 0.3f, 1.0f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			//vao_.Bind();
-			//glDrawArrays(GL_TRIANGLES, 0, 6);
-			//vao_.Unbind();
+			shader_->Activate();
+			glBindVertexArray(vertex_array_);
+			glDrawElements(GL_TRIANGLES, index_buffer_->get_count(), GL_UNSIGNED_INT, nullptr);
 
 			// Loop through all layers
 			for (Layer* layer : layer_stack_) {

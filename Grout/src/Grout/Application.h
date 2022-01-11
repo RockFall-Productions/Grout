@@ -9,7 +9,8 @@
 #include "Grout/Events/Event.h"
 #include "Grout/Events/ApplicationEvent.h"
 
-#include <Grout/Shaders/Shader.h>
+#include <Grout/Renderer/Shader.h>
+#include <Grout/Renderer/Buffer.h>
 
 namespace Grout {
 	class  Application
@@ -39,8 +40,10 @@ namespace Grout {
 		bool running_ = true;
 
 		// Buffer
-		//VAO vao_;
+		unsigned int vertex_array_;
 		std::unique_ptr<Shader> shader_;
+		std::unique_ptr<VertexBuffer> vertex_buffer_;
+		std::unique_ptr<IndexBuffer> index_buffer_;
 
 		// Layer Stack
 		LayerStack layer_stack_;

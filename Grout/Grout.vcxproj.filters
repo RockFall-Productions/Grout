@@ -102,7 +102,7 @@
     <ClInclude Include="src\Grout\Renderer\RendererContext.h">
       <Filter>src\Grout\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Grout\Shaders\Shader.h">
+    <ClInclude Include="src\Grout\Renderer\Shader.h">
       <Filter>src\Grout\Shaders</Filter>
     </ClInclude>
     <ClInclude Include="src\Grout\Window.h">
@@ -1365,9 +1365,9 @@
     <ClInclude Include="third-part\glm\glm\vector_relational.hpp">
       <Filter>third-part\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\Grout\Buffers\EBO.h" />
-    <ClInclude Include="src\Grout\Buffers\VAO.h" />
-    <ClInclude Include="src\Grout\Buffers\VBO.h" />
+    <ClInclude Include="src\Grout\Renderer\Buffer.h" />
+    <ClInclude Include="src\Plataform\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\Grout\Renderer\Renderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Grout\Application.cpp">
@@ -1388,7 +1388,7 @@
     <ClCompile Include="src\Grout\Log.cpp">
       <Filter>src\Grout</Filter>
     </ClCompile>
-    <ClCompile Include="src\Grout\Shaders\Shader.cpp">
+    <ClCompile Include="src\Grout\Renderer\Shader.cpp">
       <Filter>src\Grout\Shaders</Filter>
     </ClCompile>
     <ClCompile Include="src\Plataform\OpenGL\OpenGLContext.cpp">
@@ -1403,9 +1403,9 @@
     <ClCompile Include="src\grtpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Grout\Buffers\EBO.cpp" />
-    <ClCompile Include="src\Grout\Buffers\VAO.cpp" />
-    <ClCompile Include="src\Grout\Buffers\VBO.cpp" />
+    <ClCompile Include="src\Grout\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Plataform\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\Grout\Renderer\Renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Grout\Shaders\sprite.vs" />
