@@ -143,11 +143,11 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Grout\Renderer\Renderer.h" />
+    <ClInclude Include="src\Plataform\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\Grout\Renderer\Buffer.h" />
     <ClInclude Include="src\Grout.h" />
     <ClInclude Include="src\Grout\Application.h" />
-    <ClInclude Include="src\Grout\Buffers\EBO.h" />
-    <ClInclude Include="src\Grout\Buffers\VAO.h" />
-    <ClInclude Include="src\Grout\Buffers\VBO.h" />
     <ClInclude Include="src\Grout\Core.h" />
     <ClInclude Include="src\Grout\EntryPoint.h" />
     <ClInclude Include="src\Grout\Events\ApplicationEvent.h" />
@@ -162,7 +162,7 @@
     <ClInclude Include="src\Grout\Log.h" />
     <ClInclude Include="src\Grout\MouseButtonCodes.h" />
     <ClInclude Include="src\Grout\Renderer\RendererContext.h" />
-    <ClInclude Include="src\Grout\Shaders\Shader.h" />
+    <ClInclude Include="src\Grout\Renderer\Shader.h" />
     <ClInclude Include="src\Grout\Window.h" />
     <ClInclude Include="src\Plataform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Plataform\Windows\WindowsInput.h" />
@@ -585,16 +585,16 @@
     <ClInclude Include="third-part\glm\glm\vector_relational.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Grout\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Plataform\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\Grout\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Grout\Application.cpp" />
-    <ClCompile Include="src\Grout\Buffers\EBO.cpp" />
-    <ClCompile Include="src\Grout\Buffers\VAO.cpp" />
-    <ClCompile Include="src\Grout\Buffers\VBO.cpp" />
     <ClCompile Include="src\Grout\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Grout\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Grout\Layer.cpp" />
     <ClCompile Include="src\Grout\LayerStack.cpp" />
     <ClCompile Include="src\Grout\Log.cpp" />
-    <ClCompile Include="src\Grout\Shaders\Shader.cpp" />
+    <ClCompile Include="src\Grout\Renderer\Shader.cpp" />
     <ClCompile Include="src\Plataform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Plataform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Plataform\Windows\WindowsWindow.cpp" />
