@@ -27,7 +27,7 @@ namespace Grout {
 		
 		// Compiles and link given vertex, fragment and (optional) geometry shaders, 
 		// and stores the created shaderProgram ID's into class's variable
-		void CompileNLink(const char* vertex_code, const char* fragment_code, const char* geometry_code = nullptr);
+		void CompileAndLink(const char* vertex_code, const char* fragment_code, const char* geometry_code = nullptr);
 
 		// Activates the Shader Program
 		Shader& Activate();

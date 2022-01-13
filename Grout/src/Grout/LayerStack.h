@@ -17,7 +17,6 @@ namespace Grout {
 		void pop_layer(Layer* layer);
 		void pop_overlay(Layer* overlay);
 
-
 		std::vector<Layer*>::iterator begin() { return layers_.begin();  }
 		std::vector<Layer*>::iterator end() { return layers_.end();  }
 	private:

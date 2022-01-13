@@ -3,8 +3,6 @@
 
 #include <glad/glad.h>
 
-
-
 #include "Grout/Input.h"
 
 namespace Grout {
@@ -12,6 +10,27 @@ namespace Grout {
 	// TODO implement it in a correct singleton way
 	// https://stackoverflow.com/questions/1008019/c-singleton-design-pattern
 	Application* Application::instance_ = nullptr;
+
+	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type) {
+		switch (type)
+		{
+		case Grout::ShaderDataType::None:	return GL_NONE;
+		case Grout::ShaderDataType::Float:	return GL_FLOAT;
+		case Grout::ShaderDataType::Float2:	return GL_FLOAT;
+		case Grout::ShaderDataType::Float3:	return GL_FLOAT;
+		case Grout::ShaderDataType::Float4:	return GL_FLOAT;
+		case Grout::ShaderDataType::Int:	return GL_INT;
+		case Grout::ShaderDataType::Int2:	return GL_INT;
+		case Grout::ShaderDataType::Int3:	return GL_INT;
+		case Grout::ShaderDataType::Int4:	return GL_INT;
+		case Grout::ShaderDataType::Mat3:	return GL_FLOAT;
+		case Grout::ShaderDataType::Mat4:	return GL_FLOAT;
+		case Grout::ShaderDataType::Bool:	return GL_BOOL;
+		}
+
+		GRT_CORE_ASSERT(false, "ShaderDataTypeToOpenGLBaseType - The given type {0} is unknown", type);
+		return 0;
+	}
 
 	Application::Application()
 	{
@@ -32,18 +51,37 @@ namespace Grout {
 		glGenVertexArrays(1, &vertex_array_);
 		glBindVertexArray(vertex_array_);
 
-		float vertices[9] = {
+		float vertices[3 * 7] = {
 			// Position --- Color
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.0f,  0.5f, 0.0f
+			-0.5f, -0.5f, 0.0f, 0.1f, 1.0f, 0.1f, 1.0f,
+			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 1.0f, 1.0f,
+			 0.0f,  0.5f, 0.0f, 1.0f, 0.0f, 0.4f, 1.0f
 		};
 		vertex_buffer_.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
-		vertex_buffer_->Bind();
 
-		// Inserting the VBO into the VAO
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+		{
+			BufferLayout layout = {
+				{ ShaderDataType::Float3, "a_position"},
+				{ ShaderDataType::Float4, "a_color"}
+			};
+			vertex_buffer_->set_layout(layout);
+		}
+
+		uint32_t index = 0;
+		const auto& layout = vertex_buffer_->get_layout();
+		for (const auto& element : layout)
+		{
+			glEnableVertexAttribArray(index);
+			glVertexAttribPointer(
+				index, 
+				element.get_component_count(), 
+				ShaderDataTypeToOpenGLBaseType(element.type), 
+				element.normalized ? GL_TRUE : GL_FALSE,
+				vertex_buffer_->get_layout().get_stride(), 
+				(const void*)element.offset
+			);
+			++index;
+		}
 
 		uint32_t indices[] = {
 			0, 1, 2
@@ -54,13 +92,16 @@ namespace Grout {
 		std::string vertexSrc = R"(
 			#version 330 core
 
-			layout(location = 0) in vec3 a_Position;
+			layout(location = 0) in vec3 a_position;
+			layout(location = 1) in vec4 a_color;
 
-			out vec3 v_Position;
+			out vec3 v_position;
+			out vec4 v_color;
 
 			void main() {
-				v_Position = a_Position;
-				gl_Position = vec4(a_Position, 1.0);
+				v_position = a_position;
+				v_color = a_color;
+				gl_Position = vec4(a_position, 1.0);
 			}
 		)";
 
@@ -69,15 +110,16 @@ namespace Grout {
 
 			layout(location = 0) out vec4 color;
 
-			in vec3 v_Position;
+			in vec3 v_position;
+			in vec4 v_color;
 
 			void main() {
-				color = vec4(v_Position * 0.32 + 0.32, 1.0);
+				color = v_color;
 			}
 		)";
 
 		shader_.reset(new Shader());
-		shader_->CompileNLink(vertexSrc.c_str(), fragmentSrc.c_str());
+		shader_->CompileAndLink(vertexSrc.c_str(), fragmentSrc.c_str());
 	}
 
 	Application::~Application()

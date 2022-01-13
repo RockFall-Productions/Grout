@@ -11,10 +11,14 @@ namespace Grout {
 		OpenGLVertexBuffer(float* vertices, uint32_t size);
 		virtual ~OpenGLVertexBuffer();
 
-		virtual void Bind() const;
-		virtual void Unbind() const;
+		virtual void Bind() const override;
+		virtual void Unbind() const override;
+
+		virtual const BufferLayout& get_layout() const { return layout_; };
+		virtual void set_layout(const BufferLayout& layout) { layout_ = layout; };
 	private:
 		uint32_t id_;
+		BufferLayout layout_;
 	};
 	//////////////////////////////////////////////////////////////////////
 
