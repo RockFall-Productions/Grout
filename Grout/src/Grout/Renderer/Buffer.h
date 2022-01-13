@@ -1,9 +1,8 @@
 #pragma once
 
-
 namespace Grout {
 
-	// Available shader data type supported by Grout renderer API
+	// Available shader's data types supported by Grout renderer API
 	enum class ShaderDataType {
 		None = 0,
 		Float, Float2, Float3, Float4,
@@ -53,6 +52,7 @@ namespace Grout {
 
 		}
 
+		// Returns the number of individual components per type
 		uint32_t get_component_count() const {
 			switch (type)
 			{
@@ -76,6 +76,7 @@ namespace Grout {
 	};
 
 	// Hold's the data that decribes how the buffer should be interpreted
+	// Used when assigning a Vertex Buffer to a Vertex Array Object (VAO)
 	class BufferLayout {
 	public:
 		BufferLayout() {}
@@ -95,8 +96,8 @@ namespace Grout {
 		std::vector<BufferElement>::const_iterator end() const { return elements_.end(); }
 
 	private:
-		// Calcula e altera o tamanho de cada offset de cada elemento
-		// Calcula o stride total deste buffer
+		// Calculates and sets the size of each offset for each element
+		// Also calculates the Stride os parent Buffer
 		void CalculateOffsetAndStride() {
 			uint32_t offset = 0;
 			this->stride_ = 0;
