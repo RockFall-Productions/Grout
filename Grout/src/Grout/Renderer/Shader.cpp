@@ -25,7 +25,7 @@ namespace Grout {
 			geometry_code = GetFileContents(geometry_file);
 		}
 
-		CompileNLink(vertex_code.c_str(), fragment_code.c_str(), geometry_code.c_str());
+		CompileAndLink(vertex_code.c_str(), fragment_code.c_str(), geometry_code.c_str());
 		
 	}
 
@@ -46,7 +46,7 @@ namespace Grout {
 		GRT_ASSERT(false, "Given shader file not found");
 	}
 
-	void Shader::CompileNLink(const char* vertex_code, const char* fragment_code, const char* geometry_code) {
+	void Shader::CompileAndLink(const char* vertex_code, const char* fragment_code, const char* geometry_code) {
 		const GLchar* vertex_source = vertex_code;
 		const GLchar* fragment_source = fragment_code;
 		const GLchar* geometry_source;
