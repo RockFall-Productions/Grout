@@ -1368,6 +1368,8 @@
     <ClInclude Include="src\Grout\Renderer\Buffer.h" />
     <ClInclude Include="src\Plataform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Grout\Renderer\Renderer.h" />
+    <ClInclude Include="src\Grout\Renderer\VertexArray.h" />
+    <ClInclude Include="src\Plataform\OpenGL\OpenGLVertexArray.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Grout\Application.cpp">
@@ -1406,6 +1408,8 @@
     <ClCompile Include="src\Grout\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Plataform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Grout\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Grout\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Plataform\OpenGL\OpenGLVertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Grout\Shaders\sprite.vs" />

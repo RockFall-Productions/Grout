@@ -44,7 +44,7 @@ namespace Grout {
 		std::unique_ptr<Shader> shader_;
 		std::unique_ptr<VertexBuffer> vertex_buffer_;
 		std::unique_ptr<IndexBuffer> index_buffer_;
-
+		 
 		// Layer Stack
 		LayerStack layer_stack_;
 
