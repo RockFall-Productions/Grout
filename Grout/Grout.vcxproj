@@ -143,6 +143,9 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Plataform\OpenGL\OpenGLRendererAPI.h" />
+    <ClInclude Include="src\Grout\Renderer\RenderCommand.h" />
+    <ClInclude Include="src\Grout\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Plataform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Grout\Renderer\Renderer.h" />
     <ClInclude Include="src\Plataform\OpenGL\OpenGLBuffer.h" />
@@ -587,6 +590,9 @@
     <ClInclude Include="src\Grout\Renderer\VertexArray.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Plataform\OpenGL\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\Grout\Renderer\RenderCommand.cpp" />
+    <ClCompile Include="src\Grout\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Plataform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Grout\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Plataform\OpenGL\OpenGLBuffer.cpp" />

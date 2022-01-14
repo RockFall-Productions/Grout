@@ -1,18 +1,15 @@
 #pragma once
 
-namespace Grout {
-	enum class RendererAPI {
-		None = 0,
-		OpenGL = 1,
-		Direct3D = 2,
-		Vulkan = 3,
-		Metal = 4
-	};
+#include "RenderCommand.h"
 
+namespace Grout {
 	class Renderer {
 	public:
-		inline static RendererAPI get_api() { return current_api_;  }
-	private:
-		static RendererAPI current_api_;
+		static void BeginScene();
+		static void EndScene();
+
+		static void Submit(const std::shared_ptr<VertexArray>& vertex_array);
+
+		inline static RendererAPI::API get_api() { return RendererAPI::get_api();  }
 	};
 }

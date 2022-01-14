@@ -30,9 +30,9 @@ namespace Grout {
 		void CompileAndLink(const char* vertex_code, const char* fragment_code, const char* geometry_code = nullptr);
 
 		// Activates the Shader Program
-		Shader& Activate();
+		Shader& Bind();
 		// Deactivates the Shader Program
-		void Deactivate();
+		void Unbind();
 
 		// Deletes the Shader Program
 		void Delete();

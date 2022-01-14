@@ -1,6 +1,19 @@
 #include "grtpch.h"
 #include "Renderer.h"
 
+#include "RenderCommand.h"
+
 namespace Grout {
-	RendererAPI Renderer::current_api_ = RendererAPI::OpenGL;
+	void Renderer::BeginScene()
+	{
+
+	}
+	void Renderer::EndScene()
+	{
+
+	}
+	void Renderer::Submit(const std::shared_ptr<VertexArray>& vertex_array)
+	{
+		RenderCommand::DrawIndexed(vertex_array);
+	}
 }

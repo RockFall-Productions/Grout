@@ -1,7 +1,9 @@
 #include "grtpch.h"
 #include "Application.h"
 
-#include <glad/glad.h>
+#include "Grout/Log.h"
+
+#include "Grout/Renderer/Renderer.h"
 
 #include "Grout/Input.h"
 
@@ -11,26 +13,6 @@ namespace Grout {
 	// https://stackoverflow.com/questions/1008019/c-singleton-design-pattern
 	Application* Application::instance_ = nullptr;
 
-	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type) {
-		switch (type)
-		{
-		case Grout::ShaderDataType::None:	return GL_NONE;
-		case Grout::ShaderDataType::Float:	return GL_FLOAT;
-		case Grout::ShaderDataType::Float2:	return GL_FLOAT;
-		case Grout::ShaderDataType::Float3:	return GL_FLOAT;
-		case Grout::ShaderDataType::Float4:	return GL_FLOAT;
-		case Grout::ShaderDataType::Int:	return GL_INT;
-		case Grout::ShaderDataType::Int2:	return GL_INT;
-		case Grout::ShaderDataType::Int3:	return GL_INT;
-		case Grout::ShaderDataType::Int4:	return GL_INT;
-		case Grout::ShaderDataType::Mat3:	return GL_FLOAT;
-		case Grout::ShaderDataType::Mat4:	return GL_FLOAT;
-		case Grout::ShaderDataType::Bool:	return GL_BOOL;
-		}
-
-		GRT_CORE_ASSERT(false, "ShaderDataTypeToOpenGLBaseType - The given type {0} is unknown", type);
-		return 0;
-	}
 
 	Application::Application()
 	{
@@ -47,47 +29,54 @@ namespace Grout {
 		layer_stack_.push_overlay(imgui_layer_);
 		imgui_layer_->OnAttach();
 
-		// Creating all buffers
-		glGenVertexArrays(1, &vertex_array_);
-		glBindVertexArray(vertex_array_);
+		// Creation of Vertex Array
+		vertex_array_.reset(VertexArray::Create());
 
-		float vertices[3 * 7] = {
+		float vertices[4 * 7] = {
 			// Position --- Color
-			-0.5f, -0.5f, 0.0f, 0.1f, 1.0f, 0.1f, 1.0f,
-			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 1.0f, 1.0f,
-			 0.0f,  0.5f, 0.0f, 1.0f, 0.0f, 0.4f, 1.0f
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+			 0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+			 0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
 		};
-		vertex_buffer_.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 
-		{
-			BufferLayout layout = {
-				{ ShaderDataType::Float3, "a_position"},
-				{ ShaderDataType::Float4, "a_color"}
-			};
-			vertex_buffer_->set_layout(layout);
-		}
-
-		uint32_t index = 0;
-		const auto& layout = vertex_buffer_->get_layout();
-		for (const auto& element : layout)
-		{
-			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(
-				index, 
-				element.get_component_count(), 
-				ShaderDataTypeToOpenGLBaseType(element.type), 
-				element.normalized ? GL_TRUE : GL_FALSE,
-				vertex_buffer_->get_layout().get_stride(), 
-				(const void*)element.offset
-			);
-			++index;
-		}
-
-		uint32_t indices[] = {
-			0, 1, 2
+		std::shared_ptr<VertexBuffer> vertex_buffer;
+		// Creation of Vertex Buffer
+		vertex_buffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+		// Setting the Vertex Buffer Layout
+		BufferLayout layout = {
+			{ ShaderDataType::Float3, "a_position"},
+			{ ShaderDataType::Float4, "a_color"}
 		};
-		index_buffer_.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
-		index_buffer_->Bind();
+		vertex_buffer->set_layout(layout);
+		// Adding this VertexBuffer to the VertexArray
+		vertex_array_->AddVertexBuffer(vertex_buffer);
+
+		// Setting up the Index Buffer and adding it to the VertexArray
+		uint32_t indices[] = { 0, 1, 2};
+		std::shared_ptr<IndexBuffer> index_buffer;
+		index_buffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		vertex_array_->SetIndexBuffer(index_buffer);
+
+		square_VA_.reset(VertexArray::Create());
+		float vertices2[4 * 3] = {
+			// Position --- Color
+			-0.5f, -0.5f, 0.0f,
+			 0.5f, -0.5f, 0.0f,
+			 0.5f,  0.5f, 0.0f,
+			-0.5f,  0.5f, 0.0f
+		};
+		std::shared_ptr<VertexBuffer> squareVB;
+		squareVB.reset(VertexBuffer::Create(vertices2, sizeof(vertices2)));
+
+		squareVB->set_layout({ { ShaderDataType::Float3, "a_position"} });
+
+		square_VA_->AddVertexBuffer(squareVB);
+
+		uint32_t indices2[] = { 0, 1, 2, 2, 3, 0 };
+		std::shared_ptr<IndexBuffer> squareIB;
+		squareIB.reset(IndexBuffer::Create(indices2, sizeof(indices2) / sizeof(uint32_t)));
+		square_VA_->SetIndexBuffer(squareIB);
+
 
 		std::string vertexSrc = R"(
 			#version 330 core
@@ -118,8 +107,31 @@ namespace Grout {
 			}
 		)";
 
+		std::string vertexSrc2 = R"(
+			#version 330 core
+
+			layout(location = 0) in vec3 a_position;
+
+			out vec3 v_position;
+
+			void main() {
+				v_position = a_position;
+				gl_Position = vec4(a_position, 1.0);
+			}
+		)";
+
+		std::string fragmentSrc2 = R"(
+			#version 330 core
+
+			layout(location = 0) out vec4 color;
+
+			void main() {
+				color = vec4(0.0f, 0.0f, 0.0f, 1.0f);
+			}
+		)";
+
 		shader_.reset(new Shader());
-		shader_->CompileAndLink(vertexSrc.c_str(), fragmentSrc.c_str());
+		shader_->CompileAndLink(vertexSrc2.c_str(), fragmentSrc2.c_str());
 	}
 
 	Application::~Application()
@@ -153,12 +165,19 @@ namespace Grout {
 
 	void Application::Run() {
 		while (running_) {
-			glClearColor(0.3f, 0.3f, 1.0f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT);
+			// Clears the background color
+			RenderCommand::SetClearColor({1.0f, 0.0f, 1.0f, 1.0f});
+			RenderCommand::Clear();
 
-			shader_->Activate();
-			glBindVertexArray(vertex_array_);
-			glDrawElements(GL_TRIANGLES, index_buffer_->get_count(), GL_UNSIGNED_INT, nullptr);
+			// 
+			Renderer::BeginScene();
+
+			shader_->Bind();
+			Renderer::Submit(square_VA_);
+
+			Renderer::EndScene();
+			// To-do: Threads
+			//Renderer::Flush();
 
 			// Loop through all layers
 			for (Layer* layer : layer_stack_) {

@@ -1,19 +1,18 @@
 #include "grtpch.h"
 #include "Buffer.h"
 
-#include "Renderer.h"
-
+#include "RendererAPI.h"
 #include "Plataform/OpenGL/OpenGLBuffer.h"
 
 namespace Grout {
 	//////////////////////////// VERTEX BUFFER ///////////////////////////
 	VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size)
 	{
-		switch (Renderer::get_api()) {
-		case RendererAPI::None: 
+		switch (RendererAPI::get_api()) {
+		case RendererAPI::API::None:
 								GRT_CORE_ASSERT(false, "RendererAPI::None is not supported!");
 								return nullptr;
-		case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 								return new OpenGLVertexBuffer(vertices, size);
 								break;
 		}
@@ -25,11 +24,11 @@ namespace Grout {
 	//////////////////////////// INDEX BUFFER ////////////////////////////
 	IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t size)
 	{
-		switch (Renderer::get_api()) {
-		case RendererAPI::None:
+		switch (RendererAPI::get_api()) {
+		case RendererAPI::API::None:
 								GRT_CORE_ASSERT(false, "RendererAPI::None is not supported!");
 								return nullptr;
-		case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 								return new OpenGLIndexBuffer(indices, size);
 								break;
 		}
