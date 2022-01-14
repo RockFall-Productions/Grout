@@ -15,6 +15,8 @@ namespace Grout {
 		virtual void Unbind() const override;
 
 		virtual const BufferLayout& get_layout() const { return layout_; };
+		// To-Do: Keeps track of it's VertexArray parent and update it when
+		// the layout changes
 		virtual void set_layout(const BufferLayout& layout) { layout_ = layout; };
 	private:
 		uint32_t id_;

@@ -96,12 +96,12 @@ namespace Grout {
 			glDeleteShader(geometry_shader);
 	}
 
-	Shader& Shader::Activate() {
+	Shader& Shader::Bind() {
 		glUseProgram(this->ID);
 		return *this;
 	}
 
-	void Shader::Deactivate()
+	void Shader::Unbind()
 	{
 		glUseProgram(0);
 	}
@@ -144,55 +144,55 @@ namespace Grout {
 	void Shader::SetFloat(const char* name, float value, bool use_shader)
 	{
 		if (use_shader)
-			this->Activate();
+			this->Bind();
 		glUniform1f(glGetUniformLocation(this->ID, name), value);
 	}
 	void Shader::SetInteger(const char* name, int value, bool use_shader)
 	{
 		if (use_shader)
-			this->Activate();
+			this->Bind();
 		glUniform1i(glGetUniformLocation(this->ID, name), value);
 	}
 	void Shader::SetVector2f(const char* name, float x, float y, bool use_shader)
 	{
 		if (use_shader)
-			this->Activate();
+			this->Bind();
 		glUniform2f(glGetUniformLocation(this->ID, name), x, y);
 	}
 	void Shader::SetVector2f(const char* name, const glm::vec2& value, bool use_shader)
 	{
 		if (use_shader)
-			this->Activate();
+			this->Bind();
 		glUniform2f(glGetUniformLocation(this->ID, name), value.x, value.y);
 	}
 	void Shader::SetVector3f(const char* name, float x, float y, float z, bool use_shader)
 	{
 		if (use_shader)
-			this->Activate();
+			this->Bind();
 		glUniform3f(glGetUniformLocation(this->ID, name), x, y, z);
 	}
 	void Shader::SetVector3f(const char* name, const glm::vec3& value, bool use_shader)
 	{
 		if (use_shader)
-			this->Activate();
+			this->Bind();
 		glUniform3f(glGetUniformLocation(this->ID, name), value.x, value.y, value.z);
 	}
 	void Shader::SetVector4f(const char* name, float x, float y, float z, float w, bool use_shader)
 	{
 		if (use_shader)
-			this->Activate();
+			this->Bind();
 		glUniform4f(glGetUniformLocation(this->ID, name), x, y, z, w);
 	}
 	void Shader::SetVector4f(const char* name, const glm::vec4& value, bool use_shader)
 	{
 		if (use_shader)
-			this->Activate();
+			this->Bind();
 		glUniform4f(glGetUniformLocation(this->ID, name), value.x, value.y, value.z, value.w);
 	}
 	void Shader::SetMatrix4(const char* name, const glm::mat4& matrix, bool use_shader)
 	{
 		if (use_shader)
-			this->Activate();
+			this->Bind();
 		glUniformMatrix4fv(glGetUniformLocation(this->ID, name), 1, false, glm::value_ptr(matrix));
 	}
 }

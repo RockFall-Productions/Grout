@@ -2,14 +2,15 @@
 #include "VertexArray.h"
 
 #include "Grout/Renderer/Renderer.h"
+#include "Plataform/OpenGL/OpenGLVertexArray.h"
 
 namespace Grout {
 	VertexArray* VertexArray::Create() {
 		switch (Renderer::get_api()) {
-		case RendererAPI::None:
+		case RendererAPI::API::None:
 								GRT_CORE_ASSERT(false, "RendererAPI::None is not supported!");
 								return nullptr;
-		case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 								return new OpenGLVertexArray();
 								break;
 		}
