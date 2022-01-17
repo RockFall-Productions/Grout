@@ -143,6 +143,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Grout\Renderer\Camera.h" />
     <ClInclude Include="src\Plataform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Grout\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Grout\Renderer\RendererAPI.h" />
@@ -590,6 +591,7 @@
     <ClInclude Include="src\Grout\Renderer\VertexArray.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Grout\Renderer\Camera.cpp" />
     <ClCompile Include="src\Plataform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Grout\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Grout\Renderer\RendererAPI.cpp" />
@@ -626,6 +628,8 @@
   <ItemGroup>
     <None Include="src\Grout\Shaders\sprite.frag" />
     <None Include="src\Grout\Shaders\sprite.vs" />
+    <None Include="src\Grout\Shaders\test.frag" />
+    <None Include="src\Grout\Shaders\test.v" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

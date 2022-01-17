@@ -19,7 +19,7 @@ namespace Grout {
 	class Shader {
 	public:
 		//  -- Constructors --
-		Shader() : ID(0) { }
+		Shader() : id_(0) { }
 		Shader(const char* vertex_file, const char* fragment_file, const char* geometry_file = nullptr);
 		~Shader();
 
@@ -38,15 +38,15 @@ namespace Grout {
 		void Delete();
 
 		// Sets for Uniform shader variables
-		void SetFloat(const char* name, float value, bool useShader = false);
-		void SetInteger(const char* name, int value, bool useShader = false);
-		void SetVector2f(const char* name, float x, float y, bool use_shader = false);
-		void SetVector2f(const char* name, const glm::vec2& value, bool use_shader = false);
-		void SetVector3f(const char* name, float x, float y, float z, bool use_shader = false);
-		void SetVector3f(const char* name, const glm::vec3& value, bool use_shader = false);
-		void SetVector4f(const char* name, float x, float y, float z, float w, bool use_shader = false);
-		void SetVector4f(const char* name, const glm::vec4& value, bool use_shader = false);
-		void SetMatrix4(const char* name, const glm::mat4& matrix, bool use_shader = false);
+		void uniform_set_float(const char* name, float value, bool useShader = false);
+		void uniform_set_integer(const char* name, int value, bool useShader = false);
+		void uniform_set_vector2f(const char* name, float x, float y, bool use_shader = false);
+		void uniform_set_vector2f(const char* name, const glm::vec2& value, bool use_shader = false);
+		void uniform_set_vector3f(const char* name, float x, float y, float z, bool use_shader = false);
+		void uniform_set_vector3f(const char* name, const glm::vec3& value, bool use_shader = false);
+		void uniform_set_vector4f(const char* name, float x, float y, float z, float w, bool use_shader = false);
+		void uniform_set_vector4f(const char* name, const glm::vec4& value, bool use_shader = false);
+		void uniform_set_matrix4(const char* name, const glm::mat4& matrix, bool use_shader = false);
 	private:
 		// Checks for error on compilation or linking of shaders and prints them
 		void checkCompileErrors(uint32_t shader, const char* type);
@@ -55,6 +55,6 @@ namespace Grout {
 		std::string GetFileContents(const char* file_path);
 	private:
 		// Reference ID of the Shader Program
-		uint32_t ID;
+		uint32_t id_;
 	};
 }
