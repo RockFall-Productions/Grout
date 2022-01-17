@@ -8,7 +8,7 @@ namespace Grout {
 	{
 		Delete();
 	}
-	Shader::Shader(const char* vertex_file, const char* fragment_file, const char* geometry_file) : ID(0)
+	Shader::Shader(const char* vertex_file, const char* fragment_file, const char* geometry_file) : id_(0)
 	{
 		LoadShaderFiles(vertex_file, fragment_file, geometry_file);
 	}
@@ -42,7 +42,7 @@ namespace Grout {
 			return (contents);
 		}
 
-		GRT_CORE_ERROR("Shader file ({0}) not found in Shader::GetFileContents", file_path);
+		GRT_CORE_ERROR("Shader file (\"{0}\") not found in Shader::GetFileContents", file_path);
 		GRT_ASSERT(false, "Given shader file not found");
 	}
 
@@ -76,18 +76,18 @@ namespace Grout {
 		}
 
 		// Shader Program - creation and linking of compiled shaders
-		this->ID = glCreateProgram();
-		glAttachShader(this->ID, vertex_shader);
-		glAttachShader(this->ID, fragment_shader);
+		this->id_ = glCreateProgram();
+		glAttachShader(this->id_, vertex_shader);
+		glAttachShader(this->id_, fragment_shader);
 		if (geometry_code != nullptr)
-			glAttachShader(this->ID, geometry_shader);
-		glLinkProgram(this->ID);
-		checkCompileErrors(this->ID, "PROGRAM");
+			glAttachShader(this->id_, geometry_shader);
+		glLinkProgram(this->id_);
+		checkCompileErrors(this->id_, "PROGRAM");
 
-		glDetachShader(ID, vertex_shader);
-		glDetachShader(ID, fragment_shader);
+		glDetachShader(id_, vertex_shader);
+		glDetachShader(id_, fragment_shader);
 		if (geometry_code != nullptr)
-			glDetachShader(ID, geometry_shader);
+			glDetachShader(id_, geometry_shader);
 
 		// Cleans already stored objects
 		glDeleteShader(vertex_shader);
@@ -97,7 +97,7 @@ namespace Grout {
 	}
 
 	Shader& Shader::Bind() {
-		glUseProgram(this->ID);
+		glUseProgram(this->id_);
 		return *this;
 	}
 
@@ -107,7 +107,7 @@ namespace Grout {
 	}
 
 	void Shader::Delete() {
-		glDeleteProgram(ID);
+		glDeleteProgram(id_);
 	}
 
 	void Shader::checkCompileErrors(uint32_t shader, const char* type)
@@ -141,58 +141,58 @@ namespace Grout {
 	}
 
 	// ------------------------ UNIFORM SETTER ------------------------
-	void Shader::SetFloat(const char* name, float value, bool use_shader)
+	void Shader::uniform_set_float(const char* name, float value, bool use_shader)
 	{
 		if (use_shader)
 			this->Bind();
-		glUniform1f(glGetUniformLocation(this->ID, name), value);
+		glUniform1f(glGetUniformLocation(this->id_, name), value);
 	}
-	void Shader::SetInteger(const char* name, int value, bool use_shader)
+	void Shader::uniform_set_integer(const char* name, int value, bool use_shader)
 	{
 		if (use_shader)
 			this->Bind();
-		glUniform1i(glGetUniformLocation(this->ID, name), value);
+		glUniform1i(glGetUniformLocation(this->id_, name), value);
 	}
-	void Shader::SetVector2f(const char* name, float x, float y, bool use_shader)
+	void Shader::uniform_set_vector2f(const char* name, float x, float y, bool use_shader)
 	{
 		if (use_shader)
 			this->Bind();
-		glUniform2f(glGetUniformLocation(this->ID, name), x, y);
+		glUniform2f(glGetUniformLocation(this->id_, name), x, y);
 	}
-	void Shader::SetVector2f(const char* name, const glm::vec2& value, bool use_shader)
+	void Shader::uniform_set_vector2f(const char* name, const glm::vec2& value, bool use_shader)
 	{
 		if (use_shader)
 			this->Bind();
-		glUniform2f(glGetUniformLocation(this->ID, name), value.x, value.y);
+		glUniform2f(glGetUniformLocation(this->id_, name), value.x, value.y);
 	}
-	void Shader::SetVector3f(const char* name, float x, float y, float z, bool use_shader)
+	void Shader::uniform_set_vector3f(const char* name, float x, float y, float z, bool use_shader)
 	{
 		if (use_shader)
 			this->Bind();
-		glUniform3f(glGetUniformLocation(this->ID, name), x, y, z);
+		glUniform3f(glGetUniformLocation(this->id_, name), x, y, z);
 	}
-	void Shader::SetVector3f(const char* name, const glm::vec3& value, bool use_shader)
+	void Shader::uniform_set_vector3f(const char* name, const glm::vec3& value, bool use_shader)
 	{
 		if (use_shader)
 			this->Bind();
-		glUniform3f(glGetUniformLocation(this->ID, name), value.x, value.y, value.z);
+		glUniform3f(glGetUniformLocation(this->id_, name), value.x, value.y, value.z);
 	}
-	void Shader::SetVector4f(const char* name, float x, float y, float z, float w, bool use_shader)
+	void Shader::uniform_set_vector4f(const char* name, float x, float y, float z, float w, bool use_shader)
 	{
 		if (use_shader)
 			this->Bind();
-		glUniform4f(glGetUniformLocation(this->ID, name), x, y, z, w);
+		glUniform4f(glGetUniformLocation(this->id_, name), x, y, z, w);
 	}
-	void Shader::SetVector4f(const char* name, const glm::vec4& value, bool use_shader)
+	void Shader::uniform_set_vector4f(const char* name, const glm::vec4& value, bool use_shader)
 	{
 		if (use_shader)
 			this->Bind();
-		glUniform4f(glGetUniformLocation(this->ID, name), value.x, value.y, value.z, value.w);
+		glUniform4f(glGetUniformLocation(this->id_, name), value.x, value.y, value.z, value.w);
 	}
-	void Shader::SetMatrix4(const char* name, const glm::mat4& matrix, bool use_shader)
+	void Shader::uniform_set_matrix4(const char* name, const glm::mat4& matrix, bool use_shader)
 	{
 		if (use_shader)
 			this->Bind();
-		glUniformMatrix4fv(glGetUniformLocation(this->ID, name), 1, false, glm::value_ptr(matrix));
+		glUniformMatrix4fv(glGetUniformLocation(this->id_, name), 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 }

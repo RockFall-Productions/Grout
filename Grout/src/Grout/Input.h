@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Grout/Core.h"
+#include "KeyCodes.h"
 
 namespace Grout {
 	// Static class interface that deals with everything related to input

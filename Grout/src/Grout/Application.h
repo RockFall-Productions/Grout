@@ -13,6 +13,8 @@
 #include <Grout/Renderer/VertexArray.h>
 #include <Grout/Renderer/Shader.h>
 
+#include "Grout/Renderer/Camera.h"
+
 namespace Grout {
 	class  Application
 	{
@@ -45,6 +47,8 @@ namespace Grout {
 		std::shared_ptr<VertexArray> vertex_array_;
 
 		std::shared_ptr<VertexArray> square_VA_;
+
+		Camera camera_;
 		
 
 		// Layer Stack

@@ -15,6 +15,7 @@ namespace Grout {
 
 
 	Application::Application()
+		: camera_(glm::vec3(0.0f, 0.0f, 0.0f), 3.2f, 1.8f)
 	{
 		// Set singleton
 		GRT_CORE_ASSERT(!instance_, "Trying to create more than one application");
@@ -58,17 +59,17 @@ namespace Grout {
 		vertex_array_->SetIndexBuffer(index_buffer);
 
 		square_VA_.reset(VertexArray::Create());
-		float vertices2[4 * 3] = {
+		float vertices2[4 * 7] = {
 			// Position --- Color
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
+			-0.5f, -0.5f, 0.0f, 1.0f, 0.2f, 0.3f, 1.0f,
+			 0.5f, -0.5f, 0.0f, 0.0f, 0.2f, 0.3f, 1.0f,
+			 0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.3f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 0.2f, 1.0f, 1.0f
 		};
 		std::shared_ptr<VertexBuffer> squareVB;
 		squareVB.reset(VertexBuffer::Create(vertices2, sizeof(vertices2)));
 
-		squareVB->set_layout({ { ShaderDataType::Float3, "a_position"} });
+		squareVB->set_layout(layout);
 
 		square_VA_->AddVertexBuffer(squareVB);
 
@@ -77,12 +78,13 @@ namespace Grout {
 		squareIB.reset(IndexBuffer::Create(indices2, sizeof(indices2) / sizeof(uint32_t)));
 		square_VA_->SetIndexBuffer(squareIB);
 
-
 		std::string vertexSrc = R"(
 			#version 330 core
 
 			layout(location = 0) in vec3 a_position;
 			layout(location = 1) in vec4 a_color;
+
+			uniform mat4 u_view_projection;
 
 			out vec3 v_position;
 			out vec4 v_color;
@@ -90,7 +92,7 @@ namespace Grout {
 			void main() {
 				v_position = a_position;
 				v_color = a_color;
-				gl_Position = vec4(a_position, 1.0);
+				gl_Position = u_view_projection * vec4(a_position, 1.0);
 			}
 		)";
 
@@ -131,7 +133,7 @@ namespace Grout {
 		)";
 
 		shader_.reset(new Shader());
-		shader_->CompileAndLink(vertexSrc2.c_str(), fragmentSrc2.c_str());
+		shader_->CompileAndLink(vertexSrc.c_str(), fragmentSrc.c_str());
 	}
 
 	Application::~Application()
@@ -167,19 +169,38 @@ namespace Grout {
 		while (running_) {
 			// Clears the background color
 			RenderCommand::SetClearColor({1.0f, 0.0f, 1.0f, 1.0f});
-			RenderCommand::Clear();
+			RenderCommand::Clear();	
 
-			// 
-			Renderer::BeginScene();
+			if (Input::is_key_pressed(GRT_KEY_Q)) {
+				camera_.set_rotation(camera_.get_rotation() + glm::vec3(0.0f, 0.0f, 1.0f));
+			} else if (Input::is_key_pressed(GRT_KEY_E)) {
+				camera_.set_rotation(camera_.get_rotation() - glm::vec3(0.0f, 0.0f, 1.0f));
+			}
+			if (Input::is_key_pressed(GRT_KEY_A)) {
+				camera_.set_position(camera_.get_position() - glm::vec3(0.05f, 0.0f, 0.0f));
+			}
+			else if (Input::is_key_pressed(GRT_KEY_D)) {
+				camera_.set_position(camera_.get_position() + glm::vec3(0.05f, 0.0f, 0.0f));
+			}
+			if (Input::is_key_pressed(GRT_KEY_W)) {
+				camera_.set_position(camera_.get_position() + glm::vec3(0.0f, 0.05f, 0.0f));
+			}
+			else if (Input::is_key_pressed(GRT_KEY_S)) {
+				camera_.set_position(camera_.get_position() - glm::vec3(0.0f, 0.05f, 0.0f));
+			}
 
-			shader_->Bind();
-			Renderer::Submit(square_VA_);
+			//camera_.set_rotation(glm::vec3(0.0f, 0.0f, 45.0f));
+			//camera_.set_position(glm::vec3(0.5f, 0.5f, 0.0f));
 
+			// Rendering the Scene
+			Renderer::BeginScene(camera_);
+			Renderer::Submit(shader_, square_VA_);
 			Renderer::EndScene();
+
 			// To-do: Threads
 			//Renderer::Flush();
 
-			// Loop through all layers
+			// Loop through all layers and update them
 			for (Layer* layer : layer_stack_) {
 				layer->OnUpdate();
  			}
