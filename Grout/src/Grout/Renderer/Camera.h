@@ -1,30 +1,51 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include "Grout/Events/Event.h"
+#include "Grout/Events/MouseEvent.h"
 
 namespace Grout {
 	class Camera
 	{
 	public:
+		// TODO: Builder constructor
 		Camera(const glm::vec3& position = (glm::vec3(0)), float width = 600.0f, float height = 400.0f);
 		//Camera(const glm::vec3& position = (glm::vec3(0)), const glm::vec3& rotation = (glm::vec3(0)), float width = 600.0f, float height = 400.0f);
+	
 	public:
-		// ----- SETTERS AND GETTERS -----/
-		void			 set_position(const glm::vec3& position) { position_ = position; UpdateViewMatrixOnly();  }
-		const glm::vec3& get_position() const { return position_; }
+		//////////////////////////////////////// SETTERS AND GETTERS ////////////////////////////////////////
+		void add_position (const glm::vec3& position) { position_ += position;		UpdateViewMatrixOnly();  }
+		void add_rotation (const glm::vec3& rotation) { rotation_ += rotation;		UpdateViewMatrixOnly();  }
+		void add_speed	  (const glm::vec3& speed)	  { speed_ += speed;			UpdateViewMatrixOnly(); }
+		void add_speed	  (const float& speed)		  { speed_ += speed;			UpdateViewMatrixOnly(); }
 
-		void			 set_rotation(const glm::vec3& rotation) { rotation_ = rotation; UpdateViewMatrixOnly();  }
-		const glm::vec3& get_rotation() const { return rotation_; }
+		void set_position (const glm::vec3& position) { position_ = position;		UpdateViewMatrixOnly();  }
+		void set_rotation (const glm::vec3& rotation) { rotation_ = rotation;		UpdateViewMatrixOnly();  }
+		void set_speed	  (const glm::vec3& speed)	  { speed_ = speed;				UpdateViewMatrixOnly(); }
+		void set_speed	  (const float& speed)		  { speed_ = glm::vec3(speed);	UpdateViewMatrixOnly(); }
 
+		const glm::vec3& get_position()	const { return position_; }
+		const glm::vec3& get_rotation()	const { return rotation_; }
+		const glm::vec3& get_speed()	const { return position_; }
+
+		glm::quat get_orientation() const;
+		glm::vec3 get_up_direction() const;
+		glm::vec3 get_right_direction() const;
+		glm::vec3 get_forward_direction() const;
+
+		const glm::mat4& get_viewprojection_matrix() const { return view_projection_matrix_;  }
 		const glm::mat4& get_projection_matrix()	 const { return projection_matrix_;  }
 		const glm::mat4& get_view_matrix()			 const { return view_matrix_;  }
-		const glm::mat4& get_viewprojection_matrix() const { return view_projection_matrix_;  }
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	private:
-		// 
-		void UpdateProjectionMatrixOnly();
-		void UpdateViewMatrixOnly();
+		// Updates both the View and Projection Matrix
 		void UpdateViewProjectionMatrix();
-		void UpdateCameraVectors();
+		// Updates the PROJECTION Matrix (and the ViewProjection)
+		void UpdateProjectionMatrixOnly();
+		// Updates the VIEW Matrix (and the ViewProjection)
+		void UpdateViewMatrixOnly();
 	
 	private:
 		//  ENUMS
@@ -47,19 +68,19 @@ namespace Grout {
 		
 		// -- World Space variables --
 		glm::vec3 position_;
+		// Rotation in X, Y and Z axis (euler degrees °)
+		glm::vec3 rotation_ = glm::vec3(0.0f);
+		glm::vec3 speed_ = glm::vec3(0.0f);
+
+		// Viewport
 		float width_;
 		float height_;
-		// TODO: Quaternions
-		// Rotation in X, Y and Z in euler degrees
-		glm::vec3 rotation_		= glm::vec3(0.0f);
-		glm::vec3 foward_vector_ = glm::vec3(0.0f);
-		glm::vec3 right_vector_ = glm::vec3(0.0f);
-		glm::vec3 up_vector_	= glm::vec3(0.0f);
+
 		// The point in which the camera is looking at
 		// TODO: Add target tracking system
-		//glm::vec3 target_;
+		//glm::vec3 focal_point_;
 
-		// In degrees
+		// Angle of visibility from center (for PERSPECTIVE projection ONLY)
 		float field_of_view_ = 45.0f;
 		// Width / Height
 		float aspect_;
@@ -74,7 +95,7 @@ namespace Grout {
 		glm::mat4 world_to_camera_matrix = glm::mat4(0);
 		
 		// Switch between orthographic to perspective
-		CameraProjectionType projection_type_ = CameraProjectionType::Orthographic;
+		CameraProjectionType projection_type_ = CameraProjectionType::Perspective;
 
 		// Transforms the view space into clip space
 		glm::mat4 projection_matrix_ = glm::mat4(0);
