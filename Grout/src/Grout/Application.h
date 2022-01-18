@@ -42,15 +42,6 @@ namespace Grout {
 		ImGuiLayer* imgui_layer_;
 		bool running_ = true;
 
-		// Buffer
-		std::shared_ptr<Shader> shader_;
-		std::shared_ptr<VertexArray> vertex_array_;
-
-		std::shared_ptr<VertexArray> square_VA_;
-
-		Camera camera_;
-		
-
 		// Layer Stack
 		LayerStack layer_stack_;
 
