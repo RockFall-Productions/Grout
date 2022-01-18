@@ -2,7 +2,7 @@
 #include "Camera.h"
 
 
-#include "Grout/Core.h"
+#include "Grout/Core/Core.h"
 
 // TODO: maybe remove?
 #include "glm/gtc/matrix_transform.hpp"

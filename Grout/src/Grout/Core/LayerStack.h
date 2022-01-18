@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Grout/Core.h"
-#include "Grout/Layer.h"
+#include "Grout/Core/Core.h"
+#include "Grout/Core/Layer.h"
 
 #include <vector>
 

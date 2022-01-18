@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Grout/Window.h"
+#include "Grout/Core/Window.h"
 #include "Grout/Renderer/RendererContext.h"
 
 #include <GLFW/glfw3.h>

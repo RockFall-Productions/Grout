@@ -3,14 +3,15 @@
 // To be used by external Grout applications
 // Makes possible the use of #include <Grout.h>
 
-#include "Grout/Application.h"
-#include "Grout/Layer.h"
-#include "Grout/Log.h"
+#include "Grout/Core/Application.h"
+#include "Grout/Core/Layer.h"
+#include "Grout/Core/Log.h"
+#include "Grout/Core/Time.h"
 
 // ------------ Input related ------------
-#include "Grout/Input.h"
-#include "Grout/MouseButtonCodes.h"
-#include "Grout/KeyCodes.h"
+#include "Grout/Core/Input.h"
+#include "Grout/Core/MouseCodes.h"
+#include "Grout/Core/KeyCodes.h"
 // ----------------------------------
 
 
@@ -32,5 +33,5 @@
 
 
 // --------- Entry Point -----------
-#include "Grout/EntryPoint.h"
+#include "Grout/Core/EntryPoint.h"
 // ---------------------------------

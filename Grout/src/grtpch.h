@@ -9,12 +9,14 @@
 #include <functional>
 
 #include <string>
-#include<sstream>
+#include <sstream>
+#include <array>
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
 
-#include "Grout/Log.h"
+#include "Grout/Core/Core.h"
+#include "Grout/Core/Log.h"
 
 #ifdef GRT_PLATAFORM_WINDOWS
 	#include <Windows.h>

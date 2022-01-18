@@ -193,53 +193,49 @@ public:
 
 	void OnUpdate() override {
 
+		GRT_TRACE("Delta time: {0}     |     ROTATION: {1}", Grout::Time::delta_time_f(), camera_.get_rotation().z);
+
 		// Clears the background color
 		Grout::RenderCommand::SetClearColor({ 1.0f, 0.0f, 1.0f, 1.0f });
 		Grout::RenderCommand::Clear();
 
 		// Z ROTATION
 		if (Grout::Input::is_key_pressed(GRT_KEY_Q)) 
-			camera_.add_rotation(glm::vec3(0.0f, 0.0f, 0.1f));
+			camera_.add_rotation(glm::vec3(0.0f, 0.0f, 1.0f) * Grout::Time::delta_time_f());
 		
 		else if (Grout::Input::is_key_pressed(GRT_KEY_E))
-			camera_.add_rotation(glm::vec3(0.0f, 0.0f, -0.1f));
+			camera_.add_rotation(glm::vec3(0.0f, 0.0f, -1.0f) * Grout::Time::delta_time_f());
 		// Y ROTATION
 		if (Grout::Input::is_key_pressed(GRT_KEY_R))
-			camera_.add_rotation(glm::vec3(0.0f, 0.1f, 0.0f));
+			camera_.add_rotation(glm::vec3(0.0f, 1.0f, 0.0f) * Grout::Time::delta_time_f());
 
 		else if (Grout::Input::is_key_pressed(GRT_KEY_T))
-			camera_.add_rotation(glm::vec3(0.0f, -0.1f, 0.0f));
+			camera_.add_rotation(glm::vec3(0.0f, -1.0f, 0.0f) * Grout::Time::delta_time_f());
 		// X ROTATION
 		if (Grout::Input::is_key_pressed(GRT_KEY_Z))
-			camera_.add_rotation(glm::vec3(0.1f, 0.0f, 0.0f));
+			camera_.add_rotation(glm::vec3(1.0f, 0.0f, 0.0f) * Grout::Time::delta_time_f());
 
 		else if (Grout::Input::is_key_pressed(GRT_KEY_X))
-			camera_.add_rotation(glm::vec3(-0.1f, 0.0f, 0.0f));
-
-		if (Grout::Input::is_key_pressed(GRT_KEY_Q))
-			camera_.add_rotation(glm::vec3(0.0f, 0.0f, 0.1f));
-
-		else if (Grout::Input::is_key_pressed(GRT_KEY_E))
-			camera_.add_rotation(glm::vec3(0.0f, 0.0f, -0.1f));
+			camera_.add_rotation(glm::vec3(-1.0f, 0.0f, 0.0f) * Grout::Time::delta_time_f());
 		
+
 		if (Grout::Input::is_key_pressed(GRT_KEY_A))
-			camera_.add_position(glm::vec3(-0.05f, 0.0f, 0.0f));
+			camera_.add_position(glm::vec3(-1.0f, 0.0f, 0.0f) * Grout::Time::delta_time_f());
 		
 		else if (Grout::Input::is_key_pressed(GRT_KEY_D))
-			camera_.add_position(glm::vec3(0.05f, 0.0f, 0.0f));
+			camera_.add_position(glm::vec3(1.0f, 0.0f, 0.0f) * Grout::Time::delta_time_f());
 		
 		if (Grout::Input::is_key_pressed(GRT_KEY_W))
-			camera_.add_position(glm::vec3(0.0f, 0.05f, 0.0f));
+			camera_.add_position(glm::vec3(0.0f, 1.0f, 0.0f) * Grout::Time::delta_time_f());
 		
 		else if (Grout::Input::is_key_pressed(GRT_KEY_S))
-			camera_.add_position(glm::vec3(0.0f, -0.05f, 0.0f));
+			camera_.add_position(glm::vec3(0.0f, -1.0f, 0.0f) * Grout::Time::delta_time_f());
 
 		if (Grout::Input::is_key_pressed(GRT_KEY_F))
-			camera_.add_position(glm::vec3(0.0f, 0.0f, -0.5f));
+			camera_.add_position(glm::vec3(0.0f, 0.0f, -1.0f) * Grout::Time::delta_time_f());
 
 		else if (Grout::Input::is_key_pressed(GRT_KEY_G))
-			camera_.add_position(glm::vec3(0.0f, 0.0f, 0.5f));
-		
+			camera_.add_position(glm::vec3(0.0f, 0.0f, 1.0f) * Grout::Time::delta_time_f());
 
 		//camera_.set_rotation(glm::vec3(0.0f, 0.0f, 45.0f));
 		//camera_.set_position(glm::vec3(0.5f, 0.5f, 0.0f));
