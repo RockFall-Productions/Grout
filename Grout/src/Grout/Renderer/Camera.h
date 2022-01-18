@@ -4,6 +4,8 @@
 #include "Grout/Events/Event.h"
 #include "Grout/Events/MouseEvent.h"
 
+#include "Grout/Scene/Transform.h"
+
 namespace Grout {
 	class Camera
 	{
@@ -14,28 +16,19 @@ namespace Grout {
 	
 	public:
 		//////////////////////////////////////// SETTERS AND GETTERS ////////////////////////////////////////
-		void add_position (const glm::vec3& position) { position_ += position;		UpdateViewMatrixOnly();  }
-		void add_rotation (const glm::vec3& rotation) { rotation_ += rotation;		UpdateViewMatrixOnly();  }
-		void add_speed	  (const glm::vec3& speed)	  { speed_ += speed;			UpdateViewMatrixOnly(); }
-		void add_speed	  (const float& speed)		  { speed_ += speed;			UpdateViewMatrixOnly(); }
+		void add_speed(const glm::vec3& speed)	{ speed_ += speed; }
+		void add_speed(const float& speed)		{ speed_ += speed; }
 
-		void set_position (const glm::vec3& position) { position_ = position;		UpdateViewMatrixOnly();  }
-		void set_rotation (const glm::vec3& rotation) { rotation_ = rotation;		UpdateViewMatrixOnly();  }
-		void set_speed	  (const glm::vec3& speed)	  { speed_ = speed;				UpdateViewMatrixOnly(); }
-		void set_speed	  (const float& speed)		  { speed_ = glm::vec3(speed);	UpdateViewMatrixOnly(); }
+		void set_speed(const glm::vec3& speed)	{ speed_ = speed; }
+		void set_speed(const float& speed)		{ speed_ = glm::vec3(speed); }
 
-		const glm::vec3& get_position()	const { return position_; }
-		const glm::vec3& get_rotation()	const { return rotation_; }
-		const glm::vec3& get_speed()	const { return position_; }
+		const glm::vec3& get_speed()	const { return speed_; }
 
-		glm::quat get_orientation() const;
-		glm::vec3 get_up_direction() const;
-		glm::vec3 get_right_direction() const;
-		glm::vec3 get_forward_direction() const;
+		Transform& get_transform() { return transform_;  }
 
-		const glm::mat4& get_viewprojection_matrix() const { return view_projection_matrix_;  }
-		const glm::mat4& get_projection_matrix()	 const { return projection_matrix_;  }
-		const glm::mat4& get_view_matrix()			 const { return view_matrix_;  }
+		const glm::mat4& get_viewprojection_matrix();
+		const glm::mat4& get_projection_matrix();
+		const glm::mat4& get_view_matrix();
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -67,10 +60,10 @@ namespace Grout {
 		//  PROPERTIES
 		
 		// -- World Space variables --
-		glm::vec3 position_;
+		Transform transform_;
 		// Rotation in X, Y and Z axis (euler degrees °)
-		glm::vec3 rotation_ = glm::vec3(0.0f);
 		glm::vec3 speed_ = glm::vec3(0.0f);
+
 
 		// Viewport
 		float width_;
@@ -111,17 +104,6 @@ namespace Grout {
 		
 		// TODO: Scenes
 		// Scene scene
-	};
-
-
-	class OrtographicCamera : public Camera {
-	public:
-
-	};
-
-	class PerspectiveCamera : public Camera {
-	public:
-
 	};
 }
 

@@ -10,7 +10,7 @@
 
 namespace Grout {
 	Camera::Camera(const glm::vec3& position, float width, float height)
-		: position_(position), width_(width), height_(height), aspect_((float)width/(float)height)
+		: transform_(Transform(position)), width_(width), height_(height), aspect_((float)width/(float)height)
 	{
 		UpdateViewProjectionMatrix();
 	}
@@ -35,25 +35,23 @@ namespace Grout {
 		}
 
 		else if (projection_type_ == CameraProjectionType::Orthographic) {
-			projection_matrix_ = glm::ortho(position_.x - (width_ / 2.0f),
-											position_.x + (width_ / 2.0f),
-											position_.y - (height_ / 2.0f),
-											position_.y + (height_ / 2.0f), 
+			projection_matrix_ = glm::ortho(transform_.get_position().x - (width_ / 2.0f),
+											transform_.get_position().x + (width_ / 2.0f),
+											transform_.get_position().y - (height_ / 2.0f),
+											transform_.get_position().y + (height_ / 2.0f),
 											near_clip_plane_,
 											far_clip_plane_
 											);
 		}
-
-		view_projection_matrix_ = projection_matrix_ * view_matrix_;
 	}
 
 	void Camera::UpdateViewMatrixOnly()
 	{
 		// ------ PERSPECTIVE ------
 		if (projection_type_ == CameraProjectionType::Perspective) {
-			glm::quat orientation = get_orientation();
+			glm::quat orientation = transform_.get_orientation();
 
-			view_matrix_ = glm::translate(glm::mat4(1.0f), position_) * glm::toMat4(orientation);
+			view_matrix_ = glm::translate(glm::mat4(1.0f), transform_.get_position()) * glm::toMat4(orientation);
 			view_matrix_ = glm::inverse(view_matrix_);
 
 			//glm::vec3 camera_front = position_ + forward_vector_;
@@ -62,38 +60,45 @@ namespace Grout {
 		}
 		// ----- ORTHOGRAPHIC -----
 		else if (projection_type_ == CameraProjectionType::Orthographic) {
-			glm::mat4 transform =	glm::translate(glm::mat4(1.0f), position_) * 
-									glm::rotate(glm::mat4(1.0f), glm::radians(rotation_.z), glm::vec3(0, 0, 1));
+			glm::mat4 transform =	glm::translate(glm::mat4(1.0f), transform_.get_position()) * 
+									glm::rotate(glm::mat4(1.0f), glm::radians(transform_.get_rotation().z), glm::vec3(0, 0, 1));
 			view_matrix_ = glm::inverse(transform);
 		}
-
-		view_projection_matrix_ = projection_matrix_ * view_matrix_;
 	}
 
-	glm::quat Camera::get_orientation() const
+	const glm::mat4& Camera::get_viewprojection_matrix()
 	{
-		return glm::quat(glm::vec3(-rotation_.y, -rotation_.x, -rotation_.z));
+		if (transform_.has_changed()) {
+			UpdateViewProjectionMatrix();
+		}
+
+		return view_projection_matrix_;
 	}
 
-	glm::vec3 Camera::get_up_direction() const
+	const glm::mat4& Camera::get_projection_matrix()
 	{
-		return glm::rotate(get_orientation(), glm::vec3(0.0f, 1.0f, 0.0f));
+		if (transform_.has_changed()) {
+			UpdateViewProjectionMatrix();
+		}
+
+		return projection_matrix_;
 	}
 
-	glm::vec3 Camera::get_right_direction() const
+	const glm::mat4& Camera::get_view_matrix()
 	{
-		return glm::rotate(get_orientation(), glm::vec3(1.0f, 0.0f, 0.0f));
-	}
+		if (transform_.has_changed()) {
+			UpdateViewProjectionMatrix();
+		}
 
-	glm::vec3 Camera::get_forward_direction() const
-	{
-		return glm::rotate(get_orientation(), glm::vec3(0.0f, 0.0f, -1.0f));
+		return view_matrix_;
 	}
 
 	void Camera::UpdateViewProjectionMatrix()
 	{
 		UpdateProjectionMatrixOnly();
 		UpdateViewMatrixOnly();
+
+		view_projection_matrix_ = projection_matrix_ * view_matrix_;
 	}
 
 	

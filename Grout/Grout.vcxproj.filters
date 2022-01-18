@@ -1376,6 +1376,8 @@
     <ClInclude Include="src\Grout\Renderer\Camera.h" />
     <ClInclude Include="src\Grout\Core\Time.h" />
     <ClInclude Include="src\Grout\Core\Assert.h" />
+    <ClInclude Include="src\Grout\Scene\Object.h" />
+    <ClInclude Include="src\Grout\Scene\Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Grout\Core\Application.cpp">
@@ -1421,6 +1423,7 @@
     <ClCompile Include="src\Plataform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Grout\Renderer\Camera.cpp" />
     <ClCompile Include="src\Grout\Core\Time.cpp" />
+    <ClCompile Include="src\Grout\Scene\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Grout\Shaders\sprite.vs" />
