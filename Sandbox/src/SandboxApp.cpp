@@ -54,7 +54,7 @@ public:
 		square_VA_->SetIndexBuffer(squareIB);
 
 		float verticesCubes[6 * 6 * 7] = {
-		-1.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f,
 		 0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f,
 		 0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f,
 		 0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f,
@@ -128,6 +128,7 @@ public:
 			layout(location = 1) in vec4 a_color;
 
 			uniform mat4 u_view_projection;
+			uniform mat4 u_transform;
 
 			out vec3 v_position;
 			out vec4 v_color;
@@ -135,7 +136,7 @@ public:
 			void main() {
 				v_position = a_position;
 				v_color = a_color;
-				gl_Position = u_view_projection * vec4(a_position, 1.0);
+				gl_Position = u_view_projection * u_transform * vec4(a_position, 1.0);
 			}
 		)";
 
@@ -263,10 +264,9 @@ public:
 			glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
 			model = glm::translate(model, cubePositions[i]);
 			float angle = 20.0f * i;
-			//model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-			shader2_->uniform_set_matrix4("model", model);
+			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
 
-			Grout::Renderer::Submit(shader2_, cube_VA_);
+			Grout::Renderer::Submit(shader_, cube_VA_, model);
 		}
 		Grout::Renderer::EndScene();
 
