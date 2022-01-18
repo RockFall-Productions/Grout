@@ -1,11 +1,11 @@
 #include "grtpch.h"
 #include "Application.h"
 
-#include "Grout/Log.h"
+#include "Grout/Core/Log.h"
 
 #include "Grout/Renderer/Renderer.h"
 
-#include "Grout/Input.h"
+#include "Grout/Core/Input.h"
 
 namespace Grout {
 	// Singleton
@@ -61,7 +61,7 @@ namespace Grout {
 
 	void Application::Run() {
 		while (running_) {
-			
+			Time::OnUpdate();
 
 			// Loop through all layers and update them
 			for (Layer* layer : layer_stack_) {

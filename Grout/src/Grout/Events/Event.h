@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Grout/Core.h"
+#include "Grout/Core/Core.h"
 
 #include "grtpch.h"
 

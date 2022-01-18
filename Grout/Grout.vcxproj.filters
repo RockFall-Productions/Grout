@@ -57,13 +57,13 @@
     <ClInclude Include="src\Grout.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Grout\Application.h">
+    <ClInclude Include="src\Grout\Core\Application.h">
       <Filter>src\Grout</Filter>
     </ClInclude>
-    <ClInclude Include="src\Grout\Core.h">
+    <ClInclude Include="src\Grout\Core\Core.h">
       <Filter>src\Grout</Filter>
     </ClInclude>
-    <ClInclude Include="src\Grout\EntryPoint.h">
+    <ClInclude Include="src\Grout\Core\EntryPoint.h">
       <Filter>src\Grout</Filter>
     </ClInclude>
     <ClInclude Include="src\Grout\Events\ApplicationEvent.h">
@@ -81,22 +81,22 @@
     <ClInclude Include="src\Grout\ImGui\ImGuiLayer.h">
       <Filter>src\Grout\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="src\Grout\Input.h">
+    <ClInclude Include="src\Grout\Core\Input.h">
       <Filter>src\Grout</Filter>
     </ClInclude>
-    <ClInclude Include="src\Grout\KeyCodes.h">
+    <ClInclude Include="src\Grout\Core\KeyCodes.h">
       <Filter>src\Grout</Filter>
     </ClInclude>
-    <ClInclude Include="src\Grout\Layer.h">
+    <ClInclude Include="src\Grout\Core\Layer.h">
       <Filter>src\Grout</Filter>
     </ClInclude>
-    <ClInclude Include="src\Grout\LayerStack.h">
+    <ClInclude Include="src\Grout\Core\LayerStack.h">
       <Filter>src\Grout</Filter>
     </ClInclude>
-    <ClInclude Include="src\Grout\Log.h">
+    <ClInclude Include="src\Grout\Core\Log.h">
       <Filter>src\Grout</Filter>
     </ClInclude>
-    <ClInclude Include="src\Grout\MouseButtonCodes.h">
+    <ClInclude Include="src\Grout\Core\MouseCodes.h">
       <Filter>src\Grout</Filter>
     </ClInclude>
     <ClInclude Include="src\Grout\Renderer\RendererContext.h">
@@ -105,7 +105,7 @@
     <ClInclude Include="src\Grout\Renderer\Shader.h">
       <Filter>src\Grout\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="src\Grout\Window.h">
+    <ClInclude Include="src\Grout\Core\Window.h">
       <Filter>src\Grout</Filter>
     </ClInclude>
     <ClInclude Include="src\Plataform\OpenGL\OpenGLContext.h">
@@ -1374,9 +1374,11 @@
     <ClInclude Include="src\Grout\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Plataform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Grout\Renderer\Camera.h" />
+    <ClInclude Include="src\Grout\Core\Time.h" />
+    <ClInclude Include="src\Grout\Core\Assert.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Grout\Application.cpp">
+    <ClCompile Include="src\Grout\Core\Application.cpp">
       <Filter>src\Grout</Filter>
     </ClCompile>
     <ClCompile Include="src\Grout\ImGui\ImGuiBuild.cpp">
@@ -1385,13 +1387,13 @@
     <ClCompile Include="src\Grout\ImGui\ImGuiLayer.cpp">
       <Filter>src\Grout\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\Grout\Layer.cpp">
+    <ClCompile Include="src\Grout\Core\Layer.cpp">
       <Filter>src\Grout</Filter>
     </ClCompile>
-    <ClCompile Include="src\Grout\LayerStack.cpp">
+    <ClCompile Include="src\Grout\Core\LayerStack.cpp">
       <Filter>src\Grout</Filter>
     </ClCompile>
-    <ClCompile Include="src\Grout\Log.cpp">
+    <ClCompile Include="src\Grout\Core\Log.cpp">
       <Filter>src\Grout</Filter>
     </ClCompile>
     <ClCompile Include="src\Grout\Renderer\Shader.cpp">
@@ -1418,6 +1420,7 @@
     <ClCompile Include="src\Grout\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Plataform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Grout\Renderer\Camera.cpp" />
+    <ClCompile Include="src\Grout\Core\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Grout\Shaders\sprite.vs" />

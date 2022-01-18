@@ -2,18 +2,14 @@
 
 #include "Core.h"
 
-#include "Grout/Window.h"
-#include "Grout/LayerStack.h"
+#include "Grout/Core/Window.h"
+#include "Grout/Core/LayerStack.h"
 #include "Grout/ImGui/ImGuiLayer.h"
 
 #include "Grout/Events/Event.h"
 #include "Grout/Events/ApplicationEvent.h"
 
-#include <Grout/Renderer/Buffer.h>
-#include <Grout/Renderer/VertexArray.h>
-#include <Grout/Renderer/Shader.h>
-
-#include "Grout/Renderer/Camera.h"
+#include "Grout/Core/Time.h"
 
 namespace Grout {
 	class  Application
@@ -36,15 +32,15 @@ namespace Grout {
 	private:
 		// Event handling functions
 		bool OnWindowClose(WindowCloseEvent& e);
-
+	private:
 		// Current context
 		std::unique_ptr<Window> window_;
-		ImGuiLayer* imgui_layer_;
 		bool running_ = true;
 
 		// Layer Stack
 		LayerStack layer_stack_;
-
+		ImGuiLayer* imgui_layer_;
+	private:
 		// Singleton
 		static Application* instance_;
 	};

@@ -1,7 +1,7 @@
 #include "grtpch.h"
 #include "WindowsInput.h"
 
-#include "Grout/Application.h"
+#include "Grout/Core/Application.h"
 #include <GLFW/glfw3.h>
 
 namespace Grout {

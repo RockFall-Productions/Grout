@@ -2,7 +2,7 @@
 
 #include "grtpch.h"
 
-#include "Grout/Core.h"
+#include "Grout/Core/Core.h"
 #include "Grout/Events/Event.h"
 
 namespace Grout {

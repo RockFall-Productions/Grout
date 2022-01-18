@@ -7,7 +7,7 @@
 namespace Grout {
 	OpenGLContext::OpenGLContext(GLFWwindow* window) : window_(window)
 	{
-		GRT_CORE_ASSERT(window != NULL, "The window given to OpenGLContext is NULL")
+		GRT_CORE_ASSERT(window != NULL, "The window given to OpenGLContext is NULL");
 	}
 	void OpenGLContext::Init()
 	{

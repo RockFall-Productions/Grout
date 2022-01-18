@@ -2,6 +2,7 @@
 #include "Shader.h"
 
 #include <glad/glad.h>
+#include "Grout/Core/Assert.h"
 
 namespace Grout {
 	Shader::~Shader()
@@ -43,7 +44,7 @@ namespace Grout {
 		}
 
 		GRT_CORE_ERROR("Shader file (\"{0}\") not found in Shader::GetFileContents", file_path);
-		GRT_ASSERT(false, "Given shader file not found");
+		GRT_CORE_ASSERT(false, "Given shader file not found");
 	}
 
 	void Shader::CompileAndLink(const char* vertex_code, const char* fragment_code, const char* geometry_code) {

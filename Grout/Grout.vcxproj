@@ -143,6 +143,8 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Grout\Core\Assert.h" />
+    <ClInclude Include="src\Grout\Core\Time.h" />
     <ClInclude Include="src\Grout\Renderer\Camera.h" />
     <ClInclude Include="src\Plataform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Grout\Renderer\RenderCommand.h" />
@@ -152,23 +154,23 @@
     <ClInclude Include="src\Plataform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Grout\Renderer\Buffer.h" />
     <ClInclude Include="src\Grout.h" />
-    <ClInclude Include="src\Grout\Application.h" />
-    <ClInclude Include="src\Grout\Core.h" />
-    <ClInclude Include="src\Grout\EntryPoint.h" />
+    <ClInclude Include="src\Grout\Core\Application.h" />
+    <ClInclude Include="src\Grout\Core\Core.h" />
+    <ClInclude Include="src\Grout\Core\EntryPoint.h" />
     <ClInclude Include="src\Grout\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Grout\Events\Event.h" />
     <ClInclude Include="src\Grout\Events\KeyEvent.h" />
     <ClInclude Include="src\Grout\Events\MouseEvent.h" />
     <ClInclude Include="src\Grout\ImGui\ImGuiLayer.h" />
-    <ClInclude Include="src\Grout\Input.h" />
-    <ClInclude Include="src\Grout\KeyCodes.h" />
-    <ClInclude Include="src\Grout\Layer.h" />
-    <ClInclude Include="src\Grout\LayerStack.h" />
-    <ClInclude Include="src\Grout\Log.h" />
-    <ClInclude Include="src\Grout\MouseButtonCodes.h" />
+    <ClInclude Include="src\Grout\Core\Input.h" />
+    <ClInclude Include="src\Grout\Core\KeyCodes.h" />
+    <ClInclude Include="src\Grout\Core\Layer.h" />
+    <ClInclude Include="src\Grout\Core\LayerStack.h" />
+    <ClInclude Include="src\Grout\Core\Log.h" />
+    <ClInclude Include="src\Grout\Core\MouseCodes.h" />
     <ClInclude Include="src\Grout\Renderer\RendererContext.h" />
     <ClInclude Include="src\Grout\Renderer\Shader.h" />
-    <ClInclude Include="src\Grout\Window.h" />
+    <ClInclude Include="src\Grout\Core\Window.h" />
     <ClInclude Include="src\Plataform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Plataform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Plataform\Windows\WindowsWindow.h" />
@@ -591,6 +593,7 @@
     <ClInclude Include="src\Grout\Renderer\VertexArray.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Grout\Core\Time.cpp" />
     <ClCompile Include="src\Grout\Renderer\Camera.cpp" />
     <ClCompile Include="src\Plataform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Grout\Renderer\RenderCommand.cpp" />
@@ -599,12 +602,12 @@
     <ClCompile Include="src\Grout\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Plataform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Grout\Renderer\Buffer.cpp" />
-    <ClCompile Include="src\Grout\Application.cpp" />
+    <ClCompile Include="src\Grout\Core\Application.cpp" />
     <ClCompile Include="src\Grout\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Grout\ImGui\ImGuiLayer.cpp" />
-    <ClCompile Include="src\Grout\Layer.cpp" />
-    <ClCompile Include="src\Grout\LayerStack.cpp" />
-    <ClCompile Include="src\Grout\Log.cpp" />
+    <ClCompile Include="src\Grout\Core\Layer.cpp" />
+    <ClCompile Include="src\Grout\Core\LayerStack.cpp" />
+    <ClCompile Include="src\Grout\Core\Log.cpp" />
     <ClCompile Include="src\Grout\Renderer\Shader.cpp" />
     <ClCompile Include="src\Plataform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Plataform\Windows\WindowsInput.cpp" />

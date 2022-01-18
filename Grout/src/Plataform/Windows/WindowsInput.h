@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Grout/Core.h"
-#include "Grout/Input.h"
+#include "Grout/Core/Core.h"
+#include "Grout/Core/Input.h"
 
 namespace Grout {
 	class WindowsInput : public Input {

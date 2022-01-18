@@ -1,7 +1,9 @@
 #pragma once
 
-#include "Grout/Core.h"
+#include "Grout/Core/Core.h"
 #include "Grout/Events/Event.h"
+
+#include "Grout/Core/Time.h"
 
 namespace Grout {
 	class  Layer {
