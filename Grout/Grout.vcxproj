@@ -146,6 +146,8 @@
     <ClInclude Include="src\Grout\Core\Assert.h" />
     <ClInclude Include="src\Grout\Core\Time.h" />
     <ClInclude Include="src\Grout\Renderer\Camera.h" />
+    <ClInclude Include="src\Grout\Scene\Object.h" />
+    <ClInclude Include="src\Grout\Scene\Transform.h" />
     <ClInclude Include="src\Plataform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Grout\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Grout\Renderer\RendererAPI.h" />
@@ -595,6 +597,7 @@
   <ItemGroup>
     <ClCompile Include="src\Grout\Core\Time.cpp" />
     <ClCompile Include="src\Grout\Renderer\Camera.cpp" />
+    <ClCompile Include="src\Grout\Scene\Transform.cpp" />
     <ClCompile Include="src\Plataform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Grout\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Grout\Renderer\RendererAPI.cpp" />

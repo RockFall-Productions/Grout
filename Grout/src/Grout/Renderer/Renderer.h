@@ -12,6 +12,7 @@ namespace Grout {
 		static void EndScene();
 
 		static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertex_array);
+		//static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertex_array, const glm::mat4& transform);
 
 		inline static RendererAPI::API get_api() { return RendererAPI::get_api();  }
 	private:
