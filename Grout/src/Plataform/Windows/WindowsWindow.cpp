@@ -75,6 +75,8 @@ namespace Grout {
 		set_vsync(true);
 
 
+		glEnable(GL_DEPTH_TEST);
+
 		// -------------	SETTING GLFW CALLBACKS   -----------------------
 		glfwSetWindowSizeCallback(window_, [](GLFWwindow* window, int new_width, int new_height)
 		{
@@ -162,6 +164,7 @@ namespace Grout {
 			MouseMovedEvent event((float)xpos, (float)ypos);
 			data.Event_Callback(event);
 		});
+
 		//glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	}
 

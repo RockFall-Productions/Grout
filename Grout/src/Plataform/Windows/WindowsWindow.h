@@ -3,6 +3,7 @@
 #include "Grout/Core/Window.h"
 #include "Grout/Renderer/RendererContext.h"
 
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 namespace Grout {
