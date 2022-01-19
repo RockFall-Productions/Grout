@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Transform.h"
+
 #include <string>
 
 namespace Grout {

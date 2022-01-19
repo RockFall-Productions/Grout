@@ -120,7 +120,6 @@ public:
 		cubeIB.reset(Grout::IndexBuffer::Create(indicesCube, sizeof(indicesCube) / sizeof(uint32_t)));
 		cube_VA_->SetIndexBuffer(cubeIB);
 
-
 		std::string vertexSrc = R"(
 			#version 330 core
 
@@ -148,53 +147,20 @@ public:
 			in vec3 v_position;
 			in vec4 v_color;
 
-			void main() {
-				color = v_color;
-			}
-		)";
-
-		std::string vertexSrc2 = R"(
-			#version 330 core
-
-			layout(location = 0) in vec3 a_position;
-			layout(location = 1) in vec4 a_color;
-
-			uniform mat4 u_view_projection;
-			uniform mat4 model;
-
-			out vec3 v_position;
-			out vec4 v_color;
+			uniform vec4 u_color;
 
 			void main() {
-				v_position = a_position;
-				v_color = a_color;
-				gl_Position = u_view_projection * model * vec4(a_position, 1.0);
-			}
-		)";
-
-		std::string fragmentSrc2 = R"(
-			#version 330 core
-
-			layout(location = 0) out vec4 color;
-
-			in vec3 v_position;
-			in vec4 v_color;
-
-			void main() {
-				color = v_color;
+				color = u_color;
 			}
 		)";
 
 		shader_.reset(new Grout::Shader());
 		shader_->CompileAndLink(vertexSrc.c_str(), fragmentSrc.c_str());
 
-		shader2_.reset(new Grout::Shader());
-		shader2_->CompileAndLink(vertexSrc2.c_str(), fragmentSrc2.c_str());
+		
 	}
 
 	void OnUpdate() override {
-
-		GRT_TRACE("Delta time: {0}     |     ROTATION: {1}", Grout::Time::delta_time_f(), camera_.get_transform().get_rotation().z);
 
 		// Clears the background color
 		Grout::RenderCommand::SetClearColor({ 1.0f, 0.0f, 1.0f, 1.0f });
@@ -258,6 +224,9 @@ public:
 			glm::vec3(1.5f,  0.2f, -1.5f),
 			glm::vec3(-1.3f,  1.0f, -1.5f)
 		};
+
+		//Grout::MaterialRef material = new Grout::Material(shader_);
+
 		for (unsigned int i = 0; i < 10; i++)
 		{
 			// calculate the model matrix for each object and pass it to shader before drawing

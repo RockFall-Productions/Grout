@@ -12,6 +12,7 @@ namespace Grout {
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
+
 	void OpenGLRendererAPI::DrawIndexed(const std::shared_ptr<VertexArray>& vertex_array)
 	{
 		vertex_array->Bind();

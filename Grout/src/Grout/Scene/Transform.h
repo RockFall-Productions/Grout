@@ -37,9 +37,9 @@ namespace Grout {
 		// World data
 		glm::vec3 world_position_ = glm::vec3(0.0f);
 		glm::vec3 euler_rotation_ = glm::vec3(0.0f);
-		glm::quat quat_rotation_ = glm::quat();
+		glm::quat quat_orientation_ = glm::quat();
 		// TODO: this one can be tricky (see lossy scale in unity)
-		glm::vec3 world_scale_ = glm::vec3(0.0f);
+		glm::vec3 world_scale_ = glm::vec3(1.0f);
 		
 		// Axis
 		glm::vec3 forward_ = glm::vec3(0.0f);

@@ -17,7 +17,6 @@ namespace Grout {
 		int glad_loaded = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		GRT_CORE_ASSERT(glad_loaded, "Failed to initialize Glad!");
 
-
 		GRT_CORE_INFO("OpenGL Info:");
 		GRT_CORE_INFO("	 Vendor:   {0}", glGetString(GL_VENDOR));
 		GRT_CORE_INFO("	 Renderer: {0}", glGetString(GL_RENDERER));
