@@ -3,6 +3,8 @@
 
 #include "RenderCommand.h"
 
+#include "Plataform/OpenGL/OpenGLShader.h"
+
 namespace Grout {
 	// HACK: Ideally we should have a tiny database for Renderer data
 	Renderer::SceneData* Renderer::scene_data_ = new Renderer::SceneData;
@@ -18,8 +20,8 @@ namespace Grout {
 	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertex_array, const glm::mat4& transform)
 	{
 		shader->Bind();
-		shader->uniform_set_matrix4("u_view_projection", scene_data_->view_projection_matrix, false);
-		shader->uniform_set_matrix4("u_transform", transform, false);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_matrix4("u_view_projection", scene_data_->view_projection_matrix, false);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_matrix4("u_transform", transform, false);
 
 		vertex_array->Bind();
 		RenderCommand::DrawIndexed(vertex_array);

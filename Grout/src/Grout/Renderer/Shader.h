@@ -2,59 +2,16 @@
 
 #include "Grout/Core/Core.h"
 
-// GLM
-#include<glm/vec2.hpp>
-#include<glm/vec3.hpp>
-#include<glm/vec4.hpp>
-#include<glm/mat4x4.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
-#include<string>
-#include<fstream>
-#include<sstream>
-#include<iostream>
-#include<cerrno>
-
 namespace Grout {
 	class Shader {
 	public:
-		//  -- Constructors --
-		Shader() : id_(0) { }
-		Shader(const char* vertex_file, const char* fragment_file, const char* geometry_file = nullptr);
-		~Shader();
-
-		void LoadShaderFiles(const char* vertex_file, const char* fragment_file, const char* geometry_file = nullptr);
-		
-		// Compiles and link given vertex, fragment and (optional) geometry shaders, 
-		// and stores the created shaderProgram ID's into class's variable
-		void CompileAndLink(const char* vertex_code, const char* fragment_code, const char* geometry_code = nullptr);
+		virtual ~Shader() = default;
 
 		// Activates the Shader Program
-		Shader& Bind();
+		virtual void Bind() const = 0;
 		// Deactivates the Shader Program
-		void Unbind();
+		virtual void Unbind() const = 0;
 
-		// Deletes the Shader Program
-		void Delete();
-
-		// Sets for Uniform shader variables
-		void uniform_set_float(const char* name, float value, bool useShader = false);
-		void uniform_set_integer(const char* name, int value, bool useShader = false);
-		void uniform_set_vector2f(const char* name, float x, float y, bool use_shader = false);
-		void uniform_set_vector2f(const char* name, const glm::vec2& value, bool use_shader = false);
-		void uniform_set_vector3f(const char* name, float x, float y, float z, bool use_shader = false);
-		void uniform_set_vector3f(const char* name, const glm::vec3& value, bool use_shader = false);
-		void uniform_set_vector4f(const char* name, float x, float y, float z, float w, bool use_shader = false);
-		void uniform_set_vector4f(const char* name, const glm::vec4& value, bool use_shader = false);
-		void uniform_set_matrix4(const char* name, const glm::mat4& matrix, bool use_shader = false);
-	private:
-		// Checks for error on compilation or linking of shaders and prints them
-		void checkCompileErrors(uint32_t shader, const char* type);
-
-		// Get all the contents of a given file
-		std::string GetFileContents(const char* file_path);
-	private:
-		// Reference ID of the Shader Program
-		uint32_t id_;
+		static Shader* Create(const char* vertex_code, const char* fragment_code, const char* geometry_code = nullptr);
 	};
 }
