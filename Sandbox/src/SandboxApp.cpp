@@ -1,6 +1,8 @@
 #include <Grout.h>
+#include "Plataform/OpenGL/OpenGLShader.h"
 
 #include "imgui/imgui.h"
+
 
 class TestLayer : public Grout::Layer {
 public:
@@ -154,10 +156,7 @@ public:
 			}
 		)";
 
-		shader_.reset(new Grout::Shader());
-		shader_->CompileAndLink(vertexSrc.c_str(), fragmentSrc.c_str());
-
-		
+		shader_.reset(Grout::Shader::Create(vertexSrc.c_str(), fragmentSrc.c_str()));
 	}
 
 	void OnUpdate() override {
@@ -227,6 +226,8 @@ public:
 
 		//Grout::MaterialRef material = new Grout::Material(shader_);
 
+		std::dynamic_pointer_cast<Grout::OpenGLShader>(shader_)->uniform_set_vector4f("u_color", glm::vec4(0.0f, 0.3f, 0.3f, 1.0f));
+
 		for (unsigned int i = 0; i < 10; i++)
 		{
 			// calculate the model matrix for each object and pass it to shader before drawing
@@ -260,7 +261,6 @@ public:
 private:
 	// Buffer
 	std::shared_ptr<Grout::Shader> shader_;
-	std::shared_ptr<Grout::Shader> shader2_;
 	std::shared_ptr<Grout::VertexArray> vertex_array_;
 
 	std::shared_ptr<Grout::VertexArray> square_VA_;

@@ -143,6 +143,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Plataform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\Grout\Core\Assert.h" />
     <ClInclude Include="src\Grout\Core\Time.h" />
     <ClInclude Include="src\Grout\Renderer\Camera.h" />
@@ -595,6 +596,7 @@
     <ClInclude Include="src\Grout\Renderer\VertexArray.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Plataform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\Grout\Core\Time.cpp" />
     <ClCompile Include="src\Grout\Renderer\Camera.cpp" />
     <ClCompile Include="src\Grout\Scene\Transform.cpp" />
