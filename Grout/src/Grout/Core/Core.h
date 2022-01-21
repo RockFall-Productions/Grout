@@ -18,5 +18,14 @@
 // Wraps a function to be passed as a parameter - currently used for the callbacks
 #define GRT_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
 
+#include <memory>
+namespace Grout {
+	template<typename T>
+	using Scope = std::unique_ptr<T>;
+
+	template<typename T>
+	using Ref = std::shared_ptr<T>;
+}
+
 #include "Grout/Core/Log.h"
 #include "Grout/Core/Assert.h"

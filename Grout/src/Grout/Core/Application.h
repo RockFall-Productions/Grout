@@ -32,10 +32,12 @@ namespace Grout {
 	private:
 		// Event handling functions
 		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowResize(WindowResizeEvent& e);
 	private:
 		// Current context
 		std::unique_ptr<Window> window_;
 		bool running_ = true;
+		bool minimized_ = false;
 
 		// Layer Stack
 		LayerStack layer_stack_;

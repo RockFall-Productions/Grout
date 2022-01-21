@@ -1379,6 +1379,7 @@
     <ClInclude Include="src\Grout\Scene\Object.h" />
     <ClInclude Include="src\Grout\Scene\Transform.h" />
     <ClInclude Include="src\Plataform\OpenGL\OpenGLShader.h" />
+    <ClInclude Include="src\Grout\Renderer\Components.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Grout\Core\Application.cpp">

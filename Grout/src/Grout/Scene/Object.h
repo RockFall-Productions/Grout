@@ -8,6 +8,7 @@ namespace Grout {
 	class Object {
 	public:
 
+
 	private:
 		bool active_in_hierarchy_;
 		bool active_;

@@ -41,7 +41,7 @@ namespace Grout {
 	{
 		glBindVertexArray(0);
 	}
-	void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertex_buffer)
+	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertex_buffer)
 	{
 		glBindVertexArray(id_);
 		vertex_buffer->Bind();
@@ -66,7 +66,7 @@ namespace Grout {
 
 		vertex_buffers_.push_back(vertex_buffer);
 	}
-	void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& index_buffer)
+	void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& index_buffer)
 	{
 		glBindVertexArray(id_);
 		index_buffer->Bind();
