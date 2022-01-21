@@ -49,6 +49,7 @@ namespace Grout {
 	void Application::OnEvent(Event& e) {
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(GRT_BIND_EVENT_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(GRT_BIND_EVENT_FN(Application::OnWindowResize));
 
 		// Loops through layer stack from End -> Begin
 		for (auto it = layer_stack_.end(); it != layer_stack_.begin(); ) {
@@ -64,9 +65,11 @@ namespace Grout {
 			Time::OnUpdate();
 
 			// Loop through all layers and update them
-			for (Layer* layer : layer_stack_) {
-				layer->OnUpdate();
- 			}
+			if (!minimized_) {
+				for (Layer* layer : layer_stack_) {
+					layer->OnUpdate();
+ 				}
+			}
 
 			// ----- ImGui Frame flow -----
 			imgui_layer_->BeginFrame();
@@ -86,5 +89,17 @@ namespace Grout {
 	{
 		running_ = false;
 		return true;;
+	}
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		if (e.get_width() == 0 || e.get_height() == 0) {
+			minimized_ = true;
+			return false;
+		}
+
+		minimized_ = false;
+		Renderer::OnWindowResize(e.get_width(), e.get_height());
+
+		return false;
 	}
 }

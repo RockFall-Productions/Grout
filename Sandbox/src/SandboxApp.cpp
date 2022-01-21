@@ -2,6 +2,7 @@
 #include "Plataform/OpenGL/OpenGLShader.h"
 
 #include "imgui/imgui.h"
+#include "glm/gtc/type_ptr.hpp"
 
 
 class TestLayer : public Grout::Layer {
@@ -17,7 +18,7 @@ public:
 			 0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
 		};
 
-		std::shared_ptr<Grout::VertexBuffer> vertex_buffer;
+		Grout::Ref<Grout::VertexBuffer> vertex_buffer;
 		// Creation of Vertex Buffer
 		vertex_buffer.reset(Grout::VertexBuffer::Create(vertices, sizeof(vertices)));
 		// Setting the Vertex Buffer Layout
@@ -31,7 +32,7 @@ public:
 
 		// Setting up the Index Buffer and adding it to the VertexArray
 		uint32_t indices[] = { 0, 1, 2 };
-		std::shared_ptr<Grout::IndexBuffer> index_buffer;
+		Grout::Ref<Grout::IndexBuffer> index_buffer;
 		index_buffer.reset(Grout::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		vertex_array_->SetIndexBuffer(index_buffer);
 
@@ -43,7 +44,7 @@ public:
 			 0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.3f, 1.0f,
 			-0.5f,  0.5f, 0.0f, 0.0f, 0.2f, 1.0f, 1.0f
 		};
-		std::shared_ptr<Grout::VertexBuffer> squareVB;
+		Grout::Ref<Grout::VertexBuffer> squareVB;
 		squareVB.reset(Grout::VertexBuffer::Create(vertices2, sizeof(vertices2)));
 
 		squareVB->set_layout(layout);
@@ -51,7 +52,7 @@ public:
 		square_VA_->AddVertexBuffer(squareVB);
 
 		uint32_t indices2[] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<Grout::IndexBuffer> squareIB;
+		Grout::Ref<Grout::IndexBuffer> squareIB;
 		squareIB.reset(Grout::IndexBuffer::Create(indices2, sizeof(indices2) / sizeof(uint32_t)));
 		square_VA_->SetIndexBuffer(squareIB);
 
@@ -62,35 +63,35 @@ public:
 		 0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f,
 		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f,
 		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f,
-						
+
 		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f,
 		 0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f,
 		 0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f,
 		 0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f,
 		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f,
 		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f,
-			
+
 		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 1.0f, 1.0f,
 		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 1.0f, 1.0f,
 		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 1.0f, 1.0f,
 		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 1.0f, 1.0f,
 		-0.5f, -0.5f,  0.5f,  0.0f, 1.0f, 1.0f, 1.0f,
 		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 1.0f, 1.0f,
-						
+
 		 0.5f,  0.5f,  0.5f,  0.4f, 0.3f, 0.5f, 1.0f,
 		 0.5f,  0.5f, -0.5f,  0.4f, 0.3f, 0.5f, 1.0f,
 		 0.5f, -0.5f, -0.5f,  0.4f, 0.3f, 0.5f, 1.0f,
 		 0.5f, -0.5f, -0.5f,  0.4f, 0.3f, 0.5f, 1.0f,
 		 0.5f, -0.5f,  0.5f,  0.4f, 0.3f, 0.5f, 1.0f,
 		 0.5f,  0.5f,  0.5f,  0.4f, 0.3f, 0.5f, 1.0f,
-						   
+
 		-0.5f, -0.5f, -0.5f,  0.5f, 1.0f, 0.0f, 1.0f,
 		 0.5f, -0.5f, -0.5f,  0.5f, 1.0f, 0.0f, 1.0f,
 		 0.5f, -0.5f,  0.5f,  0.5f, 1.0f, 0.0f, 1.0f,
 		 0.5f, -0.5f,  0.5f,  0.5f, 1.0f, 0.0f, 1.0f,
 		-0.5f, -0.5f,  0.5f,  0.5f, 1.0f, 0.0f, 1.0f,
 		-0.5f, -0.5f, -0.5f,  0.5f, 1.0f, 0.0f, 1.0f,
-					
+
 		-0.5f,  0.5f, -0.5f,  0.0f, 0.4f, 0.2f, 1.0f,
 		 0.5f,  0.5f, -0.5f,  0.0f, 0.4f, 0.2f, 1.0f,
 		 0.5f,  0.5f,  0.5f,  0.0f, 0.4f, 0.2f, 1.0f,
@@ -99,7 +100,7 @@ public:
 		-0.5f,  0.5f, -0.5f,  0.0f, 0.4f, 0.2f, 1.0f
 		};
 		
-		std::shared_ptr<Grout::VertexBuffer> cubeVB;
+		Grout::Ref<Grout::VertexBuffer> cubeVB;
 		cubeVB.reset(Grout::VertexBuffer::Create(verticesCubes, sizeof(verticesCubes)));
 
 		cubeVB->set_layout(layout);
@@ -118,45 +119,12 @@ public:
 		//uint32_t indicesCube[] = { 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21,
 		//20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
 
-		std::shared_ptr<Grout::IndexBuffer> cubeIB;
+		Grout::Ref<Grout::IndexBuffer> cubeIB;
 		cubeIB.reset(Grout::IndexBuffer::Create(indicesCube, sizeof(indicesCube) / sizeof(uint32_t)));
 		cube_VA_->SetIndexBuffer(cubeIB);
 
-		std::string vertexSrc = R"(
-			#version 330 core
 
-			layout(location = 0) in vec3 a_position;
-			layout(location = 1) in vec4 a_color;
-
-			uniform mat4 u_view_projection;
-			uniform mat4 u_transform;
-
-			out vec3 v_position;
-			out vec4 v_color;
-
-			void main() {
-				v_position = a_position;
-				v_color = a_color;
-				gl_Position = u_view_projection * u_transform * vec4(a_position, 1.0);
-			}
-		)";
-
-		std::string fragmentSrc = R"(
-			#version 330 core
-
-			layout(location = 0) out vec4 color;
-
-			in vec3 v_position;
-			in vec4 v_color;
-
-			uniform vec4 u_color;
-
-			void main() {
-				color = u_color;
-			}
-		)";
-
-		shader_.reset(Grout::Shader::Create(vertexSrc.c_str(), fragmentSrc.c_str()));
+		shader_.reset(Grout::Shader::Create("assets/shaders/mesh.glsl"));
 	}
 
 	void OnUpdate() override {
@@ -226,7 +194,7 @@ public:
 
 		//Grout::MaterialRef material = new Grout::Material(shader_);
 
-		std::dynamic_pointer_cast<Grout::OpenGLShader>(shader_)->uniform_set_vector4f("u_color", glm::vec4(0.0f, 0.3f, 0.3f, 1.0f));
+		std::dynamic_pointer_cast<Grout::OpenGLShader>(shader_)->uniform_set_vector4f("u_color", cubesColor);
 
 		for (unsigned int i = 0; i < 10; i++)
 		{
@@ -245,7 +213,11 @@ public:
 	}
 
 	virtual void OnImGuiRender() override {
-		
+		ImGui::Begin("Settings");
+
+		ImGui::ColorEdit3("Test color", glm::value_ptr(cubesColor));
+
+		ImGui::End();
 	}
 
 	void OnEvent(Grout::Event& event) override {
@@ -260,11 +232,12 @@ public:
 
 private:
 	// Buffer
-	std::shared_ptr<Grout::Shader> shader_;
-	std::shared_ptr<Grout::VertexArray> vertex_array_;
+	Grout::Ref<Grout::Shader> shader_;
+	Grout::Ref<Grout::VertexArray> vertex_array_;
+	glm::vec4 cubesColor = glm::vec4(0.0f);
 
-	std::shared_ptr<Grout::VertexArray> square_VA_;
-	std::shared_ptr<Grout::VertexArray> cube_VA_;
+	Grout::Ref<Grout::VertexArray> square_VA_;
+	Grout::Ref<Grout::VertexArray> cube_VA_;
 
 	Grout::Camera camera_;
 };

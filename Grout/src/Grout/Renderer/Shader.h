@@ -13,5 +13,6 @@ namespace Grout {
 		virtual void Unbind() const = 0;
 
 		static Shader* Create(const char* vertex_code, const char* fragment_code, const char* geometry_code = nullptr);
+		static Shader* Create(const std::string& file_path);
 	};
 }

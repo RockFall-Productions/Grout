@@ -1,36 +1,76 @@
 #include "grtpch.h"
 #include "OpenGLShader.h"
 
+#include<fstream>
+
 #include <glad/glad.h>
 #include "Grout/Core/Assert.h"
 
+#include <glm/gtc/type_ptr.hpp>
+
+
+
 namespace Grout {
+
+	GLenum OpenGLShader::ShaderTypeFromString(std::string& type)
+	{
+		if (type == "vertex")
+			return GL_VERTEX_SHADER;
+		if (type == "fragment" || type == "pixel")
+			return GL_FRAGMENT_SHADER;
+		if (type == "geometry")
+			return GL_GEOMETRY_SHADER;
+
+		GRT_CORE_ERROR("ShaderTypeFromString: The given type '{0}' is not a valid shader type", type);
+		GRT_CORE_ASSERT(false, "Unknown shader type");
+
+		return 0;
+	}
+
+	OpenGLShader::OpenGLShader(const char* vertex_file, const char* fragment_file, const char* geometry_file) : id_(0)
+	{
+		LoadShaderFiles(vertex_file, fragment_file, geometry_file);
+	}
+
+	OpenGLShader::OpenGLShader(const std::string& file_path) : id_(0)
+	{
+		LoadShadersFromSingleFile(file_path);
+	}
+
 	OpenGLShader::~OpenGLShader()
 	{
 		Delete();
-	}
-	OpenGLShader::OpenGLShader(const char* vertex_file, const char* fragment_file, const char* geometry_file) : id_(0)
-	{
-		//LoadShaderFiles(vertex_file, fragment_file, geometry_file);
-		CompileAndLink(vertex_file, fragment_file, geometry_file);
 	}
 
 	void OpenGLShader::LoadShaderFiles(const char* vertex_file, const char* fragment_file, const char* geometry_file)
 	{
 		// Getting shader codes from files
-		std::string vertex_code = GetFileContents(vertex_file);
-		std::string fragment_code = GetFileContents(fragment_file);
+		std::string vertex_code = FileDataToString(vertex_file);
+		std::string fragment_code = FileDataToString(fragment_file);
 
 		// Deals with geometry shader, if given
 		std::string geometry_code;
 		if (geometry_file != nullptr) {
-			geometry_code = GetFileContents(geometry_file);
+			geometry_code = FileDataToString(geometry_file);
 		}
 
 		CompileAndLink(vertex_code.c_str(), fragment_code.c_str(), geometry_code.c_str());
 	}
 
-	std::string OpenGLShader::GetFileContents(const char* file_path) {
+
+	void OpenGLShader::LoadShadersFromSingleFile(const std::string& file_path)
+	{
+		std::string source = FileDataToString(file_path);
+		auto shader_sources = PreProcess(source);
+
+		if (shader_sources.size() == 2)
+			CompileAndLink(shader_sources[GL_VERTEX_SHADER].c_str(), shader_sources[GL_FRAGMENT_SHADER].c_str());
+		else if (shader_sources.size() == 3)
+			CompileAndLink(shader_sources[GL_VERTEX_SHADER].c_str(), shader_sources[GL_FRAGMENT_SHADER].c_str(), shader_sources[GL_GEOMETRY_SHADER].c_str());
+
+	}
+
+	std::string OpenGLShader::FileDataToString(const std::string& file_path) {
 
 		std::ifstream in(file_path, std::ios::binary);
 		if (in) {
@@ -43,12 +83,35 @@ namespace Grout {
 			return (contents);
 		}
 
-		GRT_CORE_ERROR("Shader file (\"{0}\") not found in Shader::GetFileContents", file_path);
+		GRT_CORE_ERROR("Shader file (\"{0}\") not found in Shader::FileDataToString", file_path);
 		GRT_CORE_ASSERT(false, "Given shader file not found");
 
 		return "";
 	}
 
+	std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::string& source)
+	{
+		std::unordered_map<GLenum, std::string> shader_sources;
+
+		const char* type_token = "#type";
+		size_t type_token_length = strlen(type_token);
+		size_t pos = source.find(type_token, 0);
+		while (pos != std::string::npos) {
+			size_t eol = source.find_first_of("\r\n", pos);
+			GRT_CORE_ASSERT(eol != std::string::npos, "Syntax error");
+			size_t begin = pos + type_token_length + 1;
+			std::string type = source.substr(begin, eol - begin);
+			GRT_CORE_ASSERT(ShaderTypeFromString(type), "Invalid shader #type specified");
+
+			size_t next_line_pos = source.find_first_not_of("\r\n", eol);
+			pos = source.find(type_token, next_line_pos);
+			shader_sources[ShaderTypeFromString(type)] = source.substr(next_line_pos, pos - (next_line_pos == std::string::npos ? source.size() - 1 : next_line_pos));
+		}
+
+		return shader_sources;
+	}
+
+	// TODO: Divide this method between Compile() and Link()
 	void OpenGLShader::CompileAndLink(const char* vertex_code, const char* fragment_code, const char* geometry_code) {
 		const GLchar* vertex_source = vertex_code;
 		const GLchar* fragment_source = fragment_code;
@@ -99,6 +162,10 @@ namespace Grout {
 			glDeleteShader(geometry_shader);
 	}
 
+	void OpenGLShader::CompileAndLink(const std::unordered_map<GLenum, std::string> shader_sources)
+	{
+	}
+
 	void OpenGLShader::Bind() const {
 		glUseProgram(this->id_);
 	}
@@ -123,7 +190,7 @@ namespace Grout {
 			if (success == GL_FALSE) {
 				glGetShaderInfoLog(shader, 1024, NULL, info_log);
 				GRT_CORE_ERROR("{0} SHADER: Compilation failure!", type);
-				GRT_CORE_TRACE("{0}", info_log);
+				GRT_CORE_TRACE("{0}\n", info_log);
 				GRT_ASSERT(false, "Shader Compilation Error");
 			}
 			else {
@@ -135,7 +202,7 @@ namespace Grout {
 			if (success == GL_FALSE) {
 				glGetProgramInfoLog(shader, 1024, NULL, info_log);
 				GRT_CORE_ERROR("SHADER PROGRAM: Linking failure!");
-				GRT_CORE_TRACE("{0}", info_log);
+				GRT_CORE_TRACE("{0}\n", info_log);
 				GRT_ASSERT(false, "Shader Linking Error");
 			}
 		}

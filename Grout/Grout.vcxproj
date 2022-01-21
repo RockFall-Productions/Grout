@@ -143,6 +143,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Grout\Renderer\Components.h" />
     <ClInclude Include="src\Plataform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\Grout\Core\Assert.h" />
     <ClInclude Include="src\Grout\Core\Time.h" />

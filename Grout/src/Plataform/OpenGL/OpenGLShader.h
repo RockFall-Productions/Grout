@@ -3,26 +3,17 @@
 #include "Grout/Renderer/Shader.h"
 
 #include<glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
-#include<string>
-#include<fstream>
-#include<sstream>
-#include<iostream>
-#include<cerrno>
+// TODO: REMOVE!!
+typedef unsigned int GLenum;
 
 namespace Grout {
 	class OpenGLShader : public Shader {
 	public:
 		//  -- Constructors --
 		OpenGLShader(const char* vertex_file, const char* fragment_file, const char* geometry_file = nullptr);
+		OpenGLShader(const std::string& file_path);
 		virtual ~OpenGLShader();
-
-		void LoadShaderFiles(const char* vertex_file, const char* fragment_file, const char* geometry_file = nullptr);
-
-		// Compiles and link given vertex, fragment and (optional) geometry shaders, 
-		// and stores the created shaderProgram ID's into class's variable
-		void CompileAndLink(const char* vertex_code, const char* fragment_code, const char* geometry_code = nullptr);
 
 		// Activates the Shader Program
 		virtual void Bind() const override;
@@ -43,11 +34,23 @@ namespace Grout {
 		void uniform_set_vector4f(const char* name, const glm::vec4& value, bool use_shader = false);
 		void uniform_set_matrix4(const char* name, const glm::mat4& matrix, bool use_shader = false);
 	private:
-		// Checks for error on compilation or linking of shaders and prints them
-		void checkCompileErrors(uint32_t shader, const char* type);
+		static GLenum ShaderTypeFromString(std::string& type);
+
+		// Loads the shader from given files
+		void LoadShadersFromSingleFile(const std::string& file_path);
+		void LoadShaderFiles(const char* vertex_file, const char* fragment_file, const char* geometry_file = nullptr);
 
 		// Get all the contents of a given file
-		std::string GetFileContents(const char* file_path);
+		std::string FileDataToString(const std::string& file_path);
+		// Divide the source code into multiple shader sources (vertex, fragment...)
+		std::unordered_map<GLenum, std::string> PreProcess(const std::string& source);
+
+		// Compiles and link shader codes  into a Shader Program
+		void CompileAndLink(const std::unordered_map<GLenum, std::string> shader_sources);
+		void CompileAndLink(const char* vertex_code, const char* fragment_code, const char* geometry_code = nullptr);
+
+		// Checks for error on compilation or linking of shaders
+		void checkCompileErrors(uint32_t shader, const char* type);
 	private:
 		// Reference ID of the Shader Program
 		uint32_t id_;
