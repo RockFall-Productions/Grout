@@ -18,7 +18,7 @@
 #include "Grout/Core/Core.h"
 #include "Grout/Core/Log.h"
 
-#ifdef GRT_PLATAFORM_WINDOWS
+#ifdef _WIN64
 	#include <Windows.h>
 #endif
 

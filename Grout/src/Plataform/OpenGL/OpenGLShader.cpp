@@ -95,17 +95,19 @@ namespace Grout {
 
 		const char* type_token = "#type";
 		size_t type_token_length = strlen(type_token);
-		size_t pos = source.find(type_token, 0);
+		size_t pos = source.find(type_token, 0); //Start of shader type declaration line
+
 		while (pos != std::string::npos) {
-			size_t eol = source.find_first_of("\r\n", pos);
+			size_t eol = source.find_first_of("\r\n", pos); //End of shader type declaration line
 			GRT_CORE_ASSERT(eol != std::string::npos, "Syntax error");
-			size_t begin = pos + type_token_length + 1;
+			size_t begin = pos + type_token_length + 1; //Start of shader type name (after "#type " keyword)
 			std::string type = source.substr(begin, eol - begin);
 			GRT_CORE_ASSERT(ShaderTypeFromString(type), "Invalid shader #type specified");
 
-			size_t next_line_pos = source.find_first_not_of("\r\n", eol);
-			pos = source.find(type_token, next_line_pos);
-			shader_sources[ShaderTypeFromString(type)] = source.substr(next_line_pos, pos - (next_line_pos == std::string::npos ? source.size() - 1 : next_line_pos));
+			size_t next_line_pos = source.find_first_not_of("\r\n", eol); //Start of shader code after shader type declaration line
+			GRT_CORE_ASSERT(next_line_pos != std::string::npos, "Syntax error");
+			pos = source.find(type_token, next_line_pos); //Start of shader code after shader type declaration line
+			shader_sources[ShaderTypeFromString(type)] = (pos == std::string::npos) ? source.substr(next_line_pos) : source.substr(next_line_pos, pos - next_line_pos);
 		}
 
 		return shader_sources;

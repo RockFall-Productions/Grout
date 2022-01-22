@@ -77,7 +77,7 @@
       <PrecompiledHeaderFile>grtpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <DisableSpecificWarnings>26451;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GRT_PLATAFORM_WINDOWS;GRT_BUILD_DLL;GLFW_INCLUDE_NONE;GRT_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GRT_BUILD_DLL;GLFW_INCLUDE_NONE;GRT_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;third-part\spdlog\include;third-part\GLFW\include;third-part\Glad\include;third-part\imgui;third-part\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -98,7 +98,7 @@
       <PrecompiledHeaderFile>grtpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <DisableSpecificWarnings>26451;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GRT_PLATAFORM_WINDOWS;GRT_BUILD_DLL;GLFW_INCLUDE_NONE;GRT_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GRT_BUILD_DLL;GLFW_INCLUDE_NONE;GRT_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;third-part\spdlog\include;third-part\GLFW\include;third-part\Glad\include;third-part\imgui;third-part\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -123,7 +123,7 @@
       <PrecompiledHeaderFile>grtpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <DisableSpecificWarnings>26451;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GRT_PLATAFORM_WINDOWS;GRT_BUILD_DLL;GLFW_INCLUDE_NONE;GRT_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GRT_BUILD_DLL;GLFW_INCLUDE_NONE;GRT_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;third-part\spdlog\include;third-part\GLFW\include;third-part\Glad\include;third-part\imgui;third-part\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -143,39 +143,42 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Grout\Renderer\Components.h" />
-    <ClInclude Include="src\Plataform\OpenGL\OpenGLShader.h" />
-    <ClInclude Include="src\Grout\Core\Assert.h" />
-    <ClInclude Include="src\Grout\Core\Time.h" />
-    <ClInclude Include="src\Grout\Renderer\Camera.h" />
-    <ClInclude Include="src\Grout\Scene\Object.h" />
-    <ClInclude Include="src\Grout\Scene\Transform.h" />
-    <ClInclude Include="src\Plataform\OpenGL\OpenGLRendererAPI.h" />
-    <ClInclude Include="src\Grout\Renderer\RenderCommand.h" />
-    <ClInclude Include="src\Grout\Renderer\RendererAPI.h" />
-    <ClInclude Include="src\Plataform\OpenGL\OpenGLVertexArray.h" />
-    <ClInclude Include="src\Grout\Renderer\Renderer.h" />
-    <ClInclude Include="src\Plataform\OpenGL\OpenGLBuffer.h" />
-    <ClInclude Include="src\Grout\Renderer\Buffer.h" />
+    <ClInclude Include="src\Plataform\OpenGL\OpenGLTexture.h" />
     <ClInclude Include="src\Grout.h" />
     <ClInclude Include="src\Grout\Core\Application.h" />
+    <ClInclude Include="src\Grout\Core\Assert.h" />
     <ClInclude Include="src\Grout\Core\Core.h" />
     <ClInclude Include="src\Grout\Core\EntryPoint.h" />
-    <ClInclude Include="src\Grout\Events\ApplicationEvent.h" />
-    <ClInclude Include="src\Grout\Events\Event.h" />
-    <ClInclude Include="src\Grout\Events\KeyEvent.h" />
-    <ClInclude Include="src\Grout\Events\MouseEvent.h" />
-    <ClInclude Include="src\Grout\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Grout\Core\Input.h" />
     <ClInclude Include="src\Grout\Core\KeyCodes.h" />
     <ClInclude Include="src\Grout\Core\Layer.h" />
     <ClInclude Include="src\Grout\Core\LayerStack.h" />
     <ClInclude Include="src\Grout\Core\Log.h" />
     <ClInclude Include="src\Grout\Core\MouseCodes.h" />
+    <ClInclude Include="src\Grout\Core\Time.h" />
+    <ClInclude Include="src\Grout\Core\Window.h" />
+    <ClInclude Include="src\Grout\Events\ApplicationEvent.h" />
+    <ClInclude Include="src\Grout\Events\Event.h" />
+    <ClInclude Include="src\Grout\Events\KeyEvent.h" />
+    <ClInclude Include="src\Grout\Events\MouseEvent.h" />
+    <ClInclude Include="src\Grout\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Grout\Renderer\Buffer.h" />
+    <ClInclude Include="src\Grout\Renderer\Camera.h" />
+    <ClInclude Include="src\Grout\Renderer\Components.h" />
+    <ClInclude Include="src\Grout\Renderer\RenderCommand.h" />
+    <ClInclude Include="src\Grout\Renderer\Renderer.h" />
+    <ClInclude Include="src\Grout\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Grout\Renderer\RendererContext.h" />
     <ClInclude Include="src\Grout\Renderer\Shader.h" />
-    <ClInclude Include="src\Grout\Core\Window.h" />
+    <ClInclude Include="src\Grout\Renderer\Texture.h" />
+    <ClInclude Include="src\Grout\Renderer\VertexArray.h" />
+    <ClInclude Include="src\Grout\Scene\Object.h" />
+    <ClInclude Include="src\Grout\Scene\Transform.h" />
+    <ClInclude Include="src\Plataform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Plataform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\Plataform\OpenGL\OpenGLRendererAPI.h" />
+    <ClInclude Include="src\Plataform\OpenGL\OpenGLShader.h" />
+    <ClInclude Include="src\Plataform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Plataform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Plataform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\grtpch.h" />
@@ -594,34 +597,36 @@
     <ClInclude Include="third-part\glm\glm\vec3.hpp" />
     <ClInclude Include="third-part\glm\glm\vec4.hpp" />
     <ClInclude Include="third-part\glm\glm\vector_relational.hpp" />
-    <ClInclude Include="src\Grout\Renderer\VertexArray.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Plataform\OpenGL\OpenGLShader.cpp" />
-    <ClCompile Include="src\Grout\Core\Time.cpp" />
-    <ClCompile Include="src\Grout\Renderer\Camera.cpp" />
-    <ClCompile Include="src\Grout\Scene\Transform.cpp" />
-    <ClCompile Include="src\Plataform\OpenGL\OpenGLRendererAPI.cpp" />
-    <ClCompile Include="src\Grout\Renderer\RenderCommand.cpp" />
-    <ClCompile Include="src\Grout\Renderer\RendererAPI.cpp" />
-    <ClCompile Include="src\Plataform\OpenGL\OpenGLVertexArray.cpp" />
-    <ClCompile Include="src\Grout\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\Plataform\OpenGL\OpenGLBuffer.cpp" />
-    <ClCompile Include="src\Grout\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Grout\Scene\Object.cpp" />
+    <ClCompile Include="src\Plataform\OpenGL\OpenGLTexture.cpp" />
     <ClCompile Include="src\Grout\Core\Application.cpp" />
-    <ClCompile Include="src\Grout\ImGui\ImGuiBuild.cpp" />
-    <ClCompile Include="src\Grout\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Grout\Core\Layer.cpp" />
     <ClCompile Include="src\Grout\Core\LayerStack.cpp" />
     <ClCompile Include="src\Grout\Core\Log.cpp" />
+    <ClCompile Include="src\Grout\Core\Time.cpp" />
+    <ClCompile Include="src\Grout\ImGui\ImGuiBuild.cpp" />
+    <ClCompile Include="src\Grout\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="src\Grout\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Grout\Renderer\Camera.cpp" />
+    <ClCompile Include="src\Grout\Renderer\RenderCommand.cpp" />
+    <ClCompile Include="src\Grout\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Grout\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Grout\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Grout\Renderer\Texture.cpp" />
+    <ClCompile Include="src\Grout\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Grout\Scene\Transform.cpp" />
+    <ClCompile Include="src\Plataform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Plataform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\Plataform\OpenGL\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\Plataform\OpenGL\OpenGLShader.cpp" />
+    <ClCompile Include="src\Plataform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Plataform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Plataform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\grtpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\Grout\Renderer\VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="third-part\GLFW\GLFW.vcxproj">
@@ -633,12 +638,6 @@
     <ProjectReference Include="third-part\imgui\ImGui.vcxproj">
       <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\Grout\Shaders\sprite.frag" />
-    <None Include="src\Grout\Shaders\sprite.vs" />
-    <None Include="src\Grout\Shaders\test.frag" />
-    <None Include="src\Grout\Shaders\test.v" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

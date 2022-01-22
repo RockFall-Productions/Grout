@@ -25,7 +25,7 @@ namespace Grout {
 		}
 
 	private:
-		static RendererAPI* renderer_api_;
+		static Scope<RendererAPI> renderer_api_;
 
 	};
 }

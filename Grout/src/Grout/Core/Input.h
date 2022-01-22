@@ -23,6 +23,6 @@ namespace Grout {
 		virtual float GetMouseXImpl() = 0;
 		virtual float GetMouseYImpl() = 0;
 	private:
-		static Input* instance_;
+		static Scope<Input> instance_;
 	};
 }

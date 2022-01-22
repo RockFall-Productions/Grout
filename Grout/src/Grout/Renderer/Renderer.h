@@ -23,6 +23,6 @@ namespace Grout {
 			glm::mat4 view_projection_matrix;
 		};
 
-		static SceneData* scene_data_;
+		static Scope<SceneData> scene_data_;
 	};
 }
