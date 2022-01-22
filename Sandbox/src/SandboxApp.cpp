@@ -8,122 +8,38 @@
 class TestLayer : public Grout::Layer {
 public:
 	TestLayer() : Layer("Testing"), camera_(glm::vec3(0.0f, 0.0f, 10.0f), 32.0f, 18.0f) {
-		// Creation of Vertex Array
-		vertex_array_.reset(Grout::VertexArray::Create());
-		
-		float vertices[4 * 7] = {
-			// Position --- Color
-			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-			 0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-			 0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+		// world space positions of our cubes
+		glm::vec3 cubePositions[] = {
+			glm::vec3(1.0f,   1.0f, 0.0f),
+			glm::vec3(-1.0f, -1.0f,  0.0f),
+			glm::vec3(-1.5f, -2.2f, -2.5f),
+			glm::vec3(-3.8f, -2.0f, -12.3f),
+			glm::vec3(2.4f, -0.4f, -3.5f),
+			glm::vec3(-1.7f,  3.0f, -7.5f),
+			glm::vec3(1.3f, -2.0f, -2.5f),
+			glm::vec3(1.5f,  2.0f, -2.5f),
+			glm::vec3(1.5f,  0.2f, -1.5f),
+			glm::vec3(-1.3f,  1.0f, -1.5f)
 		};
+
+		for (int i = 0; i < 10; i++)
+		{
+			cubes_.push_back(Grout::Object("Cube", cubePositions[i]));
+		}
 
 		Grout::Ref<Grout::VertexBuffer> vertex_buffer;
-		// Creation of Vertex Buffer
-		vertex_buffer.reset(Grout::VertexBuffer::Create(vertices, sizeof(vertices)));
-		// Setting the Vertex Buffer Layout
+		vertex_buffer.reset(Grout::VertexBuffer::Create(cubes_[0].cube_component.vertices, sizeof(cubes_[0].cube_component.vertices)));
 		Grout::BufferLayout layout = {
-			{ Grout::ShaderDataType::Float3, "a_position"},
-			{ Grout::ShaderDataType::Float4, "a_color"}
+			{Grout::ShaderDataType::Float3, "a_position"},
+			{Grout::ShaderDataType::Float4, "a_color" }
 		};
 		vertex_buffer->set_layout(layout);
-		// Adding this VertexBuffer to the VertexArray
 		vertex_array_->AddVertexBuffer(vertex_buffer);
 
-		// Setting up the Index Buffer and adding it to the VertexArray
-		uint32_t indices[] = { 0, 1, 2 };
 		Grout::Ref<Grout::IndexBuffer> index_buffer;
-		index_buffer.reset(Grout::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		index_buffer.reset(Grout::IndexBuffer::Create(cubes_[0].cube_component.indices, sizeof(cubes_[0].cube_component.indices) / sizeof(uint32_t)));
 		vertex_array_->SetIndexBuffer(index_buffer);
-
-		square_VA_.reset(Grout::VertexArray::Create());
-		float vertices2[4 * 7] = {
-			// Position --- Color
-			-0.5f, -0.5f, 0.0f, 1.0f, 0.2f, 0.3f, 1.0f,
-			 0.5f, -0.5f, 0.0f, 0.0f, 0.2f, 0.3f, 1.0f,
-			 0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.3f, 1.0f,
-			-0.5f,  0.5f, 0.0f, 0.0f, 0.2f, 1.0f, 1.0f
-		};
-		Grout::Ref<Grout::VertexBuffer> squareVB;
-		squareVB.reset(Grout::VertexBuffer::Create(vertices2, sizeof(vertices2)));
-
-		squareVB->set_layout(layout);
-
-		square_VA_->AddVertexBuffer(squareVB);
-
-		uint32_t indices2[] = { 0, 1, 2, 2, 3, 0 };
-		Grout::Ref<Grout::IndexBuffer> squareIB;
-		squareIB.reset(Grout::IndexBuffer::Create(indices2, sizeof(indices2) / sizeof(uint32_t)));
-		square_VA_->SetIndexBuffer(squareIB);
-
-		float verticesCubes[6 * 6 * 7] = {
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f,
-		 0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f,
-
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f,
-		 0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f,
-
-		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 1.0f, 1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 1.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 1.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 1.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 1.0f, 1.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 1.0f, 1.0f,
-
-		 0.5f,  0.5f,  0.5f,  0.4f, 0.3f, 0.5f, 1.0f,
-		 0.5f,  0.5f, -0.5f,  0.4f, 0.3f, 0.5f, 1.0f,
-		 0.5f, -0.5f, -0.5f,  0.4f, 0.3f, 0.5f, 1.0f,
-		 0.5f, -0.5f, -0.5f,  0.4f, 0.3f, 0.5f, 1.0f,
-		 0.5f, -0.5f,  0.5f,  0.4f, 0.3f, 0.5f, 1.0f,
-		 0.5f,  0.5f,  0.5f,  0.4f, 0.3f, 0.5f, 1.0f,
-
-		-0.5f, -0.5f, -0.5f,  0.5f, 1.0f, 0.0f, 1.0f,
-		 0.5f, -0.5f, -0.5f,  0.5f, 1.0f, 0.0f, 1.0f,
-		 0.5f, -0.5f,  0.5f,  0.5f, 1.0f, 0.0f, 1.0f,
-		 0.5f, -0.5f,  0.5f,  0.5f, 1.0f, 0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.5f, 1.0f, 0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.5f, 1.0f, 0.0f, 1.0f,
-
-		-0.5f,  0.5f, -0.5f,  0.0f, 0.4f, 0.2f, 1.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f, 0.4f, 0.2f, 1.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f, 0.4f, 0.2f, 1.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f, 0.4f, 0.2f, 1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 0.4f, 0.2f, 1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f, 0.4f, 0.2f, 1.0f
-		};
 		
-		Grout::Ref<Grout::VertexBuffer> cubeVB;
-		cubeVB.reset(Grout::VertexBuffer::Create(verticesCubes, sizeof(verticesCubes)));
-
-		cubeVB->set_layout(layout);
-
-		cube_VA_.reset(Grout::VertexArray::Create());
-		cube_VA_->AddVertexBuffer(cubeVB);
-
-		uint32_t indicesCube[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-								  11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-								  21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
-								  31, 32, 33, 34, 35 };
-		//uint32_t indicesCube[] = { 2, 1, 0, 5, 4, 3, 8, 7, 6, 11, 10,
-		//						  9, 14, 13, 12, 17, 16, 15, 20, 19, 18,
-		//						  23, 22, 21, 26, 25, 24, 29, 28, 27, 32,
-		//						  31, 30, 35, 34, 33 };
-		//uint32_t indicesCube[] = { 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21,
-		//20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
-
-		Grout::Ref<Grout::IndexBuffer> cubeIB;
-		cubeIB.reset(Grout::IndexBuffer::Create(indicesCube, sizeof(indicesCube) / sizeof(uint32_t)));
-		cube_VA_->SetIndexBuffer(cubeIB);
-
-
 		shader_.reset(Grout::Shader::Create("assets/shaders/mesh.glsl"));
 	}
 
@@ -176,33 +92,17 @@ public:
 
 		// Rendering the Scene
 		Grout::Renderer::BeginScene(camera_);
-		//Grout::Renderer::Submit(shader_, square_VA_);
-
-		// world space positions of our cubes
-		glm::vec3 cubePositions[] = {
-			glm::vec3( 1.0f,   1.0f, 0.0f),
-			glm::vec3(-1.0f, -1.0f,  0.0f),
-			glm::vec3(-1.5f, -2.2f, -2.5f),
-			glm::vec3(-3.8f, -2.0f, -12.3f),
-			glm::vec3(2.4f, -0.4f, -3.5f),
-			glm::vec3(-1.7f,  3.0f, -7.5f),
-			glm::vec3(1.3f, -2.0f, -2.5f),
-			glm::vec3(1.5f,  2.0f, -2.5f),
-			glm::vec3(1.5f,  0.2f, -1.5f),
-			glm::vec3(-1.3f,  1.0f, -1.5f)
-		};
 
 		//Grout::MaterialRef material = new Grout::Material(shader_);
 
 		std::dynamic_pointer_cast<Grout::OpenGLShader>(shader_)->uniform_set_vector4f("u_color", cubesColor);
 
-		for (unsigned int i = 0; i < 10; i++)
+		for (auto cube : cubes_)
 		{
 			// calculate the model matrix for each object and pass it to shader before drawing
 			glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-			model = glm::translate(model, cubePositions[i]);
-			float angle = 20.0f * i;
-			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+			model = glm::translate(model, cube.transform.get_position());
+			//model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
 
 			Grout::Renderer::Submit(shader_, cube_VA_, model);
 		}
@@ -238,6 +138,8 @@ private:
 
 	Grout::Ref<Grout::VertexArray> square_VA_;
 	Grout::Ref<Grout::VertexArray> cube_VA_;
+
+	std::vector<Grout::Object> cubes_;
 
 	Grout::Camera camera_;
 };

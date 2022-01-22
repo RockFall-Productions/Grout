@@ -68,21 +68,17 @@ namespace Grout {
 
 	// Used for resolving any Event
 	class EventDispatcher {
-
-		template<typename T>
-		// EventFn represents 
-		using EventFnc = std::function<bool(T&)>;
 	public:
 		EventDispatcher(Event& event)
 			: event_(event) {}
 
-		template<typename T>
-		bool Dispatch(EventFnc<T> func) {
+		template<typename T, typename F>
+		bool Dispatch(const F& func) {
 			// TODO: Type safety
 			// if trying to dispatch an Event of a type that matches this dispatcher
 			if (event_.get_event_type() == T::get_static_type()) {
 				// We run the given function
-				event_.is_handled_ = func(*(T*)&event_);
+				event_.is_handled_ = func(static_cast<T&>(event_));
 				return true;
 			}
 			return false;

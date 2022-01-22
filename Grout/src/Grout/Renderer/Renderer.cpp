@@ -7,7 +7,7 @@
 
 namespace Grout {
 	// HACK: Ideally we should have a tiny database for Renderer data
-	Renderer::SceneData* Renderer::scene_data_ = new Renderer::SceneData;
+	Scope<Renderer::SceneData> Renderer::scene_data_ = CreateScope<Renderer::SceneData>();
 
 	void Renderer::OnWindowResize(uint32_t width, uint32_t height)
 	{

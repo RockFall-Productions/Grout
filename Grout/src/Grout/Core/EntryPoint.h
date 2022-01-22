@@ -1,7 +1,5 @@
 #pragma once
 
-#ifdef GRT_PLATAFORM_WINDOWS
-
 extern Grout::Application* Grout::CreateApplication();
 
 int main(int argc, char** argv) {
@@ -11,5 +9,3 @@ int main(int argc, char** argv) {
 	app->Run();
 	delete app;
 }
-
-#endif

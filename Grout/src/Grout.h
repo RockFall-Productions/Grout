@@ -26,11 +26,19 @@
 
 #include "Grout/Renderer/VertexArray.h"
 #include "Grout/Renderer/Shader.h"
+#include "Grout/Renderer/Texture.h"
 #include "Grout/Renderer/Buffer.h"
 
 #include "Grout/Renderer/Camera.h"
+
+#include "Grout/Renderer/Components.h"
 // ----------------------------------
 
+
+// ------------ Scene data --------------
+#include "Grout/Scene/Object.h"
+#include "Grout/Scene/Transform.h"
+// ----------------------------------
 
 // --------- Entry Point -----------
 #include "Grout/Core/EntryPoint.h"

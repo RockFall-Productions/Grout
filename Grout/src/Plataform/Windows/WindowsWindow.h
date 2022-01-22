@@ -29,7 +29,7 @@ namespace Grout {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* window_;
-		RendererContext* context_;
+		Scope<RendererContext> context_;
 
 		struct WindowData {
 			std::string title;

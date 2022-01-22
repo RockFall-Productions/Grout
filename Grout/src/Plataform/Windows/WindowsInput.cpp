@@ -6,7 +6,7 @@
 
 namespace Grout {
 
-	Input* Input::instance_ = new WindowsInput();
+	Scope<Input> Input::instance_ = CreateScope<WindowsInput>();
 
 	bool WindowsInput::IsKeyPressedImpl(int keycode)
 	{
