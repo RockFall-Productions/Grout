@@ -60,6 +60,7 @@ namespace Grout {
 				element.normalized ? GL_TRUE : GL_FALSE,
 				vertex_buffer->get_layout().get_stride(),
 				(const void*)element.offset
+				
 			);
 			++index;
 		}

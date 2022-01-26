@@ -5,6 +5,10 @@
 namespace Grout {
 	class RenderCommand {
 	public:
+		inline static void Init() {
+			renderer_api_->Init();
+		}
+
 		inline static void SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height) {
 			renderer_api_->SetViewport(x, y, width, height);
 		}

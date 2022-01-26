@@ -131,15 +131,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\BoidWorldLayer.h" />
+    <ClInclude Include="src\World.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\BoidWorldLayer.cpp" />
     <ClCompile Include="src\SandboxApp.cpp" />
+    <ClCompile Include="src\World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Grout\Grout.vcxproj">
       <Project>{D636440D-424B-6CBE-0BCD-0F1E77A068EF}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="assets\shaders\texture.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

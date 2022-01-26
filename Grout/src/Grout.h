@@ -41,5 +41,5 @@
 // ----------------------------------
 
 // --------- Entry Point -----------
-#include "Grout/Core/EntryPoint.h"
+//#include "Grout/Core/EntryPoint.h"
 // ---------------------------------

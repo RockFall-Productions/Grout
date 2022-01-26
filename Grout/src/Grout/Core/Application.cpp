@@ -24,6 +24,8 @@ namespace Grout {
 		window_ = std::unique_ptr<Window>(Window::Create());
 		window_->set_event_callback(GRT_BIND_EVENT_FN(Application::OnEvent));
 
+		Renderer::Init();
+
 		// Creating the ImGui overlay
 		imgui_layer_ = new ImGuiLayer;
 		layer_stack_.push_overlay(imgui_layer_);

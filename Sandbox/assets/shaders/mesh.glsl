@@ -27,5 +27,5 @@ in vec4 v_color;
 uniform vec4 u_color;
 
 void main() {
-	color = u_color;
+	color = v_color;
 }

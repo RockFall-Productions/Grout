@@ -79,7 +79,7 @@ namespace Grout {
 		float aspect_;
 
 		// Distance from camera to NEAR clip plane
-		float near_clip_plane_ = 0.1f;
+		float near_clip_plane_ = 1.0f;
 		// Distance from camera to FAR clip plane
 		float far_clip_plane_ = 100.0f;
 

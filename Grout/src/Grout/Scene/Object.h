@@ -2,6 +2,7 @@
 
 #include "Transform.h"
 #include "Grout/Renderer/Components.h"
+#include "Grout/Renderer/Mesh.h"
 
 #include <string>
 
@@ -13,6 +14,10 @@ namespace Grout {
 		~Object() { }
 
 		Transform transform;
+
+		MeshComponent mesh_component = MeshComponent();
+
+		Mesh* mesh = nullptr;
 
 		CubeRendererComponent cube_component = CubeRendererComponent();
 	private:

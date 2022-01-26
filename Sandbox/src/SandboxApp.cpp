@@ -1,5 +1,9 @@
 #include <Grout.h>
+#include <Grout/Core/EntryPoint.h>
+
 #include "Plataform/OpenGL/OpenGLShader.h"
+
+#include "BoidWorldLayer.h"
 
 #include "imgui/imgui.h"
 #include "glm/gtc/type_ptr.hpp"
@@ -31,16 +35,25 @@ public:
 		vertex_buffer.reset(Grout::VertexBuffer::Create(cubes_[0].cube_component.vertices, sizeof(cubes_[0].cube_component.vertices)));
 		Grout::BufferLayout layout = {
 			{Grout::ShaderDataType::Float3, "a_position"},
-			{Grout::ShaderDataType::Float4, "a_color" }
+			{Grout::ShaderDataType::Float2, "a_texture" }
 		};
+
 		vertex_buffer->set_layout(layout);
+
+		vertex_array_.reset(Grout::VertexArray::Create());
+
 		vertex_array_->AddVertexBuffer(vertex_buffer);
 
 		Grout::Ref<Grout::IndexBuffer> index_buffer;
 		index_buffer.reset(Grout::IndexBuffer::Create(cubes_[0].cube_component.indices, sizeof(cubes_[0].cube_component.indices) / sizeof(uint32_t)));
 		vertex_array_->SetIndexBuffer(index_buffer);
 		
-		shader_.reset(Grout::Shader::Create("assets/shaders/mesh.glsl"));
+		shader_.reset(Grout::Shader::Create("assets/shaders/texture.glsl"));
+		texture_ = Grout::Texture2D::Create("assets/images/textures/pocoyo.png");
+
+		std::dynamic_pointer_cast<Grout::OpenGLShader>(shader_)->uniform_set_integer("u_image", 0, true);
+
+		//texture_ = Grout::Texture2D::Create("assets/images/textures/grass.png");
 	}
 
 	void OnUpdate() override {
@@ -87,15 +100,12 @@ public:
 		else if (Grout::Input::is_key_pressed(GRT_KEY_G))
 			camera_.get_transform().add_position(glm::vec3(0.0f, 0.0f, 1.0f) * Grout::Time::delta_time_f());
 
-		//camera_.set_rotation(glm::vec3(0.0f, 0.0f, 45.0f));
-		//camera_.set_position(glm::vec3(0.5f, 0.5f, 0.0f));
-
 		// Rendering the Scene
 		Grout::Renderer::BeginScene(camera_);
 
 		//Grout::MaterialRef material = new Grout::Material(shader_);
 
-		std::dynamic_pointer_cast<Grout::OpenGLShader>(shader_)->uniform_set_vector4f("u_color", cubesColor);
+		//std::dynamic_pointer_cast<Grout::OpenGLShader>(shader_)->uniform_set_vector4f("u_color", cubesColor);
 
 		for (auto cube : cubes_)
 		{
@@ -104,7 +114,8 @@ public:
 			model = glm::translate(model, cube.transform.get_position());
 			//model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
 
-			Grout::Renderer::Submit(shader_, cube_VA_, model);
+			texture_->Bind(0);
+			Grout::Renderer::Submit(shader_, vertex_array_, model);
 		}
 		Grout::Renderer::EndScene();
 
@@ -133,6 +144,7 @@ public:
 private:
 	// Buffer
 	Grout::Ref<Grout::Shader> shader_;
+	Grout::Ref<Grout::Texture2D> texture_;
 	Grout::Ref<Grout::VertexArray> vertex_array_;
 	glm::vec4 cubesColor = glm::vec4(0.0f);
 
@@ -147,7 +159,7 @@ private:
 class Sandbox : public Grout::Application {
 public:
 	Sandbox() {
-		PushLayer(new TestLayer());
+		PushLayer(new BoidWorldLayer());
 	}
 
 	~Sandbox() {

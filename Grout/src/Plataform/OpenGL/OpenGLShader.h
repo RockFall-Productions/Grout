@@ -26,13 +26,13 @@ namespace Grout {
 		// Sets for Uniform shader variables
 		void uniform_set_float(const char* name, float value, bool useShader = false);
 		void uniform_set_integer(const char* name, int value, bool useShader = false);
-		void uniform_set_vector2f(const char* name, float x, float y, bool use_shader = false);
-		void uniform_set_vector2f(const char* name, const glm::vec2& value, bool use_shader = false);
-		void uniform_set_vector3f(const char* name, float x, float y, float z, bool use_shader = false);
-		void uniform_set_vector3f(const char* name, const glm::vec3& value, bool use_shader = false);
-		void uniform_set_vector4f(const char* name, float x, float y, float z, float w, bool use_shader = false);
-		void uniform_set_vector4f(const char* name, const glm::vec4& value, bool use_shader = false);
-		void uniform_set_matrix4(const char* name, const glm::mat4& matrix, bool use_shader = false);
+		void uniform_set_vector2f(const char* name, float x, float y, bool bind_first = false);
+		void uniform_set_vector2f(const char* name, const glm::vec2& value, bool bind_first = false);
+		void uniform_set_vector3f(const char* name, float x, float y, float z, bool bind_first = false);
+		void uniform_set_vector3f(const char* name, const glm::vec3& value, bool bind_first = false);
+		void uniform_set_vector4f(const char* name, float x, float y, float z, float w, bool bind_first = false);
+		void uniform_set_vector4f(const char* name, const glm::vec4& value, bool bind_first = false);
+		void uniform_set_matrix4(const char* name, const glm::mat4& matrix, bool bind_first = false);
 	private:
 		static GLenum ShaderTypeFromString(std::string& type);
 

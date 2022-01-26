@@ -4,6 +4,7 @@
 
 #include "Camera.h"
 #include "Shader.h"
+#include "Grout/Scene/Object.h"
 
 namespace Grout {
 	class Renderer {
@@ -15,7 +16,12 @@ namespace Grout {
 		static void OnWindowResize(uint32_t width, uint32_t height);
 		
 		static void BeginScene(Camera& camera);
+		
 		static void Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertex_array, const glm::mat4& transform = glm::mat4(1.0f));
+		
+		static void RenderObject(const Ref<Object>& obj, const Ref<Shader>& shader);
+		static void RenderMeshObject(const Ref<Object>& obj, const Ref<Shader>& shader);
+		
 		static void EndScene();
 
 	private:
