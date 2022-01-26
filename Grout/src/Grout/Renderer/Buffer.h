@@ -125,7 +125,7 @@ namespace Grout {
 		virtual const BufferLayout& get_layout() const = 0;
 		virtual void set_layout(const BufferLayout& layout) = 0;
 
-		static VertexBuffer* Create(float* vertices, uint32_t size);
+		static VertexBuffer* Create(void* vertices, uint32_t size);
 	};
 
 	// Pure virtual interface to be implemented for each graphic's API

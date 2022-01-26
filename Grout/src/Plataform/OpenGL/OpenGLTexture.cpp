@@ -1,7 +1,7 @@
 #include "grtpch.h"
 #include "OpenGLTexture.h"
 
-#include <stb_image.h>
+#include "stb_image.h"
 
 namespace Grout {
 	OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height)
@@ -21,7 +21,7 @@ namespace Grout {
 	}
 
 	OpenGLTexture2D::OpenGLTexture2D(const std::string& path)
-		: path_(path)
+		: path_(path), data_format_(), internal_format_(), width_(), height_(), renderer_id_(0)
 	{
 		int width, height, channels;
 		stbi_set_flip_vertically_on_load(1);

@@ -6,7 +6,7 @@
 namespace Grout {
 	//////////////////////////////////////////////////////////////////////
 	//////////////////////////// VERTEX BUFFER ///////////////////////////
-	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size) : id_(0)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(void* vertices, uint32_t size) : id_(0)
 	 {
 		// Creates one VBO object
 		glGenBuffers(1, &id_);

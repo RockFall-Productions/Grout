@@ -52,6 +52,9 @@
     <Filter Include="third-part\glm\glm\gtx">
       <UniqueIdentifier>{2451985E-104B-C1B0-F9B7-57C1E550271D}</UniqueIdentifier>
     </Filter>
+    <Filter Include="third-part\stb">
+      <UniqueIdentifier>{FC9C0F43-E86A-0349-D1FE-736FBD6BDFAD}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Grout.h">
@@ -117,6 +120,9 @@
     <ClInclude Include="src\Grout\Renderer\Components.h">
       <Filter>src\Grout\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Grout\Renderer\Mesh.h">
+      <Filter>src\Grout\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Grout\Renderer\RenderCommand.h">
       <Filter>src\Grout\Renderer</Filter>
     </ClInclude>
@@ -130,6 +136,9 @@
       <Filter>src\Grout\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Grout\Renderer\Shader.h">
+      <Filter>src\Grout\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Grout\Renderer\Texture.h">
       <Filter>src\Grout\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Grout\Renderer\VertexArray.h">
@@ -151,6 +160,9 @@
       <Filter>src\Plataform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Plataform\OpenGL\OpenGLShader.h">
+      <Filter>src\Plataform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Plataform\OpenGL\OpenGLTexture.h">
       <Filter>src\Plataform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Plataform\OpenGL\OpenGLVertexArray.h">
@@ -1410,8 +1422,9 @@
     <ClInclude Include="third-part\glm\glm\vector_relational.hpp">
       <Filter>third-part\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\Grout\Renderer\Texture.h" />
-    <ClInclude Include="src\Plataform\OpenGL\OpenGLTexture.h" />
+    <ClInclude Include="third-part\stb\stb_image.h">
+      <Filter>third-part\stb</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Grout\Core\Application.cpp">
@@ -1441,6 +1454,9 @@
     <ClCompile Include="src\Grout\Renderer\Camera.cpp">
       <Filter>src\Grout\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Grout\Renderer\Mesh.cpp">
+      <Filter>src\Grout\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Grout\Renderer\RenderCommand.cpp">
       <Filter>src\Grout\Renderer</Filter>
     </ClCompile>
@@ -1453,8 +1469,14 @@
     <ClCompile Include="src\Grout\Renderer\Shader.cpp">
       <Filter>src\Grout\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Grout\Renderer\Texture.cpp">
+      <Filter>src\Grout\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Grout\Renderer\VertexArray.cpp">
       <Filter>src\Grout\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Grout\Scene\Object.cpp">
+      <Filter>src\Grout\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Grout\Scene\Transform.cpp">
       <Filter>src\Grout\Scene</Filter>
@@ -1471,6 +1493,9 @@
     <ClCompile Include="src\Plataform\OpenGL\OpenGLShader.cpp">
       <Filter>src\Plataform\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\Plataform\OpenGL\OpenGLTexture.cpp">
+      <Filter>src\Plataform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Plataform\OpenGL\OpenGLVertexArray.cpp">
       <Filter>src\Plataform\OpenGL</Filter>
     </ClCompile>
@@ -1483,8 +1508,8 @@
     <ClCompile Include="src\grtpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Grout\Renderer\Texture.cpp" />
-    <ClCompile Include="src\Plataform\OpenGL\OpenGLTexture.cpp" />
-    <ClCompile Include="src\Grout\Scene\Object.cpp" />
+    <ClCompile Include="third-part\stb\stb_image.cpp">
+      <Filter>third-part\stb</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

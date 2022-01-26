@@ -17,12 +17,15 @@ IncludeDir["GLFW"] = "Grout/third-part/GLFW/include"
 IncludeDir["Glad"] = "Grout/third-part/Glad/include"
 IncludeDir["ImGui"] = "Grout/third-part/imgui"
 IncludeDir["glm"] = "Grout/third-part/glm"
+IncludeDir["stb"] = "Grout/third-part/stb"
+IncludeDir["assimp"] = "Grout/third-part/assimp"
 
 -- Includes the GLFW and GLAD premake5's files
 group "Dependencies"
 	include "Grout/third-part/GLFW"
 	include "Grout/third-part/Glad"
 	include "Grout/third-part/imgui"
+	include "Grout/third-part/assimp"
 group ""
 
 project "Grout"
@@ -42,6 +45,8 @@ project "Grout"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/third-part/stb/stb_image.h",
+		"%{prj.name}/third-part/stb/stb_image.cpp",
 		"%{prj.name}/third-part/glm/glm/**.hpp",
 		"%{prj.name}/third-part/glm/glm/**.inl"
 	}
@@ -55,10 +60,13 @@ project "Grout"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/third-part/spdlog/include",
+		"%{prj.name}/third-part/assimp/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb}",
+		"%{IncludeDir.assimp}"
 	}
 
 	links

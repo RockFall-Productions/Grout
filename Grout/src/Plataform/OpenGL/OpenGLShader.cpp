@@ -211,57 +211,57 @@ namespace Grout {
 	}
 
 	// ------------------------ UNIFORM SETTER ------------------------
-	void OpenGLShader::uniform_set_float(const char* name, float value, bool use_shader)
+	void OpenGLShader::uniform_set_float(const char* name, float value, bool bind_first)
 	{
-		if (use_shader)
+		if (bind_first)
 			this->Bind();
 		glUniform1f(glGetUniformLocation(this->id_, name), value);
 	}
-	void OpenGLShader::uniform_set_integer(const char* name, int value, bool use_shader)
+	void OpenGLShader::uniform_set_integer(const char* name, int value, bool bind_first)
 	{
-		if (use_shader)
+		if (bind_first)
 			this->Bind();
 		glUniform1i(glGetUniformLocation(this->id_, name), value);
 	}
-	void OpenGLShader::uniform_set_vector2f(const char* name, float x, float y, bool use_shader)
+	void OpenGLShader::uniform_set_vector2f(const char* name, float x, float y, bool bind_first)
 	{
-		if (use_shader)
+		if (bind_first)
 			this->Bind();
 		glUniform2f(glGetUniformLocation(this->id_, name), x, y);
 	}
-	void OpenGLShader::uniform_set_vector2f(const char* name, const glm::vec2& value, bool use_shader)
+	void OpenGLShader::uniform_set_vector2f(const char* name, const glm::vec2& value, bool bind_first)
 	{
-		if (use_shader)
+		if (bind_first)
 			this->Bind();
 		glUniform2f(glGetUniformLocation(this->id_, name), value.x, value.y);
 	}
-	void OpenGLShader::uniform_set_vector3f(const char* name, float x, float y, float z, bool use_shader)
+	void OpenGLShader::uniform_set_vector3f(const char* name, float x, float y, float z, bool bind_first)
 	{
-		if (use_shader)
+		if (bind_first)
 			this->Bind();
 		glUniform3f(glGetUniformLocation(this->id_, name), x, y, z);
 	}
-	void OpenGLShader::uniform_set_vector3f(const char* name, const glm::vec3& value, bool use_shader)
+	void OpenGLShader::uniform_set_vector3f(const char* name, const glm::vec3& value, bool bind_first)
 	{
-		if (use_shader)
+		if (bind_first)
 			this->Bind();
 		glUniform3f(glGetUniformLocation(this->id_, name), value.x, value.y, value.z);
 	}
-	void OpenGLShader::uniform_set_vector4f(const char* name, float x, float y, float z, float w, bool use_shader)
+	void OpenGLShader::uniform_set_vector4f(const char* name, float x, float y, float z, float w, bool bind_first)
 	{
-		if (use_shader)
+		if (bind_first)
 			this->Bind();
 		glUniform4f(glGetUniformLocation(this->id_, name), x, y, z, w);
 	}
-	void OpenGLShader::uniform_set_vector4f(const char* name, const glm::vec4& value, bool use_shader)
+	void OpenGLShader::uniform_set_vector4f(const char* name, const glm::vec4& value, bool bind_first)
 	{
-		if (use_shader)
+		if (bind_first)
 			this->Bind();
 		glUniform4f(glGetUniformLocation(this->id_, name), value.x, value.y, value.z, value.w);
 	}
-	void OpenGLShader::uniform_set_matrix4(const char* name, const glm::mat4& matrix, bool use_shader)
+	void OpenGLShader::uniform_set_matrix4(const char* name, const glm::mat4& matrix, bool bind_first)
 	{
-		if (use_shader)
+		if (bind_first)
 			this->Bind();
 		glUniformMatrix4fv(glGetUniformLocation(this->id_, name), 1, GL_FALSE, glm::value_ptr(matrix));
 	}
