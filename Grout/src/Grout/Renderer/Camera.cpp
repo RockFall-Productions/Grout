@@ -9,6 +9,8 @@
 #include <glm/gtx/quaternion.hpp>
 
 namespace Grout {
+	Ref<Camera> Camera::main_ = nullptr;
+
 	Camera::Camera(const glm::vec3& position, float width, float height)
 		: transform_(Transform(position)), width_(width), height_(height), aspect_((float)width/(float)height)
 	{

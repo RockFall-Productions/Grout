@@ -24,9 +24,8 @@ namespace Grout {
 	void Renderer::BeginScene(Camera& camera)
 	{
 		scene_data_->view_projection_matrix = camera.get_viewprojection_matrix();
-
-
 	}
+
 	void Renderer::EndScene()
 	{
 
@@ -53,7 +52,7 @@ namespace Grout {
 		obj->mesh_component.vertex_array->Bind();
 		RenderCommand::DrawIndexed(obj->mesh_component.vertex_array);
 	}
-
+	
 	void Renderer::RenderMeshObject(const Ref<Object>& obj, const Ref<Shader>& shader)
 	{
 		shader->Bind();
@@ -65,27 +64,44 @@ namespace Grout {
 		obj->mesh_component.vertex_array->Bind();
 
 		// TODO: change?
-		
-
-		uint32_t diffuseNr = 1;
-		uint32_t specularNr = 1;
-		for (uint32_t i = 0; i < obj->mesh->textures.size(); i++)
-		{
-			glActiveTexture(GL_TEXTURE0 + i); // activate proper texture unit before binding
-
-			// retrieve texture number (the N in diffuse_textureN)
-			std::string number;
-			std::string name = obj->mesh->textures[i].type;
-			if (name == "texture_diffuse")
-				number = std::to_string(diffuseNr++);
-			else if (name == "texture_specular")
-				number = std::to_string(specularNr++);
-
-			std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_integer(("u_material." + name + number).c_str(), i, false);
-			glBindTexture(GL_TEXTURE_2D, obj->mesh->textures[i].id);
-		}
-		glActiveTexture(GL_TEXTURE0);
 
 		RenderCommand::DrawIndexed(obj->mesh_component.vertex_array);
+	}
+
+	void Renderer::RenderSkybox(const Ref<Object>& obj, const Ref<Camera>& camera, const Ref<Shader>& shader)
+	{
+		RenderCommand::SetDepthFunc(GRT_LEQUAL);
+
+		shader->Bind();
+		// Changing matrix so only rotation does apply
+		glm::quat orientation = camera->get_transform().get_orientation();
+		glm::mat4 view = glm::toMat4(orientation);
+		view = glm::inverse(view);
+		glm::mat4 view_projection_matrix = camera->get_projection_matrix() * view;
+
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_matrix4("u_view_projection", view_projection_matrix, false);
+
+		obj->skybox_component->vertex_array->Bind();
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, obj->skybox_component->cubemap_texture);
+		RenderCommand::DrawIndexed(obj->skybox_component->vertex_array);
+
+		RenderCommand::SetDepthFunc(GRT_LESS);
+	}
+
+	void Renderer::RenderModelObject(const Ref<Object>& obj, const Ref<Shader>& shader)
+	{
+		shader->Bind();
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_matrix4("u_view_projection", scene_data_->view_projection_matrix, true);
+
+		glm::mat4 transform = obj->transform.get_transform();
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_matrix4("u_transform", transform, true);
+
+		//obj->mesh_component.vertex_array->Bind();
+
+		// TODO: change?
+
+		obj->model_3D->Render(shader);
 	}
 }
