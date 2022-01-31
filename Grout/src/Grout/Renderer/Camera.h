@@ -30,6 +30,8 @@ namespace Grout {
 		const glm::mat4& get_projection_matrix();
 		const glm::mat4& get_view_matrix();
 
+		static const Ref<Camera>& get_main() { return main_; }
+		static void set_main(const Ref<Camera>& main) { main_ = main; }
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	private:
@@ -55,7 +57,7 @@ namespace Grout {
 		static std::vector<Camera> all_cameras_;
 		static uint32_t all_cameras_count_;
 		static Camera* current;
-		static Camera* main;
+		static Ref<Camera> main_;
 	private:
 		//  PROPERTIES
 		
@@ -63,7 +65,6 @@ namespace Grout {
 		Transform transform_;
 		// Rotation in X, Y and Z axis (euler degrees °)
 		glm::vec3 speed_ = glm::vec3(0.0f);
-
 
 		// Viewport
 		float width_;

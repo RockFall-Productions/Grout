@@ -21,6 +21,8 @@ namespace Grout {
 		
 		static void RenderObject(const Ref<Object>& obj, const Ref<Shader>& shader);
 		static void RenderMeshObject(const Ref<Object>& obj, const Ref<Shader>& shader);
+		static void RenderModelObject(const Ref<Object>& obj, const Ref<Shader>& shader);
+		static void RenderSkybox(const Ref<Object>& obj, const Ref<Camera>& camera, const Ref<Shader>& shader);
 		
 		static void EndScene();
 

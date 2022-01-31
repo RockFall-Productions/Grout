@@ -7,6 +7,7 @@
 #include "Grout/Core/Layer.h"
 #include "Grout/Core/Log.h"
 #include "Grout/Core/Time.h"
+#include "Grout/Core/Macros.h"
 
 // ------------ Input related ------------
 #include "Grout/Core/Input.h"
@@ -32,6 +33,8 @@
 #include "Grout/Renderer/Camera.h"
 
 #include "Grout/Renderer/Components.h"
+
+#include "Grout/Renderer/Mesh.h"
 // ----------------------------------
 
 

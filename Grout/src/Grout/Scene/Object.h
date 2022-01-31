@@ -18,8 +18,10 @@ namespace Grout {
 		MeshComponent mesh_component = MeshComponent();
 
 		Mesh* mesh = nullptr;
+		Ref<Model> model_3D = nullptr;
 
 		CubeRendererComponent cube_component = CubeRendererComponent();
+		Ref<SkyBoxComponent> skybox_component = nullptr;
 	private:
 		bool active_in_hierarchy_ = true;
 		bool active_ = true;

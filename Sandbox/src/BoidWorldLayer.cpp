@@ -1,4 +1,5 @@
 #include "BoidWorldLayer.h"
+#include <glm/glm/gtc/type_ptr.hpp>
 
 using namespace Grout;
 
@@ -7,6 +8,7 @@ BoidWorldLayer::BoidWorldLayer() : Layer("BoidWorldLayer")
 	auto& window = Application::get_instance().get_window();
 	CreateCamera(window.get_width(), window.get_height());
 
+	flock = Flock();
 }
 
 void BoidWorldLayer::OnAttach()
@@ -15,95 +17,54 @@ void BoidWorldLayer::OnAttach()
 	world_map_ = World();
 	world_map_.Start();
 
-	float vertices[6 * 6 * 7] = {
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f,
-		 0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f,
+	// Boid setup
+	boid_object_ = Grout::CreateRef<Grout::Object>("Boid", glm::vec3(0.0f, 0.0f, 0.0f));
+	boid_object_->model_3D = Grout::CreateRef<Grout::Model>("assets/objects/fish/fish_idle.obj");
+	boid_shader_.reset(Grout::Shader::Create("assets/shaders/model.glsl"));
+	boid_object_->transform.set_scale(glm::vec3(0.3f));
 
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f,
-		 0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f,
-
-		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 1.0f, 1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 1.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 1.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 1.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, 1.0f, 1.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 1.0f, 1.0f,
-
-		 0.5f,  0.5f,  0.5f,  0.4f, 0.3f, 0.5f, 1.0f,
-		 0.5f,  0.5f, -0.5f,  0.4f, 0.3f, 0.5f, 1.0f,
-		 0.5f, -0.5f, -0.5f,  0.4f, 0.3f, 0.5f, 1.0f,
-		 0.5f, -0.5f, -0.5f,  0.4f, 0.3f, 0.5f, 1.0f,
-		 0.5f, -0.5f,  0.5f,  0.4f, 0.3f, 0.5f, 1.0f,
-		 0.5f,  0.5f,  0.5f,  0.4f, 0.3f, 0.5f, 1.0f,
-
-		-0.5f, -0.5f, -0.5f,  0.5f, 1.0f, 0.0f, 1.0f,
-		 0.5f, -0.5f, -0.5f,  0.5f, 1.0f, 0.0f, 1.0f,
-		 0.5f, -0.5f,  0.5f,  0.5f, 1.0f, 0.0f, 1.0f,
-		 0.5f, -0.5f,  0.5f,  0.5f, 1.0f, 0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.5f, 1.0f, 0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.5f, 1.0f, 0.0f, 1.0f,
-
-		-0.5f,  0.5f, -0.5f,  0.0f, 0.4f, 0.2f, 1.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f, 0.4f, 0.2f, 1.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f, 0.4f, 0.2f, 1.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f, 0.4f, 0.2f, 1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f, 0.4f, 0.2f, 1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f, 0.4f, 0.2f, 1.0f
-	};
-
-	uint32_t indices[36] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-								  11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-								  21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
-								  31, 32, 33, 34, 35 };
-
-	// world space positions of our cubes
-	glm::vec3 cubePositions[] = {
-		glm::vec3(1.0f,   1.0f, 0.0f),
-		glm::vec3(-1.0f, -1.0f,  0.0f),
-		glm::vec3(-1.5f, -2.2f, -2.5f),
-		glm::vec3(-3.8f, -2.0f, -12.3f),
-		glm::vec3(2.4f, -0.4f, -3.5f),
-		glm::vec3(-1.7f,  3.0f, -7.5f),
-		glm::vec3(1.3f, -2.0f, -2.5f),
-		glm::vec3(1.5f,  2.0f, -2.5f),
-		glm::vec3(1.5f,  0.2f, -1.5f),
-		glm::vec3(-1.3f,  1.0f, -1.5f)
-	};
-
-	
-
-	Grout::Ref<Grout::VertexBuffer> vertex_buffer;
-	vertex_buffer.reset(Grout::VertexBuffer::Create(vertices, sizeof(vertices)));
-	Grout::BufferLayout layout = {
-		{Grout::ShaderDataType::Float3, "a_position"},
-		{Grout::ShaderDataType::Float4, "a_color" }
-	};
-
-	vertex_buffer->set_layout(layout);
-
-	vertex_array_.reset(Grout::VertexArray::Create());
-
-	vertex_array_->AddVertexBuffer(vertex_buffer);
-
-	Grout::Ref<Grout::IndexBuffer> index_buffer;
-	index_buffer.reset(Grout::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
-	vertex_array_->SetIndexBuffer(index_buffer);
-
-	shader_.reset(Grout::Shader::Create("assets/shaders/mesh.glsl"));
-
-	for (int i = 0; i < 10; i++)
-	{
-		cubes_.push_back(CreateRef<Grout::Object>("Cube", cubePositions[i]));
-		cubes_[i]->mesh_component.vertex_array = vertex_array_;
-	}
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
+	flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
 }
 
 void BoidWorldLayer::OnDetach()
@@ -115,6 +76,13 @@ void BoidWorldLayer::OnUpdate()
 	// Update
 	CameraMovement();
 
+	update_timer_ += Time::delta_time_f();
+	if (update_timer_ >= 0.1f) {
+		flock.flocking();
+		update_timer_ = 0.0f;
+	}
+	
+
 	// Render
 	// Clears the background color
 	Grout::RenderCommand::SetClearColor({ 1.0f, 0.0f, 1.0f, 1.0f });
@@ -124,19 +92,10 @@ void BoidWorldLayer::OnUpdate()
 
 	world_map_.OnRender();
 
-	for (auto cube : cubes_)
+	for (auto& boid : flock.flock)
 	{
-		// calculate the model matrix for each object and pass it to shader before drawing
-		glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-		model = glm::translate(model, cube->transform.get_position());
-		//model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-		// 
-		//glm::mat4 transform = cube->transform.get_transform();
-
-		//Grout::Renderer::Submit(shader_, cube->mesh_component.vertex_array, model);
-		//Grout::Renderer::Submit(shader_, cube->mesh_component.vertex_array, cube->transform.get_transform());
-		
-		Grout::Renderer::RenderObject(cube, shader_);
+		boid_object_->transform.set_position(boid.position);
+		Grout::Renderer::RenderModelObject(boid_object_, boid_shader_);
 	}
 
 	Renderer::EndScene();
@@ -144,6 +103,50 @@ void BoidWorldLayer::OnUpdate()
 
 void BoidWorldLayer::OnImGuiRender()
 {
+	ImGui::Begin("Settings", &imgui_open);
+
+	ImGui::Checkbox("Camera segue os boids", &camFollowFlock);
+	if (camFollowFlock) {
+		//camera_->get_transform().set_rotation(glm::lookAt(camera_->get_transform().get_position(), flock.flock_position));
+		glm::vec3 new_direction = flock.flock_position - camera_->get_transform().get_position();
+		new_direction = glm::normalize(new_direction);
+		float dot_X = glm::dot(camera_->get_transform().get_rotation().x, new_direction.x);
+		float dot_Y = glm::dot(camera_->get_transform().get_rotation().y, new_direction.y);
+		//float dot_Z = glm::dot(camera_->get_transform().get_rotation().z, new_direction.z);
+		float angle_X = (acos(dot_X) * 180.0f) / glm::pi<float>();
+		float angle_Y = (acos(dot_Y) * 180.0f) / glm::pi<float>();
+		//float angle_Z = (acos(dot_Z) * 180.0f) / glm::pi<float>();
+		camera_->get_transform().set_rotation(glm::vec3(angle_X, angle_Y, 0.0f));
+	}
+
+	ImGui::Text("Modo da Camera:");
+	ImGui::Checkbox("##cammode1", &camMode1);
+	if (camMode1) {
+		camMode2 = false;
+		camMode3 = false;
+	}
+	ImGui::SameLine();
+	ImGui::Checkbox("##cammode2", &camMode2);
+	if (camMode2) {
+		camMode1 = false;
+		camMode3 = false;
+	}
+	ImGui::SameLine();
+	ImGui::Checkbox("##cammode3", &camMode3);
+	if (camMode3) {
+		camMode1 = false;
+		camMode2 = false;
+	}
+
+	glm::vec3 cam_position = camera_->get_transform().get_position();
+	ImGui::InputFloat3("Camera Position", glm::value_ptr(cam_position));
+	camera_->get_transform().set_position(cam_position);
+
+
+
+	ImGui::Text("Flock Position: %.1f %.1f %.1f", flock.flock_position.x, flock.flock_position.y, flock.flock_position.z);
+
+	ImGui::End();
 }
 
 void BoidWorldLayer::OnEvent(Grout::Event& event)
@@ -152,7 +155,8 @@ void BoidWorldLayer::OnEvent(Grout::Event& event)
 
 void BoidWorldLayer::CreateCamera(uint32_t width, uint32_t height)
 {
-	camera_ = CreateScope<Camera>(glm::vec3(0.0f, 1.0f, 0.0f), width, height);
+	camera_ = CreateRef<Camera>(glm::vec3(0.0f, 18.2f, 0.0f), width, height);
+	Camera::set_main(camera_);
 }
 
 void BoidWorldLayer::CameraMovement()

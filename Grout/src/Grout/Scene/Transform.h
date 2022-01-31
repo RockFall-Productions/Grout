@@ -13,7 +13,7 @@ namespace Grout {
 			: world_position_(position), world_scale_(size), euler_rotation_(rotation) {}
 		~Transform() {}
 		
-		const glm::mat4& get_transform() const;
+		const glm::mat4 get_transform() const;
 
 		const glm::vec3& get_position()	const { return world_position_; }
 		const glm::vec3& get_rotation()	const { return euler_rotation_; }
@@ -22,6 +22,7 @@ namespace Grout {
 		void add_rotation(const glm::vec3& rotation) { euler_rotation_ += rotation; has_changed_ = true; }
 
 		void set_position(const glm::vec3& position) { world_position_ = position; has_changed_ = true; }
+		void set_scale(const glm::vec3& scale) { world_scale_ = scale; has_changed_ = true; }
 		void set_rotation(const glm::vec3& rotation) { euler_rotation_ = rotation; has_changed_ = true; }
 
 

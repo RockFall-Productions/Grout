@@ -21,10 +21,10 @@ public:
 private:
 	void GenerateGround();
 private:
-	Grout::Ref<Grout::Object> ground_object_;
+	Grout::Ref<Grout::Object> map_object_;
+	Grout::Ref<Grout::Object> skybox_object_;
 
-	Grout::Ref<Grout::Shader> mesh_shader_;
-
-	Grout::Ref<Grout::VertexArray> vertex_array_;
+	Grout::Ref<Grout::Shader> map_shader_;
+	Grout::Ref<Grout::Shader> skybox_shader_;
 };
 

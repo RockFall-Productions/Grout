@@ -1425,6 +1425,8 @@
     <ClInclude Include="third-part\stb\stb_image.h">
       <Filter>third-part\stb</Filter>
     </ClInclude>
+    <ClInclude Include="src\Grout\Utils\PerlimNoise.h" />
+    <ClInclude Include="src\Grout\Core\Macros.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Grout\Core\Application.cpp">

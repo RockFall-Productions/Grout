@@ -78,7 +78,7 @@
       <WarningLevel>Level3</WarningLevel>
       <DisableSpecificWarnings>26451;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GRT_BUILD_DLL;GLFW_INCLUDE_NONE;GRT_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;third-part\spdlog\include;third-part\assimp\include;third-part\GLFW\include;third-part\Glad\include;third-part\imgui;third-part\glm;third-part\stb;third-part\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;third-part\spdlog\include;third-part\GLFW\include;third-part\Glad\include;third-part\imgui;third-part\glm;third-part\stb;third-part\assimp2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -99,7 +99,7 @@
       <WarningLevel>Level3</WarningLevel>
       <DisableSpecificWarnings>26451;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GRT_BUILD_DLL;GLFW_INCLUDE_NONE;GRT_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;third-part\spdlog\include;third-part\assimp\include;third-part\GLFW\include;third-part\Glad\include;third-part\imgui;third-part\glm;third-part\stb;third-part\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;third-part\spdlog\include;third-part\GLFW\include;third-part\Glad\include;third-part\imgui;third-part\glm;third-part\stb;third-part\assimp2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -124,7 +124,7 @@
       <WarningLevel>Level3</WarningLevel>
       <DisableSpecificWarnings>26451;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GRT_BUILD_DLL;GLFW_INCLUDE_NONE;GRT_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;third-part\spdlog\include;third-part\assimp\include;third-part\GLFW\include;third-part\Glad\include;third-part\imgui;third-part\glm;third-part\stb;third-part\assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;third-part\spdlog\include;third-part\GLFW\include;third-part\Glad\include;third-part\imgui;third-part\glm;third-part\stb;third-part\assimp2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -153,6 +153,7 @@
     <ClInclude Include="src\Grout\Core\Layer.h" />
     <ClInclude Include="src\Grout\Core\LayerStack.h" />
     <ClInclude Include="src\Grout\Core\Log.h" />
+    <ClInclude Include="src\Grout\Core\Macros.h" />
     <ClInclude Include="src\Grout\Core\MouseCodes.h" />
     <ClInclude Include="src\Grout\Core\Time.h" />
     <ClInclude Include="src\Grout\Core\Window.h" />
@@ -174,6 +175,7 @@
     <ClInclude Include="src\Grout\Renderer\VertexArray.h" />
     <ClInclude Include="src\Grout\Scene\Object.h" />
     <ClInclude Include="src\Grout\Scene\Transform.h" />
+    <ClInclude Include="src\Grout\Utils\PerlimNoise.h" />
     <ClInclude Include="src\Plataform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Plataform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Plataform\OpenGL\OpenGLRendererAPI.h" />
@@ -641,6 +643,9 @@
     </ProjectReference>
     <ProjectReference Include="third-part\imgui\ImGui.vcxproj">
       <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
+    </ProjectReference>
+    <ProjectReference Include="third-part\assimp2\assimp.vcxproj">
+      <Project>{724885F2-5EEA-AFC8-47A5-C31C33E63619}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

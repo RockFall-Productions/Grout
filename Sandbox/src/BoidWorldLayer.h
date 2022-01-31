@@ -1,8 +1,11 @@
 #pragma once
 
-#include "Grout.h"
+#include <Grout.h>
 
 #include "World.h"
+#include "Flock.h"
+
+#include "imgui/imgui.h"
 
 class BoidWorldLayer : public Grout::Layer
 {
@@ -20,11 +23,22 @@ private:
 
 	void CameraMovement();
 private:
-	Grout::Scope<Grout::Camera> camera_;
+	Grout::Ref<Grout::Camera> camera_;
 	World world_map_;
 
-	std::vector<Grout::Ref<Grout::Object>> cubes_;
-	Grout::Ref<Grout::Shader> shader_;
-	Grout::Ref<Grout::VertexArray> vertex_array_;
+	Grout::Ref<Grout::Shader> boid_shader_;
+	Grout::Ref<Grout::Object> boid_object_;
+
+	Flock flock;
+
+	float update_timer_ = 0;
+
+	// IM GUI
+	bool imgui_open = true;
+
+	bool camFollowFlock = false;
+	bool camMode1 = true;
+	bool camMode2 = false;
+	bool camMode3 = false;
 };
 
