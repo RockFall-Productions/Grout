@@ -135,6 +135,7 @@
     <ClInclude Include="src\Boids.h" />
     <ClInclude Include="src\Flock.h" />
     <ClInclude Include="src\Spawner.h" />
+    <ClInclude Include="src\third-part\FastNoiseLite.h" />
     <ClInclude Include="src\World.h" />
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +150,9 @@
     <ProjectReference Include="..\Grout\Grout.vcxproj">
       <Project>{D636440D-424B-6CBE-0BCD-0F1E77A068EF}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\shaders\low_poly_mesh.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

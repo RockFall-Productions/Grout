@@ -193,7 +193,7 @@ namespace Grout {
 			vertex_array->AddVertexBuffer(vertex_buffer);
 
 			Grout::Ref<IndexBuffer> index_buffer;
-			index_buffer.reset(IndexBuffer::Create(indices.data(), sizeof(*indices.data()) / sizeof(uint32_t)));
+			index_buffer.reset(IndexBuffer::Create(indices.data(), indices.size()));
 			
 			vertex_array->SetIndexBuffer(index_buffer);
 		}

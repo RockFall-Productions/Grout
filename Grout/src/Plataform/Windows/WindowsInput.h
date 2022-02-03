@@ -11,5 +11,8 @@ namespace Grout {
 		virtual std::pair<float, float> GetMousePositionImpl() override;
 		virtual float GetMouseXImpl() override;
 		virtual float GetMouseYImpl() override;
+		virtual void HideMouseCursorImpl() override;
+		virtual void ShowMouseCursorImpl() override;
+		virtual void SetMouseCursorPos(std::pair<float, float> pos) override;
 	};
 }

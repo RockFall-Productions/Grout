@@ -97,7 +97,7 @@ namespace Grout {
 		// Distance from camera to NEAR clip plane
 		float near_clip_plane_ = 1.0f;
 		// Distance from camera to FAR clip plane
-		float far_clip_plane_ = 200.0f;
+		float far_clip_plane_ = 500.0f;
 
 		// Transformation matrixes
 		glm::mat4 camera_to_world_matrix = glm::mat4(0);
