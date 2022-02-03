@@ -43,12 +43,6 @@ void BoidWorldLayer::OnUpdate()
 		CameraMovement();
 	}
 
-	update_timer_ += Time::delta_time_f();
-	if (update_timer_ >= 0.04f) {
-		
-		update_timer_ = 0.0f;
-	}
-
 	flock.flocking();
 
 	// Render
@@ -58,7 +52,7 @@ void BoidWorldLayer::OnUpdate()
 
 	Renderer::BeginScene(*camera_);
 
-	world_map_.OnRender();
+	world_map_.OnRender(light_data_);
 
 	for (auto& boid : flock.flock)
 	{
@@ -66,7 +60,7 @@ void BoidWorldLayer::OnUpdate()
 			boid_object_->transform.set_scale(glm::vec3(-0.5f, 0.5f, -0.5f));
 		boid_object_->transform.set_position(boid.position);
 		boid_object_->transform.look_at(boid.position + boid.velocity);
-		Grout::Renderer::RenderModelObject(boid_object_, boid_shader_);
+		Grout::Renderer::RenderModelObject(boid_object_, boid_shader_, light_data_);
 		if (boid.leader)
 			boid_object_->transform.set_scale(glm::vec3(-0.3f, 0.3f, -0.3f));
 	}
@@ -81,6 +75,13 @@ void BoidWorldLayer::OnUpdate()
 void BoidWorldLayer::OnImGuiRender()
 {
 	ImGui::Begin("Settings", &imgui_open);
+	ImGui::Spacing();
+	ImGui::Spacing();
+	ImGui::Text("Lightning");
+	ImGui::DragFloat3("Light Source Position", glm::value_ptr(light_data_.light_pos));
+	ImGui::Spacing();
+	ImGui::ColorEdit3("Ambient Light", glm::value_ptr(light_data_.ambient_light));
+	ImGui::SliderFloat("Ambient Light Strength", &light_data_.ambient_light_strength, 0.0f, 1.0f);
 	ImGui::Spacing();
 	ImGui::Spacing();
 	ImGui::Text("Camera Settings");

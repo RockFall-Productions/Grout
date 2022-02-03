@@ -28,10 +28,10 @@ void World::OnUpdate()
 
 }
 
-void World::OnRender()
+void World::OnRender(Grout::Renderer::LightData light_data)
 {
 	// Render the ground and tower
-	Renderer::RenderModelObject(map_object_, map_shader_);
+	Renderer::RenderModelObject(map_object_, map_shader_, light_data);
 
 	// Render Skybox
 	Renderer::RenderSkybox(skybox_object_, Camera::get_main(), skybox_shader_);
