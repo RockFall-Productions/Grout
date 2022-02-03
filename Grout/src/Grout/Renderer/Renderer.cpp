@@ -90,16 +90,24 @@ namespace Grout {
 		RenderCommand::SetDepthFunc(GRT_LESS);
 	}
 
-	void Renderer::RenderModelObject(const Ref<Object>& obj, const Ref<Shader>& shader)
+	void Renderer::RenderModelObject(const Ref<Object>& obj, const Ref<Shader>& shader, Renderer::LightData light_data)
 	{
 		shader->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_matrix4("u_view_projection", scene_data_->view_projection_matrix, true);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_matrix4("u_view_projection", scene_data_->view_projection_matrix, false);
 
 		glm::mat4 transform = obj->transform.get_transform_matrix();
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_matrix4("u_transform", transform, true);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_matrix4("u_transform", transform, false);
 
-		//obj->mesh_component.vertex_array->Bind();
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_vector3f("u_t_light_pos", light_data.light_pos, false);
+		
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_vector3f("u_t_ambient", light_data.ambient_light, false);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_float("u_t_ambient_strength", light_data.ambient_light_strength, false);
 
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_vector3f("u_t_light_diffuse", light_data.light_diffuse, false);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_vector3f("u_t_light_specular", light_data.light_specular, false);
+
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_vector3f("u_view_pos", Camera::get_main()->get_transform().get_position(), false);
+		
 		// TODO: change?
 
 		obj->model_3D->Render(shader);

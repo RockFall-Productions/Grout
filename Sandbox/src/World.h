@@ -14,7 +14,7 @@ public:
 	void Start();
 
 	void OnUpdate();
-	void OnRender();
+	void OnRender(Grout::Renderer::LightData light_data);
 
 	void OnImGuiRender();
 

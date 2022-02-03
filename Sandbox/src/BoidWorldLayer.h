@@ -27,20 +27,23 @@ private:
 	void CameraMovement();
 
 private:
+	// Camera
 	Grout::Ref<Grout::Camera> camera_;
+
+	// Handles the world (such as the ground, sky, etc)
 	World world_map_;
 
+	// Boid prefab
 	Grout::Ref<Grout::Shader> boid_shader_;
 	Grout::Ref<Grout::Object> boid_object_;
 
+	// Flock controller
 	Flock flock;
 
-	float update_timer_ = 0;
-
-	// IM GUI
+	// ImGui running (for minimizing)
 	bool imgui_open = true;
 
-	// Camera
+	// Camera properties (configurable on ImGui)
 	float cam_speed_ = 30.0f;
 	float cam_superior_offset_ = 10.0f;
 	float camera_lock_offset = 1.0f;
@@ -54,5 +57,7 @@ private:
 	glm::vec2 last_mouse_position_ = {0.0f, 0.0f};
 	float camera_fly_rotation_speed_ = 0.8f;
 	float camera_fly_speed_ = 16.0f;
+
+	Grout::Renderer::LightData light_data_ = Grout::Renderer::LightData();
 };
 

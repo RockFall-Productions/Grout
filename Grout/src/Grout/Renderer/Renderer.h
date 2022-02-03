@@ -9,6 +9,16 @@
 namespace Grout {
 	class Renderer {
 	public:
+		struct LightData {
+			glm::vec3 light_pos = {40.0f, 90.0f, 40.0f };
+
+			glm::vec3 ambient_light = { 1.0f, 1.0f, 1.0f };
+			float ambient_light_strength = 0.1f;
+
+			glm::vec3 light_diffuse = { 1.0f, 1.0f, 1.0f };
+			glm::vec3 light_specular = { 1.0f, 1.0f, 1.0f };
+		};
+
 		inline static RendererAPI::API get_api() { return RendererAPI::get_api();  }
 		
 		static void Init();
@@ -21,15 +31,16 @@ namespace Grout {
 		
 		static void RenderObject(const Ref<Object>& obj, const Ref<Shader>& shader);
 		static void RenderMeshObject(const Ref<Object>& obj, const Ref<Shader>& shader);
-		static void RenderModelObject(const Ref<Object>& obj, const Ref<Shader>& shader);
+		static void RenderModelObject(const Ref<Object>& obj, const Ref<Shader>& shader, Renderer::LightData light_data);
 		static void RenderSkybox(const Ref<Object>& obj, const Ref<Camera>& camera, const Ref<Shader>& shader);
-		
+
 		static void EndScene();
 
 	private:
 		struct SceneData {
 			glm::mat4 view_projection_matrix;
 		};
+
 
 		static Scope<SceneData> scene_data_;
 	};
