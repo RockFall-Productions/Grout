@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 #include "Grout/Events/Event.h"
 #include "Grout/Events/MouseEvent.h"
-
+#include "Grout/Core/Time.h"
 #include "Grout/Scene/Transform.h"
 
 namespace Grout {
@@ -13,16 +13,16 @@ namespace Grout {
 		// TODO: Builder constructor
 		Camera(const glm::vec3& position = (glm::vec3(0)), float width = 600.0f, float height = 400.0f);
 		//Camera(const glm::vec3& position = (glm::vec3(0)), const glm::vec3& rotation = (glm::vec3(0)), float width = 600.0f, float height = 400.0f);
-	
 	public:
 		//////////////////////////////////////// SETTERS AND GETTERS ////////////////////////////////////////
+		const glm::vec3& get_speed()	const { return speed_; }
 		void add_speed(const glm::vec3& speed)	{ speed_ += speed; }
 		void add_speed(const float& speed)		{ speed_ += speed; }
-
 		void set_speed(const glm::vec3& speed)	{ speed_ = speed; }
 		void set_speed(const float& speed)		{ speed_ = glm::vec3(speed); }
 
-		const glm::vec3& get_speed()	const { return speed_; }
+		const glm::vec3& get_target()	const { return target_; }
+		void set_target(const glm::vec3& target) { target_ = target; }
 
 		Transform& get_transform() { return transform_;  }
 
@@ -33,6 +33,20 @@ namespace Grout {
 		static const Ref<Camera>& get_main() { return main_; }
 		static void set_main(const Ref<Camera>& main) { main_ = main; }
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+		void LookAtTarget() { transform_.look_at(target_); }
+
+		void LerpLookAtTarget(const glm::vec3& target, float factor) {
+			factor *= Time::delta_time_f();
+			glm::vec3 lerp_target = factor * transform_.get_position() + (1 - factor) * target;
+			transform_.set_position(lerp_target);
+		}
+
+		void LerpMoveToTarget(const glm::vec3& target, float factor) { 
+			//glm::vec3 lerp_target = factor * transform_.get_position() + (1 - factor) * target;
+			glm::vec3 lerp_target = target - transform_.get_position();
+			lerp_target = glm::normalize(lerp_target) * factor * Time::delta_time_f();
+			transform_.add_position(lerp_target);
+		}
 
 	private:
 		// Updates both the View and Projection Matrix
@@ -63,6 +77,7 @@ namespace Grout {
 		
 		// -- World Space variables --
 		Transform transform_;
+		glm::vec3 target_;
 		// Rotation in X, Y and Z axis (euler degrees °)
 		glm::vec3 speed_ = glm::vec3(0.0f);
 
@@ -82,7 +97,7 @@ namespace Grout {
 		// Distance from camera to NEAR clip plane
 		float near_clip_plane_ = 1.0f;
 		// Distance from camera to FAR clip plane
-		float far_clip_plane_ = 100.0f;
+		float far_clip_plane_ = 200.0f;
 
 		// Transformation matrixes
 		glm::mat4 camera_to_world_matrix = glm::mat4(0);

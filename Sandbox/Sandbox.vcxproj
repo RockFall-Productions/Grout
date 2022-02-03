@@ -79,7 +79,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GRT_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Grout\third-part\spdlog\include;..\Grout\src;..\Grout\third-part;..\Grout\third-part\glm;..\Grout\third-part\assimp2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Grout\third-part\spdlog\include;..\Grout\src;..\Grout\third-part;..\Grout\third-part\glm;..\Grout\third-part\assimp\include;..\Grout\third-part\imgui;..\Grout\third-part\imgui\widgets\imGuIZMO;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -95,7 +95,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GRT_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Grout\third-part\spdlog\include;..\Grout\src;..\Grout\third-part;..\Grout\third-part\glm;..\Grout\third-part\assimp2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Grout\third-part\spdlog\include;..\Grout\src;..\Grout\third-part;..\Grout\third-part\glm;..\Grout\third-part\assimp\include;..\Grout\third-part\imgui;..\Grout\third-part\imgui\widgets\imGuIZMO;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -115,7 +115,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GRT_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\Grout\third-part\spdlog\include;..\Grout\src;..\Grout\third-part;..\Grout\third-part\glm;..\Grout\third-part\assimp2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Grout\third-part\spdlog\include;..\Grout\src;..\Grout\third-part;..\Grout\third-part\glm;..\Grout\third-part\assimp\include;..\Grout\third-part\imgui;..\Grout\third-part\imgui\widgets\imGuIZMO;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -131,26 +131,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Flock.h" />
-    <ClInclude Include="src\Boids.h" />
     <ClInclude Include="src\BoidWorldLayer.h" />
+    <ClInclude Include="src\Boids.h" />
+    <ClInclude Include="src\Flock.h" />
+    <ClInclude Include="src\Spawner.h" />
     <ClInclude Include="src\World.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Flock.cpp" />
-    <ClCompile Include="src\Boids.cpp" />
     <ClCompile Include="src\BoidWorldLayer.cpp" />
+    <ClCompile Include="src\Boids.cpp" />
+    <ClCompile Include="src\Flock.cpp" />
     <ClCompile Include="src\SandboxApp.cpp" />
+    <ClCompile Include="src\Spawner.cpp" />
     <ClCompile Include="src\World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Grout\Grout.vcxproj">
       <Project>{D636440D-424B-6CBE-0BCD-0F1E77A068EF}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="assets\shaders\model.glsl" />
-    <None Include="assets\shaders\skybox.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -46,7 +46,7 @@ namespace Grout {
 		shader->Bind();
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_matrix4("u_view_projection", scene_data_->view_projection_matrix, false);
 
-		glm::mat4 transform = obj->transform.get_transform();
+		glm::mat4 transform = obj->transform.get_transform_matrix();
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_matrix4("u_transform", transform, false);
 
 		obj->mesh_component.vertex_array->Bind();
@@ -58,7 +58,7 @@ namespace Grout {
 		shader->Bind();
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_matrix4("u_view_projection", scene_data_->view_projection_matrix, false);
 
-		glm::mat4 transform = obj->transform.get_transform();
+		glm::mat4 transform = obj->transform.get_transform_matrix();
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_matrix4("u_transform", transform, false);
 
 		obj->mesh_component.vertex_array->Bind();
@@ -95,7 +95,7 @@ namespace Grout {
 		shader->Bind();
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_matrix4("u_view_projection", scene_data_->view_projection_matrix, true);
 
-		glm::mat4 transform = obj->transform.get_transform();
+		glm::mat4 transform = obj->transform.get_transform_matrix();
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_matrix4("u_transform", transform, true);
 
 		//obj->mesh_component.vertex_array->Bind();

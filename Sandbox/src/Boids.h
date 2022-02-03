@@ -30,29 +30,32 @@
 //  glm::vec3 Cohesion(vector<Boid> Boid): Computes a vector that causes the
 //      current boid to seek the center of mass of nearby boids.
 
+struct BoidSettings;
+
 class Boid {
 public:
     bool predator = false;
+    bool leader = false;
     glm::vec3 position;
     glm::vec3 velocity;
     glm::vec3 acceleration;
-    float maxSpeed;
-    float maxForce;
 
+    BoidSettings& settings;
 
-    Boid() {}
-    Boid(glm::vec3 pos);
+    Boid(glm::vec3 pos, BoidSettings& flock_settings, bool leader = false);
     //Boid(float x, float y, bool predCheck);
     void applyForce(const glm::vec3& force);
     // Three Laws that boids follow
     glm::vec3 Separation(const std::vector<Boid>& Boid);
     glm::vec3 Alignment(const std::vector<Boid>& Boid);
     glm::vec3 Cohesion(const std::vector<Boid>& Boid);
+    glm::vec3 TowardLeader(const std::vector<Boid>& Boid);
     //Functions involving SFML and visualisation linking
     glm::vec3 seek(const glm::vec3& v);
     void run(const std::vector<Boid>& v);
     void update();
     void flock(const std::vector<Boid>& v);
+    void leaderFlock(const std::vector<Boid>& v);
     void borders();
     float angle(const glm::vec3& v);
 };
