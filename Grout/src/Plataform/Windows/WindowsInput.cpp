@@ -38,4 +38,19 @@ namespace Grout {
 		auto [x, y] = GetMousePositionImpl();
 		return y;
 	}
+	void WindowsInput::HideMouseCursorImpl()
+	{
+		auto window = static_cast<GLFWwindow*>(Application::get_instance().get_window().get_native_window());
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	}
+	void WindowsInput::ShowMouseCursorImpl()
+	{
+		auto window = static_cast<GLFWwindow*>(Application::get_instance().get_window().get_native_window());
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	}
+	void WindowsInput::SetMouseCursorPos(std::pair<float, float> pos)
+	{
+		auto window = static_cast<GLFWwindow*>(Application::get_instance().get_window().get_native_window());
+		glfwSetCursorPos(window, pos.first, pos.second);
+	}
 }

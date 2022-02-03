@@ -75,12 +75,18 @@ void BoidWorldLayer::OnUpdate()
 void BoidWorldLayer::OnImGuiRender()
 {
 	ImGui::Begin("Settings", &imgui_open);
+	if (camFlyMode) {
+		if (!lock_fly_)
+			ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Press CTRL to use the mouse");
+		else
+			ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Press CTRL to get back to fly mode");
+	}
 	ImGui::Spacing();
 	ImGui::Spacing();
 	ImGui::Text("Lightning");
 	ImGui::DragFloat3("Light Source Position", glm::value_ptr(light_data_.light_pos));
 	ImGui::Spacing();
-	ImGui::ColorEdit3("Ambient Light", glm::value_ptr(light_data_.ambient_light));
+	ImGui::ColorEdit3("Ambient Light Colour", glm::value_ptr(light_data_.ambient_light_colour));
 	ImGui::SliderFloat("Ambient Light Strength", &light_data_.ambient_light_strength, 0.0f, 1.0f);
 	ImGui::Spacing();
 	ImGui::Spacing();
@@ -165,7 +171,14 @@ void BoidWorldLayer::OnImGuiRender()
 
 	}
 	ImGui::SameLine();
-	ImGui::Checkbox("Vôo Livre", &camFlyMode);
+
+	{ 
+		bool check_click = camFlyMode;
+		ImGui::Checkbox("Vôo Livre", &camFlyMode);
+		if (!check_click && camFlyMode)
+			lock_fly_ = true;
+	}
+
 	if (camFlyMode) {
 		camera_->get_transform().set_position(cam_position);
 		camMode1 = false;
@@ -185,13 +198,23 @@ void BoidWorldLayer::OnImGuiRender()
 
 void BoidWorldLayer::OnEvent(Grout::Event& event)
 {
-	//Grout::EventDispatcher dispatcher(event);
-	//dispatcher.Dispatch<Grout::MouseMovedEvent>(GRT_BIND_EVENT_FN(BoidWorldLayer::OnMouseMovedEvent));
+	Grout::EventDispatcher dispatcher(event);
+	dispatcher.Dispatch<Grout::KeyPressedEvent>(GRT_BIND_EVENT_FN(BoidWorldLayer::OnKeyDownEvent));
 }
 
-bool BoidWorldLayer::OnMouseMovedEvent(Grout::MouseMovedEvent event)
+bool BoidWorldLayer::OnKeyDownEvent(Grout::KeyPressedEvent event)
 {
-
+	if (camFlyMode) {
+		if (event.get_key_code() == GRT_KEY_LEFT_CONTROL) {
+			if (event.get_repeated_count() == 0) {
+				lock_fly_ = !lock_fly_;
+				if (lock_fly_)
+					Grout::Input::ShowMouseCursor();
+				else
+					Grout::Input::HideMouseCursor();
+			}
+		}
+	}
 
 	return false;
 }
@@ -204,19 +227,28 @@ void BoidWorldLayer::CreateCamera(uint32_t width, uint32_t height)
 
 void BoidWorldLayer::CameraMovement()
 {
+	if (lock_fly_) {
+		return;
+	}
+
+	float window_center_x = Grout::Application::get_instance().get_window().get_width() / 2.0f;
+	float window_center_y = Grout::Application::get_instance().get_window().get_height() / 2.0f;
+
 	// Get mouse movement
 	const glm::vec2& mouse{ Input::get_mouse_x(), Input::get_mouse_y() };
-	glm::vec2 delta = (mouse - last_mouse_position_) * 0.003f;
-	last_mouse_position_ = mouse;
+	glm::vec2 delta = (mouse - glm::vec2(window_center_x, window_center_y)) * 0.003f;
+	//last_mouse_position_ = mouse;
 	// Rotate the camera
 	float yawSign = camera_->get_transform().get_up_direction().y < 0 ? -1.0f : 1.0f;
 	camera_->get_transform().add_yaw(yawSign * delta.x * camera_fly_rotation_speed_);
 	camera_->get_transform().add_pitch(delta.y * camera_fly_rotation_speed_);
 
+	// Set mouse back to center
+	Grout::Input::set_mouse_pos( window_center_x, window_center_y);
+
 	// Move left and right
 	if (Grout::Input::is_key_pressed(GRT_KEY_W)) {
 		camera_->get_transform().add_position(camera_->get_transform().get_forward_direction() * Grout::Time::delta_time_f() * camera_fly_speed_);
-		GRT_TRACE("W is pressed");
 	}
 
 	else if (Grout::Input::is_key_pressed(GRT_KEY_S))
@@ -228,6 +260,11 @@ void BoidWorldLayer::CameraMovement()
 
 	else if (Grout::Input::is_key_pressed(GRT_KEY_A))
 		camera_->get_transform().add_position(camera_->get_transform().get_right_direction() * -1.0f * Grout::Time::delta_time_f() * camera_fly_speed_);
+
+	if (Grout::Input::is_key_pressed(GRT_KEY_SPACE))
+		camera_->get_transform().add_position(camera_->get_transform().get_up_direction() * Grout::Time::delta_time_f() * camera_fly_speed_);
+	else if (Grout::Input::is_key_pressed(GRT_KEY_LEFT_SHIFT))
+		camera_->get_transform().add_position(camera_->get_transform().get_up_direction() * -1.0f * Grout::Time::delta_time_f() * camera_fly_speed_);
 
 
 }

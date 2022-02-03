@@ -53,7 +53,7 @@ namespace Grout {
 		RenderCommand::DrawIndexed(obj->mesh_component.vertex_array);
 	}
 	
-	void Renderer::RenderMeshObject(const Ref<Object>& obj, const Ref<Shader>& shader)
+	void Renderer::RenderMeshObject(const Ref<Object>& obj, const Ref<Shader>& shader, LightData light_data)
 	{
 		shader->Bind();
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_matrix4("u_view_projection", scene_data_->view_projection_matrix, false);
@@ -61,10 +61,25 @@ namespace Grout {
 		glm::mat4 transform = obj->transform.get_transform_matrix();
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_matrix4("u_transform", transform, false);
 
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_vector3f("u_light_pos", light_data.light_pos, false);
+
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_vector3f("u_ambient_color", light_data.ambient_light_colour, false);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_float("u_ambient_strenght", light_data.ambient_light_strength, false);
+
+		//std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_vector3f("u_t_ambient", light_data.ambient_light_colour, false);
+		//std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_float("u_t_ambient_strength", light_data.ambient_light_strength, false);
+
+		//std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_vector3f("u_t_light_diffuse", light_data.light_diffuse, false);
+		//std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_vector3f("u_t_light_specular", light_data.light_specular, false);
+
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_vector3f("u_view_pos", Camera::get_main()->get_transform().get_position(), false);
+
+
 		obj->mesh_component.vertex_array->Bind();
 
 		// TODO: change?
 
+		//RenderCommand::EnableFirstVertex
 		RenderCommand::DrawIndexed(obj->mesh_component.vertex_array);
 	}
 
@@ -100,7 +115,7 @@ namespace Grout {
 
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_vector3f("u_t_light_pos", light_data.light_pos, false);
 		
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_vector3f("u_t_ambient", light_data.ambient_light, false);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_vector3f("u_t_ambient", light_data.ambient_light_colour, false);
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_float("u_t_ambient_strength", light_data.ambient_light_strength, false);
 
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_vector3f("u_t_light_diffuse", light_data.light_diffuse, false);

@@ -19,7 +19,7 @@ public:
 	virtual void OnImGuiRender() override;
 	virtual void OnEvent(Grout::Event& event) override;
 private:
-	bool OnMouseMovedEvent(Grout::MouseMovedEvent event);
+	bool OnKeyDownEvent(Grout::KeyPressedEvent event);
 
 private:
 	void CreateCamera(uint32_t width, uint32_t height);
@@ -57,6 +57,7 @@ private:
 	glm::vec2 last_mouse_position_ = {0.0f, 0.0f};
 	float camera_fly_rotation_speed_ = 0.8f;
 	float camera_fly_speed_ = 16.0f;
+	bool lock_fly_ = false;
 
 	Grout::Renderer::LightData light_data_ = Grout::Renderer::LightData();
 };

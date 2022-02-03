@@ -50,8 +50,11 @@
     <ClInclude Include="src\Spawner.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
+    <ClInclude Include="src\third-part\FastNoiseLite.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\shaders\light.glsl" />
+    <None Include="assets\shaders\low_poly_mesh.glsl" />
   </ItemGroup>
 </Project>
