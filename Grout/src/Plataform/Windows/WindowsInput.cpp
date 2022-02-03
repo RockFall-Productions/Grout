@@ -12,6 +12,7 @@ namespace Grout {
 	{
 		auto window = static_cast<GLFWwindow*>(Application::get_instance().get_window().get_native_window());
 		auto state = glfwGetKey(window, keycode);
+		
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
 	}
 	bool WindowsInput::IsMouseButtonPressedImpl(int buttoncode)

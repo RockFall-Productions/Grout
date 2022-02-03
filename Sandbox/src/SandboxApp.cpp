@@ -62,7 +62,7 @@ public:
 		Grout::RenderCommand::SetClearColor({ 1.0f, 0.0f, 1.0f, 1.0f });
 		Grout::RenderCommand::Clear();
 
-		// Z ROTATION
+		/* Z ROTATION
 		if (Grout::Input::is_key_pressed(GRT_KEY_Q)) 
 			camera_.get_transform().add_rotation(glm::vec3(0.0f, 0.0f, 1.0f) * Grout::Time::delta_time_f());
 		
@@ -80,7 +80,7 @@ public:
 
 		else if (Grout::Input::is_key_pressed(GRT_KEY_X))
 			camera_.get_transform().add_rotation(glm::vec3(-1.0f, 0.0f, 0.0f) * Grout::Time::delta_time_f());
-		
+		*/
 
 		if (Grout::Input::is_key_pressed(GRT_KEY_A))
 			camera_.get_transform().add_position(glm::vec3(-1.0f, 0.0f, 0.0f) * Grout::Time::delta_time_f());

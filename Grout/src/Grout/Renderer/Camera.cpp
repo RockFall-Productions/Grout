@@ -1,7 +1,6 @@
 #include "grtpch.h"
 #include "Camera.h"
 
-
 #include "Grout/Core/Core.h"
 
 // TODO: maybe remove?
@@ -62,8 +61,9 @@ namespace Grout {
 		}
 		// ----- ORTHOGRAPHIC -----
 		else if (projection_type_ == CameraProjectionType::Orthographic) {
-			glm::mat4 transform =	glm::translate(glm::mat4(1.0f), transform_.get_position()) * 
-									glm::rotate(glm::mat4(1.0f), glm::radians(transform_.get_rotation().z), glm::vec3(0, 0, 1));
+			//glm::mat4 transform =	glm::translate(glm::mat4(1.0f), transform_.get_position()) * 
+			//						glm::rotate(glm::mat4(1.0f), glm::radians(transform_.get_rotation().z), glm::vec3(0, 0, 1));
+			glm::mat4 transform = transform_.get_transform_matrix();
 			view_matrix_ = glm::inverse(transform);
 		}
 	}

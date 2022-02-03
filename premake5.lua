@@ -13,12 +13,13 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Solution include directories
 IncludeDir = {}
-IncludeDir["GLFW"] = "Grout/third-part/GLFW/include"
-IncludeDir["Glad"] = "Grout/third-part/Glad/include"
-IncludeDir["ImGui"] = "Grout/third-part/imgui"
-IncludeDir["glm"] = "Grout/third-part/glm"
-IncludeDir["stb"] = "Grout/third-part/stb"
-IncludeDir["assimp"] = "Grout/third-part/assimp"
+IncludeDir["GLFW"] = "%{wks.location}/Grout/third-part/GLFW/include"
+IncludeDir["Glad"] = "%{wks.location}/Grout/third-part/Glad/include"
+IncludeDir["ImGui"] = "%{wks.location}/Grout/third-part/imgui"
+IncludeDir["glm"] = "%{wks.location}/Grout/third-part/glm"
+IncludeDir["stb"] = "%{wks.location}/Grout/third-part/stb"
+IncludeDir["assimp"] = "%{wks.location}/Grout/third-part/assimp/include"
+IncludeDir["imGuIZMO"] = "%{wks.location}/Grout/third-part/imgui/widgets/imGuIZMO"
 
 -- Includes the GLFW and GLAD premake5's files
 group "Dependencies"
@@ -26,6 +27,7 @@ group "Dependencies"
 	include "Grout/third-part/Glad"
 	include "Grout/third-part/imgui"
 	include "Grout/third-part/assimp"
+	include "Grout/third-part/imgui/widgets/imGuIZMO"
 group ""
 
 project "Grout"
@@ -53,20 +55,21 @@ project "Grout"
 
 	defines
 	{
-		"_CRT_SECURE_NO_WARNINGS"
+		"_CRT_SECURE_NO_WARNINGS",
+		"GLM_ENABLE_EXPERIMENTAL"
 	}
 
 	includedirs
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/third-part/spdlog/include",
-		"%{prj.name}/third-part/assimp/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb}",
-		"%{IncludeDir.assimp}"
+		"%{IncludeDir.assimp}",
+		"%{IncludeDir.imGuIZMO}"
 	}
 
 	links
@@ -74,7 +77,9 @@ project "Grout"
 		"GLFW",
 		"Glad",
 		"ImGui",
-		"opengl32.lib"
+		"opengl32.lib",
+		"assimp",
+		"imGuIZMO"
 	}
 
 	disablewarnings  {
@@ -126,7 +131,10 @@ project "Sandbox"
 		"Grout/third-part/spdlog/include",
 		"Grout/src",
 		"Grout/third-part",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.assimp}",
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.imGuIZMO}"
 	}
 
 	links

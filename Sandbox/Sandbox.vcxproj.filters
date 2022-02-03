@@ -30,6 +30,9 @@
     <ClCompile Include="src\Flock.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
+    <ClCompile Include="src\Spawner.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\BoidWorldLayer.h">
@@ -44,9 +47,11 @@
     <ClInclude Include="src\Flock.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
+    <ClInclude Include="src\Spawner.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\shaders\model.glsl" />
-    <None Include="assets\shaders\skybox.glsl" />
+    <None Include="assets\shaders\light.glsl" />
   </ItemGroup>
 </Project>
