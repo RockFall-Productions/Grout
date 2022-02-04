@@ -13,6 +13,8 @@ namespace Grout {
 
 		virtual void SetDepthFunc(GRTenum type) override;
 
+		virtual void SetFlatShaderProvokingVertex(GRTenum type) override;
+
 		virtual void SetClearColor(const glm::vec4& color) override;
 		virtual void Clear() override;
 		virtual void DrawIndexed(const Ref<VertexArray>& vertex_array) override;

@@ -2,6 +2,7 @@
 
 typedef uint32_t GRTenum;
 
+// Logical Operators
 #define GRT_NEVER 0x0200
 #define GRT_LESS 0x0201
 #define GRT_EQUAL 0x0202
@@ -10,3 +11,9 @@ typedef uint32_t GRTenum;
 #define GRT_NOTEQUAL 0x0205
 #define GRT_GEQUAL 0x0206
 #define GRT_ALWAYS 0x0207
+
+// Primitives
+#define GRT_QUADS_FOLLOW_PROVOKING_VERTEX_CONVENTION 0x8E4C
+#define GRT_FIRST_VERTEX_CONVENTION 0x8E4D
+#define GRT_LAST_VERTEX_CONVENTION 0x8E4E
+#define GRT_PROVOKING_VERTEX 0x8E4F
