@@ -44,7 +44,7 @@ private:
 	bool imgui_open = true;
 
 	// Camera properties (configurable on ImGui)
-	float cam_speed_ = 30.0f;
+	float cam_speed_lerp_ = 30.0f;
 	float cam_superior_offset_ = 10.0f;
 	float camera_lock_offset = 1.0f;
 	bool camFollowFlock = false;
@@ -56,7 +56,7 @@ private:
 
 	glm::vec2 last_mouse_position_ = {0.0f, 0.0f};
 	float camera_fly_rotation_speed_ = 0.8f;
-	float camera_fly_speed_ = 16.0f;
+	float camera_fly_speed_ = 30.0f;
 	bool lock_fly_ = false;
 
 	Grout::Renderer::LightData light_data_ = Grout::Renderer::LightData();

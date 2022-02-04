@@ -98,7 +98,8 @@ void BoidWorldLayer::OnImGuiRender()
 	ImGui::Spacing();
 	glm::vec3 cam_position = camera_->get_transform().get_position();
 	ImGui::InputFloat3("Camera Position", glm::value_ptr(cam_position));
-	ImGui::SliderFloat("Camera Speed", &cam_speed_, 0.0f, 30.0f);
+	ImGui::SliderFloat("Camera Lerp Speed", &cam_speed_lerp_, 0.0f, 30.0f);
+	ImGui::SliderFloat("Camera Fly Speed", &camera_fly_speed_, 1.0f, 30.0f);
 
 	ImGui::Checkbox("Camera segue os boids", &camFollowFlock);
 	if (camFollowFlock) {
@@ -151,7 +152,7 @@ void BoidWorldLayer::OnImGuiRender()
 			if (glm::distance(cam_pos_2d, flock_pos_2d) < camera_lock_offset)
 				camera_->get_transform().set_position(flock.flock_position);
 			else
-				camera_->LerpMoveToTarget(glm::vec3(flock.flock_position.x, camera_->get_transform().get_position().y, flock.flock_position.z), cam_speed_);
+				camera_->LerpMoveToTarget(glm::vec3(flock.flock_position.x, camera_->get_transform().get_position().y, flock.flock_position.z), cam_speed_lerp_);
 		}
 		else if (flock.flock.size() != 0 && camFollowLeader){
 			glm::vec2 cam_pos_2d(camera_->get_transform().get_position().x, camera_->get_transform().get_position().z);
@@ -159,7 +160,7 @@ void BoidWorldLayer::OnImGuiRender()
 			if (glm::distance(cam_pos_2d, flock_pos_2d) < camera_lock_offset)
 				camera_->get_transform().set_position(flock.flock[0].position);
 			else
-				camera_->LerpMoveToTarget(glm::vec3(flock.flock[0].position.x, camera_->get_transform().get_position().y, flock.flock[0].position.z), cam_speed_);
+				camera_->LerpMoveToTarget(glm::vec3(flock.flock[0].position.x, camera_->get_transform().get_position().y, flock.flock[0].position.z), cam_speed_lerp_);
 		}
 		else 
 			camera_->get_transform().set_position(glm::vec3(camera_->get_transform().get_position().x, flock.get_settings().maxHeight + cam_superior_offset_, camera_->get_transform().get_position().z));

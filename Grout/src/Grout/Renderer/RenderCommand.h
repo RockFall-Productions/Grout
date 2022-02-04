@@ -17,6 +17,14 @@ namespace Grout {
 			renderer_api_->SetDepthFunc(type);
 		}
 
+		inline static void SetFlatShaderProvokingVertex(GRTenum type) {
+			renderer_api_->SetFlatShaderProvokingVertex(type);
+		}
+		
+		inline static void SetAntialias(GRTenum type) {
+			renderer_api_->SetFlatShaderProvokingVertex(type);
+		}
+
 		// Changes the color in which the screen is cleared with
 		inline static void SetClearColor(const glm::vec4& color) {
 			renderer_api_->SetClearColor(color);

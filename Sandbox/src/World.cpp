@@ -52,28 +52,34 @@ void World::GenerateGround()
 {
 	// Create and configure FastNoise object
 	FastNoiseLite noise;
-	noise.SetNoiseType(FastNoiseLite::NoiseType_OpenSimplex2);
+	noise.SetNoiseType(FastNoiseLite::NoiseType_Perlin);
+	noise.SetFractalType(FastNoiseLite::FractalType_None);
 
-
-	size_t x_size = 100;
-	size_t z_size = 100;
+	size_t x_size = 80;
+	size_t z_size = 80;
 
 	std::vector<float> vertices(x_size * z_size * 7, 0);
+	glm::vec4 colours;
+
+	// Highest to Lowest height diff
+	float amplitude = terrain_data_.amplitude;
 
 	size_t i = 0;
 	for (int z = 0; z < z_size; z++)
 	{
 		for (int x = 0; x < x_size; x++)
 		{
-			vertices[i] = float(x);
-			vertices[i + 1] = noise.GetNoise((float)x, (float)z);
-			vertices[i + 2] = float(z);
+			vertices[i] = float(10 * x);
+			float height = (noise.GetNoise((float)x, (float)z)) * (terrain_data_.amplitude / 2.0f);
+			vertices[i + 1] =  height + (terrain_data_.lowest_height + (terrain_data_.amplitude / 2.0f)); // Number between 0 and 10 
+			vertices[i + 2] = float(10 * z);
 
-			vertices[i + 3] = 0.5f;
-			//vertices[i + 4] = (noise.GetNoise((float)x, (float)z) + 1) / 2.0f;
-			vertices[i + 4] = 1.0f;
-			vertices[i + 5] = 0.5f;
-			vertices[i + 6] = 1.0f;
+			colours = CalculateColours(height, amplitude);
+
+			vertices[i + 3] = colours.x;
+			vertices[i + 4] = colours.y;
+			vertices[i + 5] = colours.z;
+			vertices[i + 6] = colours.w;
 			// TODO: add other data to each vertice
 			
 			i += 7;
@@ -106,6 +112,7 @@ void World::GenerateGround()
 			++vert;
 			triang += 6;
 		}
+		++vert;
 	}
 
 	Grout::BufferLayout layout = {
@@ -115,6 +122,24 @@ void World::GenerateGround()
 	
 	ground_object_ = CreateRef<Object>("World Ground", glm::vec3((x_size * -1.0f) / 2.0f, 26.2f, (z_size * -1.0f) / 2.0f));
 	ground_object_->mesh_component = MeshComponent(&vertices[0], vertices.size() * sizeof(float), &indices[0], indices.size(), layout);
-
-
 }
+
+glm::vec4 InterpolateColours(glm::vec4 color1, glm::vec4 color2, float blend) {
+	float colour1Weight = 1 - blend;
+	float r = (colour1Weight * color1.x) + (blend * color2.x);
+	float g = (colour1Weight * color1.y) + (blend * color2.y);
+	float b = (colour1Weight * color1.z) + (blend * color2.z);
+	// TODO: Implement Transparency interpolation
+	return glm::vec4(r, g, b, 1.0f);
+}
+
+glm::vec4 World::CalculateColours(float height, float amplitude) {
+	float value = (height + amplitude) / (amplitude * 2);
+	value = std::clamp((value - (terrain_data_.spread/2.0f)) * (1.0f / terrain_data_.spread), 0.0f, 0.9999f);
+	int firstBiome = (int)std::floor(value / terrain_data_.part);
+	float blend = (value - (firstBiome * terrain_data_.part)) / terrain_data_.part;
+	// TODO: Create class ColourUtils
+	return InterpolateColours(terrain_data_.biome_colours[firstBiome], terrain_data_.biome_colours[firstBiome + 1], blend);
+}
+
+

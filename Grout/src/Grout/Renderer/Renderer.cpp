@@ -74,12 +74,7 @@ namespace Grout {
 
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_vector3f("u_view_pos", Camera::get_main()->get_transform().get_position(), false);
 
-
-		obj->mesh_component.vertex_array->Bind();
-
-		// TODO: change?
-
-		//RenderCommand::EnableFirstVertex
+		RenderCommand::SetFlatShaderProvokingVertex(GRT_FIRST_VERTEX_CONVENTION);
 		RenderCommand::DrawIndexed(obj->mesh_component.vertex_array);
 	}
 

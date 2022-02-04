@@ -43,7 +43,7 @@ uniform mat4 u_view_projection;
 vec3 calculateLighting(vec3 normal){
 	vec3 light_dir = normalize(u_light_pos - gl_in[0].gl_Position.xyz); // check if correct order
 	float brightness = max(dot(-light_dir, normal), 0.0);
-	return (u_ambient_color * brightness) + (u_ambient_color * u_ambient_strenght);
+	return (brightness) + (u_ambient_color * u_ambient_strenght);
 }
 
 vec3 calcTriangleNormal(){

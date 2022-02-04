@@ -23,6 +23,22 @@ namespace Grout {
 		glDepthFunc(type);
 	}
 
+	void OpenGLRendererAPI::SetFlatShaderProvokingVertex(GRTenum type)
+	{
+		switch (type)
+		{
+		case GRT_FIRST_VERTEX_CONVENTION :
+			glProvokingVertex(GL_FIRST_VERTEX_CONVENTION);
+			break;
+		case GRT_LAST_VERTEX_CONVENTION:
+			glProvokingVertex(GL_LAST_VERTEX_CONVENTION);
+			break;
+		default:
+			GRT_CORE_CRITICAL("SetFlatShaderProvokingVertex() - The given type is not valid!! (type={0})", type);
+			break;
+		}
+	}
+
 	void OpenGLRendererAPI::SetClearColor(const glm::vec4& color)
 	{
 		glClearColor(color.r, color.g, color.b, color.a);
