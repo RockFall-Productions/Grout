@@ -11,6 +11,7 @@ namespace Grout {
 	public:
 		struct LightData {
 			glm::vec3 light_pos = {40.0f, 90.0f, 40.0f };
+			glm::vec3 light_dir = {0.0f, 0.0f, 0.0f };
 
 			glm::vec3 ambient_light_colour = { 1.0f, 1.0f, 1.0f };
 			float ambient_light_strength = 0.1f;

@@ -38,7 +38,7 @@ public:
 	void static OnImGuiRender(Flock& flock) {
 		ImGui::Text("Boids Spawn");
 		ImGui::Text("Total Boids on Flock: %d", flock.flock.size());
-		ImGui::SliderFloat("Spawn radius", &spawn_radius_, 5.0f, 50.0f);
+		ImGui::SliderFloat("Spawn radius", &spawn_radius_, 5.0f, 200.0f);
 		ImGui::SliderInt("Spawn count", &spawn_count_, 0, 100);
 
 		bool button_cb = ImGui::Button("Spawn!");
