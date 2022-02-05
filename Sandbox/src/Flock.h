@@ -33,7 +33,7 @@ struct BoidSettings {
     float avoidCollisionWeight = 10;
     float collisionAvoidDst = 5;
 
-    float borderRadius = 40.0f;
+    float borderRadius = 220.0f;
     float minHeight = 10.0f;
     float maxHeight = 40.0f;
 };

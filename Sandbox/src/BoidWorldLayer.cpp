@@ -192,7 +192,9 @@ void BoidWorldLayer::OnImGuiRender()
 	ImGui::Text("Flock Position: %.1f %.1f %.1f", flock.flock_position.x, flock.flock_position.y, flock.flock_position.z);
 	ImGui::Spacing();
 	flock.OnImGuiRender();
+
 	Spawner::OnImGuiRender(flock);
+	world_map_.OnImGuiRender();
 
 	ImGui::End();
 }
