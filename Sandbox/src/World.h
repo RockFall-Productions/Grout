@@ -9,7 +9,7 @@ class World
 public:
 	struct TerrainData {
 		// World position on the Y axis
-		float y_position = 0.0f;
+		float y_position = -40.0f;
 
 		// Lowest possible Y value
 		float lowest_height = -14.0f;
@@ -18,7 +18,7 @@ public:
 		//float height_top_cutoff;
 
 		// Distance from lowest Y to highest
-		float highest_height = 48.0f;
+		float highest_height = 150.0f;
 		// How much, into the possible altitude range, colours should spread over. 
 		// High spread values means extreme colours won't show
 		float spread = 0.55f;
@@ -35,9 +35,9 @@ public:
 
 		////////////    Noise attributes   ////////////
 		//float noise_amplitude = 10;
-		float persistance = 0.38f;
-		float lacunarity = 4.3f;
-		int octaves = 3;
+		float persistance = 0.5f;
+		float lacunarity = 3.5f;
+		int octaves = 4;
 		float roughness = 0.35f;
 	};
 

@@ -18,10 +18,14 @@ void main() {
 
 layout(location = 0) out vec4 color;
 
+uniform
+
+in float visibility;
 in vec3 v_final_color;
 
 void main() {
-	color = vec4(v_final_color, 1.0);
+	color = mix(vec4(0.04, 0.19, 0.49, 1.0), vec4(v_final_color, 1.0), visibility);
+	//color = vec4(v_final_color, visibility);
 }
 
 #type geometry
@@ -31,18 +35,25 @@ layout (triangles) in;
 layout (triangle_strip, max_vertices = 3) out;
 
 in vec3 v_color[];
-
 out vec3 v_final_color;
 
+uniform float u_fog_density;
+uniform float u_fog_gradient;
+uniform vec3 u_camera_pos;
+
+out float visibility;
+
 uniform vec3 u_light_pos;
+uniform vec3 u_light_dir;
 uniform vec3 u_ambient_color;
 uniform float u_ambient_strenght;
 
 uniform mat4 u_view_projection;
 
 vec3 calculateLighting(vec3 normal){
-	vec3 light_dir = normalize(u_light_pos - gl_in[0].gl_Position.xyz); // check if correct order
-	float brightness = max(dot(-light_dir, normal), 0.0);
+	//vec3 light_dir = normalize(u_light_pos - gl_in[0].gl_Position.xyz); // check if correct order
+	vec3 light_dir = u_light_dir;
+	float brightness = max(dot(light_dir, normal), 0.0);
 	return (brightness) + (u_ambient_color * u_ambient_strenght);
 }
 
@@ -59,9 +70,17 @@ void main(void){
 	vec3 lighting = calculateLighting(normal);
 	
 	for(int i=0;i<3;i++){
+		// Fog
+		float distance = length(u_camera_pos - gl_in[i].gl_Position.xyz);
+		visibility = exp(-pow(distance*u_fog_density, u_fog_gradient));
+		visibility = clamp(visibility, 0.0, 1.0);
+
+		// Position
 		gl_Position = u_view_projection * gl_in[i].gl_Position;
-		//v_color[i] colour be used here, but then the colours would still be interpolated.
+
+		// Color
 		v_final_color = v_color[0] * lighting;
+
 		EmitVertex();
 	}
 	

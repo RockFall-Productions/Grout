@@ -52,9 +52,9 @@ void World::OnImGuiRender()
 	ImGui::Text("Terrain Generation");
 	changed = changed || ImGui::SliderFloat("Lowest Height", &terrain_data_.lowest_height, -500.0f, 500.0f);
 	changed = changed || ImGui::SliderFloat("Highest Height", &terrain_data_.highest_height, -500.0f, 1500.0f);
-	changed = changed || ImGui::SliderFloat("Persistance", &terrain_data_.persistance, 0.0f, 0.9999f);
-	changed = changed || ImGui::SliderFloat("Lacunarity", &terrain_data_.lacunarity, 1.0f, 10.0f);
-	changed = changed || ImGui::SliderInt("Octaves", &terrain_data_.octaves, 1.0f, 3.0f);
+	changed = changed || ImGui::SliderFloat("Persistance", &terrain_data_.persistance, 0.0f, 5.0f);
+	changed = changed || ImGui::SliderFloat("Lacunarity", &terrain_data_.lacunarity, 1.0f, 20.0f);
+	changed = changed || ImGui::SliderInt("Octaves", &terrain_data_.octaves, 1.0f, 10.0f);
 
 	if (changed) {
 		GenerateGround();

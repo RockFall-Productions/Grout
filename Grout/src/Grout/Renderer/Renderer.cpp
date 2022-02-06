@@ -62,9 +62,14 @@ namespace Grout {
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_matrix4("u_transform", transform, false);
 
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_vector3f("u_light_pos", light_data.light_pos, false);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_vector3f("u_light_dir", glm::normalize(light_data.light_dir), false);
 
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_vector3f("u_ambient_color", light_data.ambient_light_colour, false);
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_float("u_ambient_strenght", light_data.ambient_light_strength, false);
+
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_float("u_fog_density", 0.0015f, false);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_float("u_fog_gradient", 9.0f, false);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_vector3f("u_camera_pos", Grout::Camera::get_main()->get_transform().get_position(), false);
 
 		//std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_vector3f("u_t_ambient", light_data.ambient_light_colour, false);
 		//std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_float("u_t_ambient_strength", light_data.ambient_light_strength, false);
@@ -109,6 +114,7 @@ namespace Grout {
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_matrix4("u_transform", transform, false);
 
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_vector3f("u_t_light_pos", light_data.light_pos, false);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_vector3f("u_t_light_dir", glm::normalize(light_data.light_dir), false);
 		
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_vector3f("u_t_ambient", light_data.ambient_light_colour, false);
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->uniform_set_float("u_t_ambient_strength", light_data.ambient_light_strength, false);

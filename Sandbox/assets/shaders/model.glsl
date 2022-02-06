@@ -49,6 +49,7 @@ uniform Material u_material;
 uniform Light u_light;
 
 uniform vec3 u_t_light_pos;
+uniform vec3 u_t_light_dir;
 uniform vec3 u_t_ambient;
 uniform float u_t_ambient_strength;
 uniform vec3 u_t_light_diffuse;
@@ -65,8 +66,9 @@ void main()
 
     // diffuse
     vec3 norm = normalize(v_normal);
-    vec3 light_dir = normalize(u_t_light_pos - v_frag_pos);
-    float diff = max(dot(norm, light_dir), 0.0);
+    //vec3 light_dir = normalize(u_t_light_pos - v_frag_pos);
+    vec3 light_dir = u_t_light_dir;
+    float diff = max(dot(norm, -light_dir), 0.0);
     vec3 diffuse = u_t_light_diffuse * diff * texture(texture_diffuse1, v_tex_coord).rgb;
 
     // specular
