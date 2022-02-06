@@ -84,7 +84,10 @@ void BoidWorldLayer::OnImGuiRender()
 	ImGui::Spacing();
 	ImGui::Spacing();
 	ImGui::Text("Lightning");
-	ImGui::DragFloat3("Light Source Position", glm::value_ptr(light_data_.light_pos));
+	//ImGui::DragFloat3("Light Source Position", glm::value_ptr(light_data_.light_pos));
+	vec3 light_direction_gizmos = light_data_.light_dir;
+	ImGui::gizmo3D("##gizmo2", light_direction_gizmos/*, size,  mode */);
+	light_data_.light_dir = light_direction_gizmos;
 	ImGui::Spacing();
 	ImGui::ColorEdit3("Ambient Light Colour", glm::value_ptr(light_data_.ambient_light_colour));
 	ImGui::SliderFloat("Ambient Light Strength", &light_data_.ambient_light_strength, 0.0f, 1.0f);
