@@ -9,7 +9,7 @@ class World
 public:
 	struct TerrainData {
 		// World position on the Y axis
-		float y_position = -40.0f;
+		float y_position = -90.0f;
 
 		// Lowest possible Y value
 		float lowest_height = -14.0f;
@@ -39,6 +39,10 @@ public:
 		float lacunarity = 3.5f;
 		int octaves = 4;
 		float roughness = 0.35f;
+
+		float fog_on = 1;
+		float fog_density = 0.0013f;
+		float fog_gradient = 4.24f;
 	};
 
 	World() {}

@@ -217,6 +217,12 @@ namespace Grout {
 			this->Bind();
 		glUniform1f(glGetUniformLocation(this->id_, name), value);
 	}
+	void OpenGLShader::uniform_set_bool(const char* name, bool value, bool bind_first)
+	{
+		if (bind_first)
+			this->Bind();
+		glUniform1i(glGetUniformLocation(this->id_, name), value);
+	}
 	void OpenGLShader::uniform_set_integer(const char* name, int value, bool bind_first)
 	{
 		if (bind_first)

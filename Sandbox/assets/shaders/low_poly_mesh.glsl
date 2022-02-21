@@ -24,8 +24,12 @@ in float visibility;
 in vec3 v_final_color;
 
 void main() {
-	color = mix(vec4(0.04, 0.19, 0.49, 1.0), vec4(v_final_color, 1.0), visibility);
-	//color = vec4(v_final_color, visibility);
+	if (visibility < -0.9) {
+		color = vec4(v_final_color, 1.0f);
+	} else {
+		color = mix(vec4(0.0, 0.23, 0.58, 1.0), vec4(v_final_color, 1.0), visibility);
+	}
+	
 }
 
 #type geometry
@@ -40,6 +44,7 @@ out vec3 v_final_color;
 uniform float u_fog_density;
 uniform float u_fog_gradient;
 uniform vec3 u_camera_pos;
+uniform float u_fog_on;
 
 out float visibility;
 
@@ -47,6 +52,8 @@ uniform vec3 u_light_pos;
 uniform vec3 u_light_dir;
 uniform vec3 u_ambient_color;
 uniform float u_ambient_strenght;
+
+uniform bool u_block_light;
 
 uniform mat4 u_view_projection;
 
@@ -71,9 +78,14 @@ void main(void){
 	
 	for(int i=0;i<3;i++){
 		// Fog
-		float distance = length(u_camera_pos - gl_in[i].gl_Position.xyz);
-		visibility = exp(-pow(distance*u_fog_density, u_fog_gradient));
-		visibility = clamp(visibility, 0.0, 1.0);
+		if (u_fog_on == 1) {
+			float distance = length(u_camera_pos - gl_in[i].gl_Position.xyz);
+			visibility = exp(-pow(distance*u_fog_density, u_fog_gradient));
+			visibility = clamp(visibility, 0.0, 1.0);
+		} else {
+			visibility = -1;
+		}
+		
 
 		// Position
 		gl_Position = u_view_projection * gl_in[i].gl_Position;

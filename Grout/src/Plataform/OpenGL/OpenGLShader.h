@@ -25,6 +25,7 @@ namespace Grout {
 
 		// Sets for Uniform shader variables
 		void uniform_set_float(const char* name, float value, bool useShader = false);
+		void uniform_set_bool(const char* name, bool value, bool useShader = false);
 		void uniform_set_integer(const char* name, int value, bool useShader = false);
 		void uniform_set_vector2f(const char* name, float x, float y, bool bind_first = false);
 		void uniform_set_vector2f(const char* name, const glm::vec2& value, bool bind_first = false);

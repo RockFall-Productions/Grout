@@ -14,7 +14,7 @@ public:
 
 		// Add Leader
 		if (flock.flock.size() == 0) {
-			glm::vec3 pos = glm::vec3((float(rand() % 100 + 1) / float(100)) * spawn_radius_, float(rand() % 20 + 20), (float(rand() % 100 + 1) / float(100)) * spawn_radius_);
+			glm::vec3 pos = glm::vec3((float(rand() % 201) / float(100) - 1) * spawn_radius_, float(rand() % 20 + 20), (float(rand() % 201) / float(100) - 1) * spawn_radius_);
 			flock.addBoid(pos, true);
 			offset = 1;
 		}
@@ -22,7 +22,7 @@ public:
 		// Add all others
 		for (int i = 0; i < spawn_count_ - offset; i++) {
 			// Random number position
-			glm::vec3 pos =  glm::vec3((float(rand() % 100+1)/float(100)) * spawn_radius_, float(rand() % 20 + 20),(float(rand() % 100 + 1) / float(100)) * spawn_radius_);
+			glm::vec3 pos =  glm::vec3((float(rand() % 201)/float(100) - 1) * spawn_radius_, float(rand() % 20 + 20),(float(rand() % 201) / float(100) - 1) * spawn_radius_);
 			flock.addBoid(pos);
 		}
 	}

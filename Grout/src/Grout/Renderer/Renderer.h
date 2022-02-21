@@ -13,11 +13,14 @@ namespace Grout {
 			glm::vec3 light_pos = {40.0f, 90.0f, 40.0f };
 			glm::vec3 light_dir = {-1.0f / 3.0f, -1.0f / 3.0f, -1.0f / 3.0f };
 
-			glm::vec3 ambient_light_colour = { 1.0f, 1.0f, 1.0f };
-			float ambient_light_strength = 0.1f;
+			glm::vec3 ambient_light_colour = { 0.06f, 0.14f, 0.59f };
+			float ambient_light_strength = 0.36f;
 
 			glm::vec3 light_diffuse = { 1.0f, 1.0f, 1.0f };
 			glm::vec3 light_specular = { 1.0f, 1.0f, 1.0f };
+
+			int texture_id = 0;
+			int texture_offset = 0;
 		};
 
 		inline static RendererAPI::API get_api() { return RendererAPI::get_api();  }

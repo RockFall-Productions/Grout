@@ -50,6 +50,7 @@ public:
     glm::vec3 Alignment(const std::vector<Boid>& Boid);
     glm::vec3 Cohesion(const std::vector<Boid>& Boid);
     glm::vec3 TowardLeader(const std::vector<Boid>& Boid);
+    glm::vec3 Collision(const std::vector<Boid>& Boid);
     //Functions involving SFML and visualisation linking
     glm::vec3 seek(const glm::vec3& v);
     void run(const std::vector<Boid>& v);

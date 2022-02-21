@@ -129,6 +129,7 @@ namespace Grout {
         for (unsigned int i = 0; i < meshes.size(); i++)
             meshes[i].Render(shader);
     }
+
     void Model::LoadModel(std::string path)
     {
         Assimp::Importer importer;

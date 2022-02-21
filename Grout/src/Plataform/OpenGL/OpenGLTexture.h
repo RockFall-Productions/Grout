@@ -27,11 +27,42 @@ namespace Grout {
 			return renderer_id_ == ((OpenGLTexture2D&)other).renderer_id_;
 		}
 	private:
+		void ImportFromBWFile(const std::string& path);
+
 		std::string path_;
 		bool is_loaded_ = false;
 		uint32_t width_, height_;
 		uint32_t renderer_id_;
 		GLenum internal_format_, data_format_;
+	};
+
+	class OpenGLFileHandler {
+	protected:
+		typedef struct _ImageRec {
+			unsigned short imagic;
+			unsigned short type;
+			unsigned short dim;
+			unsigned short xsize, ysize, zsize;
+			unsigned int min, max;
+			unsigned int wasteBytes;
+			char name[80];
+			unsigned long colorMap;
+			FILE* file;
+			unsigned char* tmp;
+			unsigned long rleEnd;
+			unsigned int* rowStart;
+			int* rowSize;
+		} ImageRec;
+
+		static void ConvertUint(unsigned* array, unsigned int length);
+		static void ConvertShort(unsigned short* array, unsigned int length);
+		static ImageRec* ImageOpen(const char* fileName);
+		static ImageRec* ImageOpenFallback(const char* fileName);
+		static void ImageClose(ImageRec* image);
+		static GLubyte* read_alpha_texture(const char* name, int* width, int* height);
+		static void ImageGetRow(ImageRec* image, unsigned char* buf, int y, int z);
+
+		friend class OpenGLTexture2D;
 	};
 }
 
