@@ -30,6 +30,10 @@ void BoidWorldLayer::OnAttach()
 
 	//flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
 
+	// Caustic Setup
+	GenerateCausticTexture();
+	current_caustic = caustic_textures_[0]->get_renderer_id();
+	light_data_.texture_offset = current_caustic;
 }
 
 void BoidWorldLayer::OnDetach()
@@ -45,6 +49,10 @@ void BoidWorldLayer::OnUpdate()
 
 	flock.flocking();
 
+
+	//current_caustic = ((current_caustic) % 32) + light_data_.texture_offset;
+	light_data_.texture_id = current_caustic;
+
 	// Render
 	// Clears the background color
 	Grout::RenderCommand::SetClearColor({ 1.0f, 0.0f, 1.0f, 1.0f });
@@ -57,12 +65,12 @@ void BoidWorldLayer::OnUpdate()
 	for (auto& boid : flock.flock)
 	{
 		if (boid.leader)
-			boid_object_->transform.set_scale(glm::vec3(-0.5f, 0.5f, -0.5f));
+			boid_object_->transform.set_scale(glm::vec3(-2.0f, 2.0f, -2.0f));
 		boid_object_->transform.set_position(boid.position);
 		boid_object_->transform.look_at(boid.position + boid.velocity);
 		Grout::Renderer::RenderModelObject(boid_object_, boid_shader_, light_data_);
 		if (boid.leader)
-			boid_object_->transform.set_scale(glm::vec3(-0.3f, 0.3f, -0.3f));
+			boid_object_->transform.set_scale(glm::vec3(-1.2f, 1.2f, -1.2f));
 	}
 
 	//boid_object_->transform.set_position(glm::vec3(0.0f, 30.3f, -6.0f));
@@ -81,6 +89,7 @@ void BoidWorldLayer::OnImGuiRender()
 		else
 			ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Press CTRL to get back to fly mode");
 	}
+
 	ImGui::Spacing();
 	ImGui::Spacing();
 	ImGui::Text("Lightning");
@@ -126,7 +135,7 @@ void BoidWorldLayer::OnImGuiRender()
 	ImGui::Text("Modo da Camera:");
 	ImGui::Checkbox("Torre", &camMode1);
 	if (camMode1) {
-		camera_->get_transform().set_position(glm::vec3(0.0f, 30.2f, 0.0f));
+		camera_->get_transform().set_position(glm::vec3(0.0f, 50.2f, 0.0f));
 		camMode2 = false;
 		camMode3 = false;
 		camFlyMode = false;
@@ -192,10 +201,9 @@ void BoidWorldLayer::OnImGuiRender()
 
 	ImGui::Spacing();
 	ImGui::Spacing();
-	ImGui::Text("Flock Position: %.1f %.1f %.1f", flock.flock_position.x, flock.flock_position.y, flock.flock_position.z);
 	ImGui::Spacing();
-	flock.OnImGuiRender();
 
+	flock.OnImGuiRender();
 	Spawner::OnImGuiRender(flock);
 	world_map_.OnImGuiRender();
 
@@ -271,6 +279,15 @@ void BoidWorldLayer::CameraMovement()
 		camera_->get_transform().add_position(camera_->get_transform().get_up_direction() * Grout::Time::delta_time_f() * camera_fly_speed_);
 	else if (Grout::Input::is_key_pressed(GRT_KEY_LEFT_SHIFT))
 		camera_->get_transform().add_position(camera_->get_transform().get_up_direction() * -1.0f * Grout::Time::delta_time_f() * camera_fly_speed_);
+}
 
+void BoidWorldLayer::GenerateCausticTexture() {
+	for (int i = 0; i < 32; i++)
+	{
+		std::string id = std::to_string(i);
+		if (i < 10)
+			id = "0" + std::to_string(i);
 
+		caustic_textures_.push_back(Grout::Texture2D::Create("assets/images/textures/caustic/caust" + id + ".bw"));
+	}
 }

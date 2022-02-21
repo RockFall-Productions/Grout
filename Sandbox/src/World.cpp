@@ -18,9 +18,9 @@ void World::Start()
 	skybox_object_->skybox_component = CreateRef<SkyBoxComponent>();
 
 	// Create Map
-	map_object_ = Grout::CreateRef<Grout::Object>("Tower and Ground", glm::vec3(0.0f, 0.0f, 0.0f));
-	map_object_->model_3D = Grout::CreateRef<Grout::Model>("assets/objects/tower/tower_with_ground.obj");
-	map_object_->transform.set_scale(glm::vec3(0.3f));
+	map_object_ = Grout::CreateRef<Grout::Object>("Ship", glm::vec3(0.0f, 30.0f, 0.0f));
+	map_object_->model_3D = Grout::CreateRef<Grout::Model>("assets/objects/ship/Low Poly ShipWreck.obj");
+	map_object_->transform.set_scale(glm::vec3(1.0f));
 	map_shader_.reset(Grout::Shader::Create("assets/shaders/model.glsl"));
 
 	// Create Ground
@@ -42,6 +42,9 @@ void World::OnRender(Grout::Renderer::LightData light_data)
 	Renderer::RenderSkybox(skybox_object_, Camera::get_main(), skybox_shader_);
 
 	// Render Ground
+	std::dynamic_pointer_cast<OpenGLShader>(ground_shader_)->uniform_set_float("u_fog_on", terrain_data_.fog_on, true);
+	std::dynamic_pointer_cast<OpenGLShader>(ground_shader_)->uniform_set_float("u_fog_density", terrain_data_.fog_density, true);
+	std::dynamic_pointer_cast<OpenGLShader>(ground_shader_)->uniform_set_float("u_fog_gradient", terrain_data_.fog_gradient, true);
 	Renderer::RenderMeshObject(ground_object_, ground_shader_, light_data);
 }
 
@@ -50,6 +53,11 @@ void World::OnImGuiRender()
 	ImGui::Spacing();
 	ImGui::Spacing();
 	ImGui::Text("Terrain Generation");
+	bool fog = terrain_data_.fog_on;
+	ImGui::Checkbox("Fog", &fog);
+	ImGui::SliderFloat("Fog Density", &terrain_data_.fog_density, 0.0f, 0.01f);
+	ImGui::SliderFloat("Fog Gradient", &terrain_data_.fog_gradient, 1.0f, 15.0f);
+	terrain_data_.fog_on = fog;
 	changed = changed || ImGui::SliderFloat("Lowest Height", &terrain_data_.lowest_height, -500.0f, 500.0f);
 	changed = changed || ImGui::SliderFloat("Highest Height", &terrain_data_.highest_height, -500.0f, 1500.0f);
 	changed = changed || ImGui::SliderFloat("Persistance", &terrain_data_.persistance, 0.0f, 5.0f);

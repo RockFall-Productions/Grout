@@ -46,7 +46,7 @@ namespace Grout {
 		if (!has_glfw_initialized) {
 			// Initializes GLFW
 			int success = glfwInit();
-			// Specify the client API version (in this case OpenGL 4.5) that 
+			// Specify the client API version (in this case OpenGL 4.5) that
 			// the created window must be compatible with
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
@@ -64,12 +64,12 @@ namespace Grout {
 		window_ = glfwCreateWindow(configs.width, configs.height, data_.title.c_str(), nullptr, nullptr);
 		if (window_ == NULL)
 			GRT_CORE_ASSERT(false, "Failed to create GLFW window");
-		
+
 		context_ = CreateScope<OpenGLContext>(window_);
 		context_->Init();
 		if (context_ == NULL)
 			GRT_CORE_ASSERT(false, "Failed to create Render Context");
-		
+
 		// Used mainly to connect the callback and event system to GLFW
 		glfwSetWindowUserPointer(window_, &data_);
 		set_vsync(true);

@@ -27,7 +27,7 @@ Boid::Boid(glm::vec3 pos, BoidSettings& flock_settings, bool leader) : settings(
     acceleration = glm::vec3(0.0f);
 
     if (leader) {
-        velocity = glm::vec3(1.0f);
+        velocity = glm::vec3(5.0f);
         return;
     }
     
@@ -141,6 +141,13 @@ glm::vec3 Boid::Alignment(const std::vector<Boid>& Boid)
 
         if ((d > 0) && (d < neighbordist)) { // 0 < d < 50
             sum += Boid[i].velocity;
+            if (i == 0) {
+                sum += Boid[i].velocity;
+                sum += Boid[i].velocity;
+                sum += Boid[i].velocity;
+                sum += Boid[i].velocity;
+                count += 4;
+            }
             count++;
         }
     }
@@ -195,23 +202,6 @@ glm::vec3 Boid::Cohesion(const std::vector<Boid>& Boid)
     }
 }
 
-glm::vec3 Boid::TowardLeader(const std::vector<Boid>& Boid)
-{
-    float distance_to_leader = glm::distance(Boid[0].position, position);
-
-    if (distance_to_leader < settings.leaderCloseRadius) {
-        return glm::vec3(0.0f);
-    }
-
-    glm::vec3 desired = Boid[0].position - position;
-    // A vector pointing from the position to the target
-    //desired -= Boid[0].position;
-    //desired = glm::normalize(desired);
-    //desired *= settings.leaderAttractionSpeed;
-    glm::vec3 steer = desired - velocity;
-    return steer * (settings.leaderAttractionWeight / 100.0f);
-}
-
 // Limits the maxSpeed, finds necessary steering force and
 // normalizes vectors
 glm::vec3 Boid::seek(const glm::vec3& v)
@@ -232,6 +222,60 @@ glm::vec3 Boid::seek(const glm::vec3& v)
     if (sqrt(steer.x + steer.y + steer.z) > settings.maxSteerForce)
         steer /= sqrt(steer.x + steer.y + steer.z);
     return steer / 400.0f;
+}
+
+glm::vec3 Boid::TowardLeader(const std::vector<Boid>& Boid)
+{
+    float distance_to_leader = glm::distance(Boid[0].position, position);
+
+    if (distance_to_leader < settings.leaderCloseRadius) {
+        return glm::vec3(0.0f);
+    }
+
+    glm::vec3 desired = Boid[0].position - position;
+    // A vector pointing from the position to the target
+    //desired -= Boid[0].position;
+    //desired = glm::normalize(desired);
+    //desired *= settings.leaderAttractionSpeed;
+    glm::vec3 steer = desired - velocity;
+    return steer * (settings.leaderAttractionWeight / 100.0f) * (1.0f / distance_to_leader);
+}
+
+glm::vec3 Boid::Collision(const std::vector<Boid>& boids) {
+    // Distance of field of vision for separation between boids
+    float desiredseparation = settings.avoidanceRadius;
+    glm::vec3 steer(0.0f);
+    int count = 0;
+    // For every boid in the system, check if it's too close
+    for (int i = 0; i < boids.size(); i++) {
+        // Calculate distance from current boid to boid we're looking at
+        float d = glm::distance(position, boids[i].position);
+        // If this is a fellow boid and it's too close, move away from it
+        if ((d > 0) && (d < desiredseparation)) {
+            glm::vec3 diff(0.0f);
+            diff = position - boids[i].position;
+            diff = glm::normalize(diff);
+            diff = diff / d;      // Weight by distance
+            steer += diff;
+            //steer -= position - boids[i].position;
+            count++;
+        }
+    }
+
+    // Adds average difference of position to acceleration
+
+    //if (count > 0)
+    //      steer = steer / (float)count;
+    if (sqrt(steer.x + steer.y + steer.z) > 0) {
+        // Steering = Desired - Velocity
+        steer = glm::normalize(steer);
+        steer *= settings.maxSpeed;
+        steer -= velocity;
+        if (sqrt(steer.x + steer.y + steer.z) > settings.maxSteerForce)
+            steer /= sqrt(steer.x + steer.y + steer.z);
+    }
+
+    return steer;
 }
 
 // Modifies velocity, position, and resets acceleration with values that
@@ -275,25 +319,25 @@ void Boid::run(const std::vector <Boid>& v)
 // Applies the three laws to the flock of boids
 void Boid::flock(const std::vector<Boid>& v)
 {
-
-
-
     glm::vec3 sep = Separation(v);
     glm::vec3 ali = Alignment(v);
     glm::vec3 coh = Cohesion(v);
     glm::vec3 tlead = glm::vec3(0.0f);
     if (v[0].leader)
         tlead = TowardLeader(v);
+    glm::vec3 col = Collision(v);
     // Arbitrarily weight these forces
     sep *= settings.separationWeight;
     ali *= settings.alignWeight; // Might need to alter weights for different characteristics
     coh *= settings.cohesionWeight;
     tlead *= settings.leaderAttractionWeight;
+    col *= 10.0f;
     // Add the force vectors to acceleration
     applyForce(sep);
     applyForce(ali);
     applyForce(coh);
     applyForce(tlead);
+    applyForce(col);
 }
 
 // Applies the three laws to the flock of boids

@@ -26,6 +26,7 @@ private:
 
 	void CameraMovement();
 
+	void GenerateCausticTexture();
 private:
 	// Camera
 	Grout::Ref<Grout::Camera> camera_;
@@ -60,5 +61,7 @@ private:
 	bool lock_fly_ = false;
 
 	Grout::Renderer::LightData light_data_ = Grout::Renderer::LightData();
+	std::vector<Grout::Ref<Grout::Texture2D>> caustic_textures_;
+	int current_caustic;
 };
 

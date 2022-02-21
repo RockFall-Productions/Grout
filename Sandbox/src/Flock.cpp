@@ -1,5 +1,7 @@
 #include "Flock.h"
 
+#include <Grout.h>
+
 // =============================================== //
 // ======== Flock Functions from Flock.h ========= //
 // =============================================== //
@@ -7,6 +9,13 @@
 void Flock::OnImGuiRender()
 {
     ImGui::Text("Boid Settings");
+    ImGui::Checkbox("Pausar", &on_pause_);
+
+    if (on_pause_) {
+         ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Press the Middle Mouse Button to jump a frame");
+    }
+
+    ImGui::Text("Flock Position: %.1f %.1f %.1f", flock_position.x, flock_position.y, flock_position.z);
     ImGui::SliderFloat("Leader Speed", &settings.leaderSpeed, 0.0f, 15.0f);
     ImGui::SliderFloat("Leader Attraction Speed", &settings.leaderAttractionSpeed, 0.0f, 100.0f);
     ImGui::SliderFloat("Leader Attraction Weight", &settings.leaderAttractionWeight, 0.0f, 10.0f);
@@ -60,6 +69,11 @@ void Flock::removeBoid()
 // itself. Which in turn applies all the rules to the flock.
 void Flock::flocking()
 {
+    if (on_pause_) {
+        if (!Grout::Input::is_mouse_button_pressed(GRT_MOUSE_BUTTON_MIDDLE))
+            return;
+    }
+
     glm::vec3 sum_pos = glm::vec3(0.0f);
     for (int i = 0; i < flock.size(); i++) {
         flock[i].run(flock);

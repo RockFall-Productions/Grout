@@ -11,20 +11,20 @@ struct BoidSettings {
     // Settings
     float leaderSpeed = 7.0f;
     float leaderAttractionSpeed = 1;
-    float leaderAttractionWeight = 0.55f;
-    float leaderCloseRadius = 15;
+    float leaderAttractionWeight = 1.9f;
+    float leaderCloseRadius = 0.0f;
 
     float speedScaler = 1;
     float minSpeed = 4;
-    float maxSpeed = 8;
-    float perceptionRadius = 3.0f;
-    float avoidanceRadius = 1;
-    float maxSteerForce = 2;
+    float maxSpeed = 6;
+    float perceptionRadius = 10.0f;
+    float avoidanceRadius = 2.5f;
+    float maxSteerForce = 0.4f;
 
 
-    float alignWeight = 0.4f;
-    float cohesionWeight = 4;
-    float separationWeight = 1.5f;
+    float alignWeight = 1.7f;
+    float cohesionWeight = 2.2;
+    float separationWeight = 3.0f;
 
     float targetWeight = 1;
 
@@ -34,8 +34,8 @@ struct BoidSettings {
     float collisionAvoidDst = 5;
 
     float borderRadius = 220.0f;
-    float minHeight = 10.0f;
-    float maxHeight = 40.0f;
+    float minHeight = 20.0f;
+    float maxHeight = 170.0f;
 };
 
 /*
@@ -75,4 +75,5 @@ private:
     BoidSettings settings = BoidSettings();
     float MAX_CENTER_DISTANCE = 50.0f;
 
+    bool on_pause_ = false;
 };
