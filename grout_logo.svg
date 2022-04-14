@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2">
+    <rect
+       x="-577.84842"
+       y="310.20413"
+       width="919.61173"
+       height="421.12628"
+       id="rect1617" />
+    <rect
+       x="-577.84845"
+       y="310.20413"
+       width="919.61176"
+       height="421.12628"
+       id="rect1617-5" />
+  </defs>
+  <g
+     id="layer2"
+     style="display:inline">
+    <rect
+       style="fill:#897871;fill-opacity:1;stroke-width:0.264583"
+       id="rect11577"
+       width="75.443901"
+       height="75.443901"
+       x="70.5205"
+       y="140.2301" />
+  </g>
+  <g
+     id="layer1"
+     style="display:inline">
+    <text
+       xml:space="preserve"
+       transform="matrix(0.51370505,0,0,0.51370505,366.22761,60.487208)"
+       id="text1615"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect1617);fill:#313131;fill-opacity:1;stroke:none;stroke-width:1.3262"><tspan
+         x="-577.84766"
+         y="357.39255"
+         id="tspan29333"><tspan
+           style="font-size:53.3333px;font-family:'Droid Sans Fallback';-inkscape-font-specification:'Droid Sans Fallback, Normal';fill:#f3f3f3"
+           id="tspan29331">Grout</tspan></tspan></text>
+    <rect
+       id="rect5475"
+       width="35.974052"
+       height="35.974052"
+       x="70.5205"
+       y="179.64963"
+       style="fill:#f1903d;fill-opacity:1;stroke-width:0.248305" />
+    <rect
+       id="rect5475-6"
+       width="35.974052"
+       height="35.974052"
+       x="71.049667"
+       y="140.75926"
+       style="fill:#e13434;fill-opacity:1;stroke-width:0.248305" />
+    <rect
+       id="rect5475-6-9"
+       width="35.974052"
+       height="35.974052"
+       x="110.16814"
+       y="140.2301"
+       style="fill:#e8632a;fill-opacity:1;stroke-width:0.248305" />
+    <rect
+       id="rect5475-6-9-4"
+       width="35.974052"
+       height="35.974052"
+       x="109.99035"
+       y="179.69997"
+       style="fill:#72645d;fill-opacity:1;stroke-width:0.248305;opacity:0.48" />
+    <rect
+       id="rect5475-6-9-4-6"
+       width="35.974052"
+       height="35.974052"
+       x="114.09492"
+       y="184.58344"
+       style="display:inline;fill:#eb773b;fill-opacity:1;stroke-width:0.248305" />
+  </g>
+</svg>
