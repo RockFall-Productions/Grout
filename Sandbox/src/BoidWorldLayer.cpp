@@ -1,8 +1,8 @@
 #include "BoidWorldLayer.h"
 
-#include <glm/glm/gtc/type_ptr.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
-#include <imgui/widgets/imGuIZMO/imGuIZMOquat.h>
+//#include <imgui/widgets/imGuIZMO/imGuIZMOquat.h>
 
 #include "Spawner.h"
 
@@ -94,9 +94,9 @@ void BoidWorldLayer::OnImGuiRender()
 	ImGui::Spacing();
 	ImGui::Text("Lightning");
 	//ImGui::DragFloat3("Light Source Position", glm::value_ptr(light_data_.light_pos));
-	vec3 light_direction_gizmos = light_data_.light_dir;
-	ImGui::gizmo3D("##gizmo2", light_direction_gizmos/*, size,  mode */);
-	light_data_.light_dir = light_direction_gizmos;
+	//vec3 light_direction_gizmos = light_data_.light_dir;
+	//ImGui::gizmo3D("##gizmo2", light_direction_gizmos/*, size,  mode */);
+	//light_data_.light_dir = light_direction_gizmos;
 	ImGui::Spacing();
 	ImGui::ColorEdit3("Ambient Light Colour", glm::value_ptr(light_data_.ambient_light_colour));
 	ImGui::SliderFloat("Ambient Light Strength", &light_data_.ambient_light_strength, 0.0f, 1.0f);
@@ -106,7 +106,7 @@ void BoidWorldLayer::OnImGuiRender()
 	ImGui::Spacing();
 	ImGui::Text("Rotation");
 
-	ImGui::gizmo3D("##gizmo1", quat(camera_->get_transform().get_orientation()) /*, size,  mode */);
+	//ImGui::gizmo3D("##gizmo1", quat(camera_->get_transform().get_orientation()) /*, size,  mode */);
 	ImGui::Spacing();
 	glm::vec3 cam_position = camera_->get_transform().get_position();
 	ImGui::InputFloat3("Camera Position", glm::value_ptr(cam_position));
@@ -187,7 +187,7 @@ void BoidWorldLayer::OnImGuiRender()
 
 	{ 
 		bool check_click = camFlyMode;
-		ImGui::Checkbox("Vôo Livre", &camFlyMode);
+		ImGui::Checkbox("Vï¿½o Livre", &camFlyMode);
 		if (!check_click && camFlyMode)
 			lock_fly_ = true;
 	}

@@ -5,7 +5,7 @@
 #include "World.h"
 #include "Flock.h"
 
-#include "imgui/imgui.h"
+#include "imgui.h"
 
 class BoidWorldLayer : public Grout::Layer
 {

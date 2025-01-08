@@ -1,0 +1,306 @@
+{
+    "": {
+        "meson.build": null,
+        "grout_logo.svg": null,
+        "Grout": {
+            "cpp.hint": null,
+            "third-part": {
+                "stb": {
+                    "stb_image.h": null,
+                    "stb_image.cpp": null
+                }
+            },
+            "src": {
+                "Plataform": {
+                    "OpenGL": {
+                        "OpenGLBuffer.h": null,
+                        "OpenGLShader.h": null,
+                        "OpenGLVertexArray.cpp": null,
+                        "OpenGLContext.cpp": null,
+                        "OpenGLRendererAPI.h": null,
+                        "OpenGLRendererAPI.cpp": null,
+                        "OpenGLTexture.cpp": null,
+                        "OpenGLShader.cpp": null,
+                        "OpenGLBuffer.cpp": null,
+                        "OpenGLVertexArray.h": null,
+                        "skybox": {
+                            "back.png": null,
+                            "front.png": null,
+                            "top.png": null,
+                            "left.png": null,
+                            "bottom.png": null,
+                            "right.png": null
+                        },
+                        "OpenGLContext.h": null,
+                        "OpenGLTexture.h": null
+                    },
+                    "Windows": {
+                        "WindowsWindow.h": null,
+                        "WindowsInput.h": null,
+                        "WindowsInput.cpp": null,
+                        "WindowsWindow.cpp": null
+                    }
+                },
+                "Grout": {
+                    "Utils": {
+                        "PerlimNoise.h": null
+                    },
+                    "Scene": {
+                        "Object.h": null,
+                        "Transform.h": null,
+                        "Transform.cpp": null,
+                        "Object.cpp": null
+                    },
+                    "Core": {
+                        "Log.h": null,
+                        "Timestep.cpp": null,
+                        "Application.cpp": null,
+                        "Layer.h": null,
+                        "MouseCodes.h": null,
+                        "Log.cpp": null,
+                        "EntryPoint.h": null,
+                        "Core.h": null,
+                        "Timestep.h": null,
+                        "Input.h": null,
+                        "Window.h": null,
+                        "Application.h": null,
+                        "Macros.h": null,
+                        "LayerStack.cpp": null,
+                        "KeyCodes.h": null,
+                        "Assert.h": null,
+                        "Layer.cpp": null,
+                        "LayerStack.h": null
+                    },
+                    "Shaders": {
+                        "sprite.vs": null,
+                        "text_2d.frag": null,
+                        "sprite.frag": null,
+                        "text_2d.vs": null,
+                        "particle.vs": null,
+                        "test.frag": null,
+                        "test.v": null,
+                        "particle.frag": null
+                    },
+                    "ImGui": {
+                        "ImGuiLayer.h": null,
+                        "ImGuiLayer.cpp": null,
+                        "ImGuiBuild.cpp": null
+                    },
+                    "Renderer": {
+                        "Buffer.h": null,
+                        "RenderCommand.h": null,
+                        "Buffer.cpp": null,
+                        "VertexArray.cpp": null,
+                        "Texture.cpp": null,
+                        "VertexArray.h": null,
+                        "Mesh.h": null,
+                        "RendererAPI.h": null,
+                        "Shader.cpp": null,
+                        "Camera.h": null,
+                        "RenderCommand.cpp": null,
+                        "RendererAPI.cpp": null,
+                        "Renderer.h": null,
+                        "Components.h": null,
+                        "Shader.h": null,
+                        "Texture.h": null,
+                        "Renderer.cpp": null,
+                        "Mesh.cpp": null,
+                        "Camera.cpp": null,
+                        "RendererContext.h": null
+                    },
+                    "Events": {
+                        "ApplicationEvent.h": null,
+                        "Event.h": null,
+                        "KeyEvent.h": null,
+                        "MouseEvent.h": null
+                    }
+                },
+                "grtpch.cpp": null,
+                "grtpch.h": null,
+                "Grout.h": null
+            },
+            "Grout.vcxproj.user": null,
+            "Grout.vcxproj": null,
+            "Grout.vcxproj.filters": null
+        },
+        "Grout.sln": null,
+        "premake5.lua": null,
+        ".git": {
+            "index": null,
+            "packed-refs": null,
+            "objects": {
+                "info": {},
+                "pack": {
+                    "pack-256efdd95475c53f2cf0a0cf692dd0c0bb2757ed.idx": null,
+                    "pack-256efdd95475c53f2cf0a0cf692dd0c0bb2757ed.rev": null,
+                    "pack-256efdd95475c53f2cf0a0cf692dd0c0bb2757ed.pack": null
+                }
+            },
+            "description": null,
+            "modules": {
+                "Grout": {
+                    "third-part": {}
+                }
+            },
+            "config": null,
+            "logs": {
+                "HEAD": null,
+                "refs": {
+                    "remotes": {
+                        "origin": {
+                            "HEAD": null
+                        }
+                    },
+                    "heads": {
+                        "main": null
+                    }
+                }
+            },
+            "hooks": {
+                "prepare-commit-msg.sample": null,
+                "update.sample": null,
+                "pre-applypatch.sample": null,
+                "sendemail-validate.sample": null,
+                "pre-merge-commit.sample": null,
+                "pre-rebase.sample": null,
+                "pre-receive.sample": null,
+                "pre-push.sample": null,
+                "pre-commit.sample": null,
+                "post-update.sample": null,
+                "fsmonitor-watchman.sample": null,
+                "applypatch-msg.sample": null,
+                "push-to-checkout.sample": null,
+                "commit-msg.sample": null
+            },
+            "info": {
+                "exclude": null
+            },
+            "HEAD": null,
+            "refs": {
+                "tags": {},
+                "remotes": {
+                    "origin": {
+                        "HEAD": null
+                    }
+                },
+                "heads": {
+                    "main": null
+                }
+            }
+        },
+        "Sandbox": {
+            "Sandbox.vcxproj": null,
+            "Sandbox.vcxproj.user": null,
+            "assets": {
+                "objects": {
+                    "source_attribution.txt": null,
+                    "specular.jpg": null,
+                    "backpack.mtl": null,
+                    "ship": {
+                        "Ship Color Palette.png": null,
+                        "Low Poly ShipWreck.obj": null,
+                        "Low Poly ShipWreck.mtl": null
+                    },
+                    "ao.jpg": null,
+                    "backpack.obj": null,
+                    "diffuse.jpg": null,
+                    "tower": {
+                        "wall.jpg": null,
+                        "tower.obj": null,
+                        "tower_with_ground.mtl": null,
+                        "underwater-texture.jpg": null,
+                        "tower_with_ground.obj": null,
+                        "tower.mtl": null
+                    },
+                    "roughness.jpg": null,
+                    "normal.png": null,
+                    "fish": {
+                        "fish_idle.obj": null,
+                        "fish_idle.mtl": null,
+                        "fish.png": null
+                    }
+                },
+                "images": {
+                    "textures": {
+                        "pocoyo.png": null,
+                        "caustic": {
+                            "caust29.bw": null,
+                            "caust08.bw": null,
+                            "caust05.bw": null,
+                            "caust00.bw": null,
+                            "caust11.bw": null,
+                            "caust26.bw": null,
+                            "caust07.bw": null,
+                            "caust10.bw": null,
+                            "caust12.bw": null,
+                            "caust15.bw": null,
+                            "caust06.bw": null,
+                            "caust16.bw": null,
+                            "caust13.bw": null,
+                            "caust30.bw": null,
+                            "caust04.bw": null,
+                            "caust09.bw": null,
+                            "caust28.bw": null,
+                            "caust23.bw": null,
+                            "caust27.bw": null,
+                            "caust21.bw": null,
+                            "caust03.bw": null,
+                            "caust31.bw": null,
+                            "caust14.bw": null,
+                            "caust01.bw": null,
+                            "caust22.bw": null,
+                            "caust17.bw": null,
+                            "caust18.bw": null,
+                            "caust20.bw": null,
+                            "caust19.bw": null,
+                            "caust02.bw": null,
+                            "caust25.bw": null,
+                            "caust24.bw": null
+                        },
+                        "grass.png": null,
+                        "skybox": {
+                            "back.png": null,
+                            "front.png": null,
+                            "top.png": null,
+                            "left.png": null,
+                            "bottom.png": null,
+                            "right.png": null
+                        }
+                    }
+                },
+                "shaders": {
+                    "skybox.glsl": null,
+                    "model.glsl": null,
+                    "light.glsl": null,
+                    "texture.glsl": null,
+                    "low_poly_mesh.glsl": null,
+                    "mesh.glsl": null
+                }
+            },
+            "Sandbox.vcxproj.filters": null,
+            "assimp-vc142-mtd.dll": null,
+            "imgui.ini": null,
+            "src": {
+                "BoidWorldLayer.h": null,
+                "Boids.h": null,
+                "BoidWorldLayer.cpp": null,
+                "SandboxApp.cpp": null,
+                "Spawner.h": null,
+                "World.h": null,
+                "Flock.h": null,
+                "Spawner.cpp": null,
+                "third-part": {
+                    "FastNoiseLite.h": null
+                },
+                "World.cpp": null,
+                "Boids.cpp": null,
+                "Flock.cpp": null
+            }
+        },
+        ".gitmodules": null,
+        "README.md": null,
+        "walk.py": null,
+        ".gitignore": null,
+        "GenerateProjects.bat": null
+    }
+}

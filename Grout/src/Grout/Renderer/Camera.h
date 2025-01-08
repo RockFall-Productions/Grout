@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 #include "Grout/Events/Event.h"
 #include "Grout/Events/MouseEvent.h"
-#include "Grout/Core/Time.h"
+#include "Grout/Core/Timestep.h"
 #include "Grout/Scene/Transform.h"
 
 namespace Grout {
@@ -78,7 +78,7 @@ namespace Grout {
 		// -- World Space variables --
 		Transform transform_;
 		glm::vec3 target_;
-		// Rotation in X, Y and Z axis (euler degrees °)
+		// Rotation in X, Y and Z axis (euler degrees ï¿½)
 		glm::vec3 speed_ = glm::vec3(0.0f);
 
 		// Viewport

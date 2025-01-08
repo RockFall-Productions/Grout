@@ -3,7 +3,7 @@
 #include "Flock.h"
 #include "Boids.h"
 
-#include <imgui/imgui.h>
+#include <imgui.h>
 #include <glm/glm.hpp>
 
 // Responsible for spawning Boids in the map

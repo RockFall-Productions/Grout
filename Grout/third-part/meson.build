@@ -1,0 +1,2 @@
+subdir('assimp')
+subdir('Glad')

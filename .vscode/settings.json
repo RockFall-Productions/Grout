@@ -1,0 +1,15 @@
+{
+    "C_Cpp.default.compileCommands": "c:\\Users\\CaioHenriqueDiasRoch\\Desktop\\fall\\grout\\Grout\\builddir/compile_commands.json",
+    "C_Cpp.default.configurationProvider": "mesonbuild.mesonbuild",
+    "files.associations": {
+        "memory": "cpp",
+        "iostream": "cpp",
+        "utility": "cpp",
+        "functional": "cpp",
+        "ctime": "cpp",
+        "cstddef": "cpp",
+        "cassert": "cpp",
+        "unordered_set": "cpp",
+        "algorithm": "cpp"
+    }
+}
