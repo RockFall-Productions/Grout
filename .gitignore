@@ -9,6 +9,8 @@ bin-int/
 # Executable
 *.exe
 *.dll
+**/grout.log
+**/imgui.ini
 
 # Build
 builddir/
