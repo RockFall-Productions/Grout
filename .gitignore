@@ -5,3 +5,9 @@ bin-int/
 
 # Files
 .user
+
+# Executable
+*.exe
+
+# Build
+builddir/
