@@ -3,6 +3,9 @@
 bin/
 bin-int/
 
+# VSCode
+.vscode/
+
 # Files
 .user
 

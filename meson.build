@@ -42,6 +42,7 @@ project('Grout',  ['c', 'cpp'],
         'warning_level=0', 
         'buildtype=debugoptimized',
         'cpp_std=c++17',
+        'default_library=static',
         ],
     )
 
