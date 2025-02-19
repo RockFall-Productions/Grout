@@ -2,7 +2,7 @@
 
 #include "Grout/Renderer/Shader.h"
 
-#include<glm/glm.hpp>
+#include <glm/glm.hpp>
 
 // TODO: REMOVE!!
 typedef unsigned int GLenum;
@@ -48,10 +48,10 @@ namespace Grout {
 
 		// Compiles and link shader codes  into a Shader Program
 		void CompileAndLink(const std::unordered_map<GLenum, std::string> shader_sources);
-		void CompileAndLink(const char* vertex_code, const char* fragment_code, const char* geometry_code = nullptr);
+		void CompileAndLink(const char* vertex_code, const char* fragment_code, const char* geometry_code = nullptr, const char* vertex_file = nullptr, const char* fragment_file = nullptr, const char* geometry_file = nullptr);
 
 		// Checks for error on compilation or linking of shaders
-		void checkCompileErrors(uint32_t shader, const char* type);
+		void checkCompileErrors(uint32_t shader, const char* type, const char* filename = nullptr);
 	private:
 		// Reference ID of the Shader Program
 		uint32_t id_;

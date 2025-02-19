@@ -15,12 +15,13 @@ namespace Grout {
 		glfwMakeContextCurrent(window_);
 		// Load Glad
 		int glad_loaded = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		//int glad_loaded = gladLoadGL(glfwGetProcAddress);
 		GRT_CORE_ASSERT(glad_loaded, "Failed to initialize Glad!");
 
 		GRT_CORE_INFO("OpenGL Info:");
-		GRT_CORE_INFO("	 Vendor:   {0}", glGetString(GL_VENDOR));
-		GRT_CORE_INFO("	 Renderer: {0}", glGetString(GL_RENDERER));
-		GRT_CORE_INFO("	 Version:  {0}", glGetString(GL_VERSION));
+		GRT_CORE_INFO("    Vendor:   {}", reinterpret_cast<const char*>(glGetString(GL_VENDOR)));
+		GRT_CORE_INFO("    Renderer: {}", reinterpret_cast<const char*>(glGetString(GL_RENDERER)));
+		GRT_CORE_INFO("    Version:  {}", reinterpret_cast<const char*>(glGetString(GL_VERSION)));
 
 #ifdef GRT_ENABLE_ASSERTS
 		int versionMajor;
@@ -28,7 +29,7 @@ namespace Grout {
 		glGetIntegerv(GL_MAJOR_VERSION, &versionMajor);
 		glGetIntegerv(GL_MINOR_VERSION, &versionMinor);
 
-		GRT_CORE_ASSERT(versionMajor > 4 || (versionMajor == 4 && versionMinor >= 5), "Hazel requires at least OpenGL version 4.5!");
+		GRT_CORE_ASSERT(versionMajor > 4 || (versionMajor == 4 && versionMinor >= 5), "Grout requires at least OpenGL version 4.5!");
 #endif
 	}
 	void OpenGLContext::SwapBuffers()

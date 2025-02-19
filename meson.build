@@ -47,28 +47,13 @@ project('Grout',  ['c', 'cpp'],
 
 outputdir = 'bin/' + get_option('buildtype') + '-' + host_machine.system() + '-' + host_machine.cpu_family()
 
-# Include directories
-#include_dir_glfw = include_directories('Grout/third-part/GLFW/include')
-#include_dir_imgui = include_directories('Grout/third-part/imgui')
-#include_dir_glm = include_directories('Grout/third-part/glm')
-#include_dir_imguizmo = include_directories('Grout/third-part/imgui/widgets/imGuIZMO')
-#include_dir_glad = include_directories('Grout/third-part/Glad/include')
-#include_dir_stb = include_directories('Grout/third-part/stb')
-#include_dir_assimp = include_directories('Grout/third-part/assimp/include')
-
-# Define the dependencies
-#glfw_dep = dependency('GLFW', fallback : ['Grout/third-part/GLFW', 'GLFW'])
-#imgui_dep = dependency('imgui', fallback : ['Grout/third-part/imgui', 'ImGui'])
-#imguizmo_dep = dependency('imGuIZMO', fallback : ['Grout/third-part/imgui/widgets/imGuIZMO', 'imGuIZMO'])
-#glad_dep = dependency('Glad', fallback : ['Grout/third-part/Glad', 'Glad'])
-#assimp_dep = dependency('assimp', fallback : ['Grout/third-part/assimp', 'assimp'])
 inc = []
 subdir('Grout/third-part')
 
 glfw = subproject('glfw')
 glm = subproject('glm')
-imgui = subproject('imgui')
-imguizmo = subproject('imguizmo')
+imgui = subproject('imgui-docking')
+#imguizmo = subproject('imguizmo')
 spdlog = subproject('spdlog')
 
 bin_dep_libs = [
@@ -185,24 +170,14 @@ grout_sources = core_sources + scene_sources + renderer_sources + third_party_so
 #  'Grout/third-part/glm/glm/glm.hpp',
 #  'Grout/third-part/glm/glm/glm.inl'
 #)
-inc += include_directories('Grout/third-part/glm')
 inc += include_directories('Grout/third-part/stb')
 
-####### Includes
-#include_dir_glfw = include_directories(glfw.get_variable('include_directories'))
-#include_dir_imgui = include_directories(imgui.get_variable('include_directories'))
-#include_dir_glm = include_directories(glm.get_variable('include_directories'))
-#include_dir_stb = include_directories('Grout/third-part/stb')
-#include_dir_imguizmo = include_directories(imguizmo.get_variable('include_directories'))
-#include_dir_spdlog = include_directories(spdlog.get_variable('include_directories'))
-
-#inc += include_dir_glfw + include_dir_imgui + include_dir_glm + include_dir_stb + include_dir_imguizmo + include_dir_spdlog
 
 deps = [
   glfw.get_variable('glfw_dep'),
   glm.get_variable('glm_dep'),
   imgui.get_variable('imgui_dep'),
-  imguizmo.get_variable('imguizmo_dep'),
+  #imguizmo.get_variable('imguizmo_dep'),
   spdlog.get_variable('spdlog_dep'),
 ]
 
@@ -212,6 +187,7 @@ cpp_args_sandbox = [
     '-DGLM_ENABLE_EXPERIMENTAL',
     '-DIMGUI_DEFINE_MATH_OPERATORS',
     '-DGRT_DEBUG',
+    '-DIMGUI_IMPL_OPENGL_LOADER_CUSTOM'
     #'-DSPDLOG_WCHAR_TO_UTF8_SUPPORT',
     #'-fpermissive',
     ]
@@ -255,7 +231,20 @@ sandbox_sources = files(
 inc += include_directories('Sandbox/src')
 
 
-#sandbox = executable('sandbox', sandbox_sources,
+sandbox = executable('sandbox', sandbox_sources,
+  include_directories : inc,
+  #dependencies : [grout],
+  link_with : [grout],
+  dependencies: deps,
+  install : true,
+  cpp_args : cpp_args_sandbox
+)
+
+#test_sources = files(
+#  'Test/src/Hello.cpp'
+#)
+#
+#sandbox = executable('test_app', test_sources,
 #  include_directories : inc,
 #  #dependencies : [grout],
 #  link_with : [grout],
@@ -263,19 +252,6 @@ inc += include_directories('Sandbox/src')
 #  install : true,
 #  cpp_args : cpp_args_sandbox
 #)
-
-test_sources = files(
-  'Test/src/Hello.cpp'
-)
-
-sandbox = executable('test_app', test_sources,
-  include_directories : inc,
-  #dependencies : [grout],
-  link_with : [grout],
-  dependencies: deps,
-  install : true,
-  #cpp_args : cpp_args_sandbox
-)
 
 # Installation configuration
 #install_data('Grout/grout_logo.svg', install_dir : 'share/grout/')

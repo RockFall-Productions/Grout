@@ -1,16 +1,22 @@
 #include "grtpch.h"
 #include "ImGuiLayer.h"
 
-#include "imgui.h"
 
+#ifndef IMGUI_IMPL_OPENGL_LOADER_CUSTOM
+#define IMGUI_IMPL_OPENGL_LOADER_CUSTOM
+#endif
+
+// TEMP
+#include <GLFW/glfw3.h>
+#include <glad/glad.h>
+
+#include "imgui.h"
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
 
 #include "Grout/Core/Application.h"
 
-// TEMP
-#include <GLFW/glfw3.h>
-#include <glad/glad.h>
+
 
 namespace Grout {
 	ImGuiLayer::ImGuiLayer()

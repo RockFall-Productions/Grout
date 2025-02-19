@@ -11,7 +11,7 @@ glad_sources = files(
 
 glad_headers = files(
   'include/glad/glad.h',
-  'include/KHR/khrplatform.h'
+  'include/glad/khrplatform.h'
 )
 
 inc += include_directories('include')

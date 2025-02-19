@@ -1,10 +1,10 @@
 #include "grtpch.h"
 #include "OpenGLShader.h"
 
-#include<fstream>
+#include <fstream>
 
 #include <glad/glad.h>
-#include "Grout/Core/Assert.h"
+#include "Grout/Core/GroutAssert.h"
 
 #include <glm/gtc/type_ptr.hpp>
 
@@ -54,7 +54,7 @@ namespace Grout {
 			geometry_code = FileDataToString(geometry_file);
 		}
 
-		CompileAndLink(vertex_code.c_str(), fragment_code.c_str(), geometry_code.c_str());
+		CompileAndLink(vertex_code.c_str(), fragment_code.c_str(), geometry_code.c_str(), vertex_file, fragment_file, geometry_file);
 	}
 
 
@@ -114,7 +114,7 @@ namespace Grout {
 	}
 
 	// TODO: Divide this method between Compile() and Link()
-	void OpenGLShader::CompileAndLink(const char* vertex_code, const char* fragment_code, const char* geometry_code) {
+	void OpenGLShader::CompileAndLink(const char* vertex_code, const char* fragment_code, const char* geometry_code, const char* vertex_file, const char* fragment_file, const char* geometry_file) {
 		const GLchar* vertex_source = vertex_code;
 		const GLchar* fragment_source = fragment_code;
 		const GLchar* geometry_source;
@@ -125,13 +125,13 @@ namespace Grout {
 		uint32_t vertex_shader = glCreateShader(GL_VERTEX_SHADER);
 		glShaderSource(vertex_shader, 1, &vertex_source, NULL);
 		glCompileShader(vertex_shader);
-		checkCompileErrors(vertex_shader, "VERTEX");
+		checkCompileErrors(vertex_shader, "VERTEX", vertex_file);
 
 		// Fragment Shader - create object and compiles it
 		uint32_t fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
 		glShaderSource(fragment_shader, 1, &fragment_source, NULL);
 		glCompileShader(fragment_shader);
-		checkCompileErrors(fragment_shader, "FRAGMENT");
+		checkCompileErrors(fragment_shader, "FRAGMENT", fragment_file);
 
 		// Geometry Shader - only creates if file is given
 		uint32_t geometry_shader = 0;
@@ -140,7 +140,7 @@ namespace Grout {
 			geometry_shader = glCreateShader(GL_GEOMETRY_SHADER);
 			glShaderSource(geometry_shader, 1, &geometry_source, NULL);
 			glCompileShader(geometry_shader);
-			checkCompileErrors(geometry_shader, "GEOMETRY");
+			checkCompileErrors(geometry_shader, "GEOMETRY", geometry_file);
 		}
 
 		// Shader Program - creation and linking of compiled shaders
@@ -180,19 +180,23 @@ namespace Grout {
 		glDeleteProgram(id_);
 	}
 
-	void OpenGLShader::checkCompileErrors(uint32_t shader, const char* type)
+	void OpenGLShader::checkCompileErrors(uint32_t shader, const char* type, const char* file_name)
 	{
 		// Error code from:
 		//	https://www.khronos.org/opengl/wiki/Shader_Compilation
 		//	https://learnopengl.com/Getting-started/Hello-Triangle
 		GLint success;
 		char info_log[1024];
+		if (file_name == nullptr) {
+			file_name = "NULLPTR";
+		}
 		if (type != "PROGRAM") {
 			glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
 			if (success == GL_FALSE) {
 				glGetShaderInfoLog(shader, 1024, NULL, info_log);
-				GRT_CORE_ERROR("{0} SHADER: Compilation failure!", type);
+				GRT_CORE_ERROR("{0} SHADER: Compilation failure! [FILE: {1}]", type, file_name);
 				GRT_CORE_TRACE("{0}\n", info_log);
+				
 				GRT_ASSERT(false, "Shader Compilation Error");
 			}
 			else {
@@ -200,10 +204,10 @@ namespace Grout {
 			}
 		}
 		else {
-			glGetProgramiv(shader, GL_COMPILE_STATUS, &success);
+			glGetProgramiv(shader, GL_LINK_STATUS, &success);
 			if (success == GL_FALSE) {
 				glGetProgramInfoLog(shader, 1024, NULL, info_log);
-				GRT_CORE_ERROR("SHADER PROGRAM: Linking failure!");
+				GRT_CORE_ERROR("SHADER PROGRAM: Linking failure! [FILE: {0}]", file_name);
 				GRT_CORE_TRACE("{0}\n", info_log);
 				GRT_ASSERT(false, "Shader Linking Error");
 			}

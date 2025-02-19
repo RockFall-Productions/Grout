@@ -31,9 +31,9 @@ void BoidWorldLayer::OnAttach()
 	//flock.addBoid(glm::vec3(0.0f, 18.2f, -15.0f));
 
 	// Caustic Setup
-	GenerateCausticTexture();
-	current_caustic = caustic_textures_[0]->get_renderer_id();
-	light_data_.texture_offset = current_caustic;
+	//GenerateCausticTexture();
+	//current_caustic = caustic_textures_[0]->get_renderer_id();
+	//light_data_.texture_offset = current_caustic;
 }
 
 void BoidWorldLayer::OnDetach()

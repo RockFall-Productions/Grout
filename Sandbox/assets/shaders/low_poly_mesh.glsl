@@ -18,7 +18,6 @@ void main() {
 
 layout(location = 0) out vec4 color;
 
-uniform
 
 in float visibility;
 in vec3 v_final_color;

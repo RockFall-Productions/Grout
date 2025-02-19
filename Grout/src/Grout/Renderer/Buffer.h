@@ -30,7 +30,7 @@ namespace Grout {
 		case Grout::ShaderDataType::Bool:	return 1;
 		}
 
-		GRT_CORE_ASSERT(false, "ShaderDataTypeSize - The given type {0} is unknown", type);
+		GRT_CORE_ASSERT(false, "ShaderDataTypeSize - The given type {0} is unknown", static_cast<int>(type));
 		return 0;
 	}
 
@@ -70,7 +70,7 @@ namespace Grout {
 				case Grout::ShaderDataType::Bool:	return 1;
 			}
 
-			GRT_CORE_ASSERT(false, "BufferElement::get_component_count - The given type {0} is unknown", type);
+			GRT_CORE_ASSERT(false, "BufferElement::get_component_count - The given type {0} is unknown", static_cast<int>(type));
 			return 0;
 		}
 	};

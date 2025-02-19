@@ -1,0 +1,185 @@
+[2025-02-19 14:14:50.366] [APP] [info] Creating window Grout Engine (1280, 720)
+[2025-02-19 14:14:50.554] [Grout] [info] OpenGL Info:
+[2025-02-19 14:14:50.554] [Grout] [info]     Vendor:   Intel
+[2025-02-19 14:14:50.554] [Grout] [info]     Renderer: Intel(R) UHD Graphics
+[2025-02-19 14:14:50.555] [Grout] [info]     Version:  4.5.0 - Build 30.0.100.9864
+[2025-02-19 14:14:50.557] [Grout] [trace] Code:
+#version 330 core
+
+layout(location = 0) out vec4 fragment_color;
+
+in vec3 v_tex_coords;
+
+uniform samplerCube u_skybox;
+
+void main() {
+	fragment_color = texture(u_skybox, v_tex_coords);
+}
+
+[2025-02-19 14:14:50.557] [Grout] [trace] 
+FRAGMENT PASSED!!
+
+[2025-02-19 14:14:50.712] [Grout] [trace] Code:
+#version 330 core
+
+out vec4 FragColor;
+
+struct Material {
+    sampler2D diffuse;
+    sampler2D specular;
+    float shininess;
+};
+
+struct Light {
+    vec3 position;
+
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+};
+
+in vec3 v_frag_pos;
+in vec3 v_normal;
+in vec2 v_tex_coord;
+
+uniform vec3 u_view_pos;
+uniform Material u_material;
+uniform Light u_light;
+
+uniform vec3 u_t_light_pos;
+uniform vec3 u_t_light_dir;
+uniform vec3 u_t_ambient;
+uniform float u_t_ambient_strength;
+uniform vec3 u_t_light_diffuse;
+uniform vec3 u_t_light_specular;
+uniform bool u_block_light;
+
+uniform sampler2D texture_diffuse1;
+
+void main()
+{   
+    if (u_block_light){
+        FragColor = texture2D(texture_diffuse1, v_tex_coord);
+    }
+    else {
+        float material_shininess = 1.0;
+
+        // ambient
+        vec3 ambient = (u_t_ambient * u_t_ambient_strength) * texture(texture_diffuse1, v_tex_coord).rgb;
+
+        // diffuse
+        vec3 norm = normalize(v_normal);
+        //vec3 light_dir = normalize(u_t_light_pos - v_frag_pos);
+        vec3 light_dir = u_t_light_dir;
+        float diff = max(dot(norm, -light_dir), 0.0);
+        vec3 diffuse = u_t_light_diffuse * diff * texture(texture_diffuse1, v_tex_coord).rgb;
+
+        // specular
+        vec3 view_dir = normalize(u_view_pos - v_frag_pos);
+        vec3 reflect_dir = reflect(-light_dir, norm);
+        float spec = pow(max(dot(view_dir, reflect_dir), 0.0), material_shininess);
+            //vec3 specular = u_t_light_specular * spec * texture(texture_specular1, v_tex_coord).rgb;
+        vec3 specular = u_t_light_specular * spec;
+
+        vec3 result = ambient + diffuse;
+        FragColor = vec4(result, 1.0);
+    }
+}
+
+[2025-02-19 14:14:50.716] [Grout] [trace] 
+FRAGMENT PASSED!!
+
+[2025-02-19 14:14:50.788] [Grout] [trace] Code:
+#version 330 core
+
+layout(location = 0) out vec4 color;
+
+
+
+in float visibility;
+in vec3 v_final_color;
+
+void main() {
+	if (visibility < -0.9) {
+		color = vec4(v_final_color, 1.0f);
+	} else {
+		color = mix(vec4(0.0, 0.23, 0.58, 1.0), vec4(v_final_color, 1.0), visibility);
+	}
+	
+}
+
+
+
+[2025-02-19 14:14:50.791] [Grout] [trace] 
+FRAGMENT PASSED!!
+
+[2025-02-19 14:14:50.867] [Grout] [trace] Code:
+#version 330 core
+
+out vec4 FragColor;
+
+struct Material {
+    sampler2D diffuse;
+    sampler2D specular;
+    float shininess;
+};
+
+struct Light {
+    vec3 position;
+
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+};
+
+in vec3 v_frag_pos;
+in vec3 v_normal;
+in vec2 v_tex_coord;
+
+uniform vec3 u_view_pos;
+uniform Material u_material;
+uniform Light u_light;
+
+uniform vec3 u_t_light_pos;
+uniform vec3 u_t_light_dir;
+uniform vec3 u_t_ambient;
+uniform float u_t_ambient_strength;
+uniform vec3 u_t_light_diffuse;
+uniform vec3 u_t_light_specular;
+uniform bool u_block_light;
+
+uniform sampler2D texture_diffuse1;
+
+void main()
+{   
+    if (u_block_light){
+        FragColor = texture2D(texture_diffuse1, v_tex_coord);
+    }
+    else {
+        float material_shininess = 1.0;
+
+        // ambient
+        vec3 ambient = (u_t_ambient * u_t_ambient_strength) * texture(texture_diffuse1, v_tex_coord).rgb;
+
+        // diffuse
+        vec3 norm = normalize(v_normal);
+        //vec3 light_dir = normalize(u_t_light_pos - v_frag_pos);
+        vec3 light_dir = u_t_light_dir;
+        float diff = max(dot(norm, -light_dir), 0.0);
+        vec3 diffuse = u_t_light_diffuse * diff * texture(texture_diffuse1, v_tex_coord).rgb;
+
+        // specular
+        vec3 view_dir = normalize(u_view_pos - v_frag_pos);
+        vec3 reflect_dir = reflect(-light_dir, norm);
+        float spec = pow(max(dot(view_dir, reflect_dir), 0.0), material_shininess);
+            //vec3 specular = u_t_light_specular * spec * texture(texture_specular1, v_tex_coord).rgb;
+        vec3 specular = u_t_light_specular * spec;
+
+        vec3 result = ambient + diffuse;
+        FragColor = vec4(result, 1.0);
+    }
+}
+
+[2025-02-19 14:14:50.872] [Grout] [trace] 
+FRAGMENT PASSED!!
+

@@ -19,7 +19,7 @@ namespace Grout {
 			case Grout::ShaderDataType::Bool:	return GL_BOOL;
 		}
 
-		GRT_CORE_ASSERT(false, "ShaderDataTypeToOpenGLBaseType - The given type {0} is unknown", type);
+		GRT_CORE_ASSERT(false, "ShaderDataTypeToOpenGLBaseType - The given type {0} is unknown", static_cast<int>(type));
 		return 0;
 	}
 

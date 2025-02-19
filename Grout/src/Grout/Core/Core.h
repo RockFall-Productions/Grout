@@ -76,4 +76,4 @@ namespace Grout {
 }
 
 #include "Grout/Core/Log.h"
-#include "Grout/Core/Assert.h"
+#include "Grout/Core/GroutAssert.h"

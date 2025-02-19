@@ -1,10 +1,12 @@
 #include <Grout.h>
 #include <Grout/Core/EntryPoint.h>
 
+#include "Plataform/OpenGL/OpenGLShader.h"
+
+#define IMGUI_IMPL_OPENGL_LOADER_CUSTOM
+
 #include "imgui.h"
 #include "glm/gtc/type_ptr.hpp"
-
-
 
 
 class TestLayer : public Grout::Layer {
