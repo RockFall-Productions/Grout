@@ -148,12 +148,12 @@ namespace Grout {
 
 		std::string faces_cubemap[6] =
 		{
-			"C:/Users/CaioHenriqueDiasRoch/Desktop/fall/grout/Grout/Test/assets/images/textures/skybox/right.png",
-			"C:/Users/CaioHenriqueDiasRoch/Desktop/fall/grout/Grout/Test/assets/images/textures/skybox/left.png",
-			"C:/Users/CaioHenriqueDiasRoch/Desktop/fall/grout/Grout/Test/assets/images/textures/skybox/top.png",
-			"C:/Users/CaioHenriqueDiasRoch/Desktop/fall/grout/Grout/Test/assets/images/textures/skybox/bottom.png",
-			"C:/Users/CaioHenriqueDiasRoch/Desktop/fall/grout/Grout/Test/assets/images/textures/skybox/front.png",
-			"C:/Users/CaioHenriqueDiasRoch/Desktop/fall/grout/Grout/Test/assets/images/textures/skybox/back.png"
+			"assets/images/textures/skybox/right.png",
+			"assets/images/textures/skybox/left.png",
+			"assets/images/textures/skybox/top.png",
+			"assets/images/textures/skybox/bottom.png",
+			"assets/images/textures/skybox/front.png",
+			"assets/images/textures/skybox/back.png"
 		};
 
 		SkyBoxComponent()

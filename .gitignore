@@ -8,6 +8,7 @@ bin-int/
 
 # Executable
 *.exe
+*.dll
 
 # Build
 builddir/
